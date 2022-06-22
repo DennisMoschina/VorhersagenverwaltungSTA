@@ -6,6 +6,8 @@ public class MultiSelection extends Selection {
     private int count = 20;
     private int skip = 0;
 
+    private Order orderBy;
+
     //TODO: implement Filter
 
     public MultiSelection(Set<String> keys, Set<Selection> objectsToExpand, ObjectType objectType) {
@@ -26,5 +28,13 @@ public class MultiSelection extends Selection {
 
     public void setSkip(int skip) {
         this.skip = skip;
+    }
+
+    public Order getOrderBy() {
+        return orderBy;
+    }
+
+    public void setOrderBy(Order orderBy) {
+        this.orderBy = orderBy;
     }
 }
