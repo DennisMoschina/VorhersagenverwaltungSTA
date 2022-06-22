@@ -27,6 +27,6 @@ public class SingleSelectionEncoder implements SelectionEncoder {
     }
 
     private String encodeKeys(Set<String> keys) {
-        return String.join(",", keys);
+        return new ListEncoder<>((Encoder<String>) s -> s).encode(keys);
     }
 }
