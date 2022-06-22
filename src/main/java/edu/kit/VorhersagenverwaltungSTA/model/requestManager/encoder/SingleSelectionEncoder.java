@@ -3,30 +3,28 @@ package edu.kit.VorhersagenverwaltungSTA.model.requestManager.encoder;
 import edu.kit.VorhersagenverwaltungSTA.model.requestManager.selection.Selection;
 import edu.kit.VorhersagenverwaltungSTA.model.requestManager.selection.SingleSelection;
 
-import java.util.Set;
+import java.util.LinkedList;
+import java.util.List;
 
-public class SingleSelectionEncoder implements SelectionEncoder {
+public class SingleSelectionEncoder extends SelectionEncoderTemplate {
     private static final String DATA_FORMAT = "%s(%d)?";
-    private static final String SELECT_FORMAT = "$select=%s"; //TODO: allow list
     @Override
     public String encode(Selection selection) {
         if (!(selection instanceof final SingleSelection singleSelection))
-            throw new IllegalArgumentException("the Selection has to of type SingleSelection");
+            throw new IllegalArgumentException("the Selection has to be of type SingleSelection");
 
-        final String encodedType = new ObjectTypeEncoder().encode(singleSelection.getObjectType());
-        String encodedSelection = String.format(DATA_FORMAT,
-                                                encodedType,
-                                                singleSelection.getSelectedId());
-        if (!singleSelection.getKeys().isEmpty()) {
-            encodedSelection += String.format(SELECT_FORMAT, this.encodeKeys(singleSelection.getKeys()));
-        }
-
-        encodedSelection += new ExpandEncoder().encode(singleSelection.getObjectsToExpand());
-
-        return encodedSelection;
+        return super.encode(selection);
     }
 
-    private String encodeKeys(Set<String> keys) {
-        return new ListEncoder<>((Encoder<String>) s -> s).encode(keys);
+    @Override
+    protected List<String> encodeStatements(Selection selection) {
+        return new LinkedList<>();
+    }
+
+    @Override
+    protected String encodeHeader(Selection selection) {
+        SingleSelection singleSelection = (SingleSelection) selection;
+        final String encodedType = new ObjectTypeEncoder().encode(singleSelection.getObjectType());
+        return String.format(DATA_FORMAT, encodedType, singleSelection.getSelectedId());
     }
 }
