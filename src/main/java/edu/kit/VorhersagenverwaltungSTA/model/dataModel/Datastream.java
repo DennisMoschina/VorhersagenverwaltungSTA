@@ -44,6 +44,7 @@ public class Datastream {
     @JsonProperty("Observations@iot.navigationLink")
     private String observationsURL;
 
+
     @Override
     public String toString() {
         return "Datastream{" +
@@ -51,6 +52,10 @@ public class Datastream {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", observationType='" + observationType + '\'' +
+                ", unitOfMeasurement=" + unitOfMeasurement +
+                ", observedArea=" + observedArea +
+                ", phenomenonTime=" + phenomenonTime +
+                ", resultTime=" + resultTime +
                 ", properties=" + properties +
                 ", thingURL='" + thingURL + '\'' +
                 ", thing=" + thing +
