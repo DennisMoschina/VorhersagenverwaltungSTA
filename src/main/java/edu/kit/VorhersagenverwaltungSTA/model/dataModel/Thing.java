@@ -13,12 +13,54 @@ public class Thing {
     private String name;
     private String description;
     private JsonNode properties;
+
     @JsonProperty("Datastream@iot.navigationLink")
     private String datastreamURL;
     @JsonProperty("Locations@iot.navigationLink")
     private String locationsURL;
     @JsonProperty("HistoricalLocations@iot.navigationLink")
     private String historicalLocationsURL;
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public JsonNode getProperties() {
+        return properties;
+    }
+
+    public void setProperties(JsonNode properties) {
+        this.properties = properties;
+    }
+
+    public String getDatastreamURL() {
+        return datastreamURL;
+    }
+
+    public void setDatastreamURL(String datastreamURL) {
+        this.datastreamURL = datastreamURL;
+    }
+
+    public String getLocationsURL() {
+        return locationsURL;
+    }
+
+    public void setLocationsURL(String locationsURL) {
+        this.locationsURL = locationsURL;
+    }
+
+    public String getHistoricalLocationsURL() {
+        return historicalLocationsURL;
+    }
+
+    public void setHistoricalLocationsURL(String historicalLocationsURL) {
+        this.historicalLocationsURL = historicalLocationsURL;
+    }
+
 
     public long getId() {
         return id;
