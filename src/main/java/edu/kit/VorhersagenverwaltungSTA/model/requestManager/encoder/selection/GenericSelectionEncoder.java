@@ -1,4 +1,4 @@
-package edu.kit.VorhersagenverwaltungSTA.model.requestManager.encoder;
+package edu.kit.VorhersagenverwaltungSTA.model.requestManager.encoder.selection;
 
 import edu.kit.VorhersagenverwaltungSTA.model.requestManager.selection.Selection;
 import edu.kit.VorhersagenverwaltungSTA.model.requestManager.selection.SingleSelection;

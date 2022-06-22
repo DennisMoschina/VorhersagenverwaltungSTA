@@ -1,5 +1,6 @@
-package edu.kit.VorhersagenverwaltungSTA.model.requestManager.encoder;
+package edu.kit.VorhersagenverwaltungSTA.model.requestManager.encoder.selection;
 
+import edu.kit.VorhersagenverwaltungSTA.model.requestManager.encoder.Encoder;
 import edu.kit.VorhersagenverwaltungSTA.model.requestManager.selection.ObjectType;
 
 public class PluralObjectTypeEncoder implements Encoder<ObjectType> {

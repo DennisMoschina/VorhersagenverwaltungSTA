@@ -1,8 +1,9 @@
-package edu.kit.VorhersagenverwaltungSTA.model.requestManager.encoder;
+package edu.kit.VorhersagenverwaltungSTA.model.requestManager.encoder.selection;
 
+import edu.kit.VorhersagenverwaltungSTA.model.requestManager.encoder.Encoder;
 import edu.kit.VorhersagenverwaltungSTA.model.requestManager.selection.ObjectType;
 
-public class ObjectTypeEncoder implements Encoder<ObjectType> {
+public class SingularObjectTypeEncoder implements Encoder<ObjectType> {
     @Override
     public String encode(ObjectType objectType) {
         String encoded = "";

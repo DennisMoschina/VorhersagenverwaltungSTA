@@ -1,4 +1,4 @@
-package edu.kit.VorhersagenverwaltungSTA.model.requestManager.encoder;
+package edu.kit.VorhersagenverwaltungSTA.model.requestManager.encoder.selection;
 
 import edu.kit.VorhersagenverwaltungSTA.model.requestManager.selection.Selection;
 import edu.kit.VorhersagenverwaltungSTA.model.requestManager.selection.SingleSelection;
@@ -17,10 +17,11 @@ public class SingleSelectionEncoder extends SelectionEncoderTemplate {
     }
 
     @Override
-    protected List<String> encodeStatements(Selection selection) {
+    public List<String> encodeParts(Selection selection) {
         final List<String> encodedStatements = new LinkedList<>();
 
-        encodedStatements.add(new ExpandEncoder().encode(selection.getObjectsToExpand()));
+        if (!selection.getObjectsToExpand().isEmpty())
+            encodedStatements.add(new ExpandEncoder().encode(selection.getObjectsToExpand()));
 
         return encodedStatements;
     }

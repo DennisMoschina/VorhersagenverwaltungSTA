@@ -1,4 +1,4 @@
-package edu.kit.VorhersagenverwaltungSTA.model.requestManager.encoder;
+package edu.kit.VorhersagenverwaltungSTA.model.requestManager.encoder.selection;
 
 import edu.kit.VorhersagenverwaltungSTA.model.requestManager.selection.MultiSelection;
 import edu.kit.VorhersagenverwaltungSTA.model.requestManager.selection.Selection;
@@ -16,7 +16,7 @@ public class MultiSelectionEncoder extends SelectionEncoderTemplate {
     }
 
     @Override
-    protected List<String> encodeStatements(Selection selection) {
+    public List<String> encodeParts(Selection selection) {
         return null;
     }
 

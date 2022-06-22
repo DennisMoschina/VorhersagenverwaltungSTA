@@ -1,7 +1,7 @@
 package edu.kit.VorhersagenverwaltungSTA;
 
-import edu.kit.VorhersagenverwaltungSTA.model.requestManager.encoder.SelectionEncoderTemplate;
-import edu.kit.VorhersagenverwaltungSTA.model.requestManager.encoder.SingleSelectionEncoder;
+import edu.kit.VorhersagenverwaltungSTA.model.requestManager.encoder.selection.SelectionEncoderTemplate;
+import edu.kit.VorhersagenverwaltungSTA.model.requestManager.encoder.selection.SingleSelectionEncoder;
 import edu.kit.VorhersagenverwaltungSTA.model.requestManager.selection.ObjectType;
 import edu.kit.VorhersagenverwaltungSTA.model.requestManager.selection.SingleSelection;
 import org.junit.jupiter.api.BeforeAll;
@@ -40,6 +40,15 @@ public class SingleSelectionTest {
         final String expectedResult = "Datastreams(1)?$select=name,description";
 
         this.checkEncodedResult(expectedResult, selection);
+    }
+
+    @Test
+    public void expandTestWithThingTest() {
+        final SingleSelection selection = new SingleSelection(ObjectType.DATASTREAM, 1);
+        selection.addObjectToExpand(new SingleSelection(ObjectType.THING));
+        final String expected = "Datastreams(1)?$expand=Thing";
+
+        this.checkEncodedResult(expected, selection);
     }
 
     private void checkEncodedResult(String expected, SingleSelection selection) {

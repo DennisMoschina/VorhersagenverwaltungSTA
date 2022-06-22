@@ -1,5 +1,7 @@
-package edu.kit.VorhersagenverwaltungSTA.model.requestManager.encoder;
+package edu.kit.VorhersagenverwaltungSTA.model.requestManager.encoder.selection;
 
+import edu.kit.VorhersagenverwaltungSTA.model.requestManager.encoder.Encoder;
+import edu.kit.VorhersagenverwaltungSTA.model.requestManager.encoder.ListEncoder;
 import edu.kit.VorhersagenverwaltungSTA.model.requestManager.selection.Selection;
 
 import java.util.List;
@@ -10,7 +12,7 @@ public abstract class SelectionEncoderTemplate implements SelectionEncoder {
 
     @Override
     public String encode(Selection selection) {
-        final List<String> selectionParts = this.encodeStatements(selection);
+        final List<String> selectionParts = this.encodeParts(selection);
         if (!selection.getKeys().isEmpty())
             selectionParts.add(0, this.encodeKeys(selection.getKeys()));
 
@@ -22,7 +24,7 @@ public abstract class SelectionEncoderTemplate implements SelectionEncoder {
      * @param selection the {@link Selection} for which the parts should be encoded
      * @return the encoded parts in a {@link List} of {@link String}s
      */
-    protected abstract List<String> encodeStatements(Selection selection);
+    protected abstract List<String> encodeParts(Selection selection);
 
     /**
      * This method encodes the first part of the {@link Selection}, where it says,
