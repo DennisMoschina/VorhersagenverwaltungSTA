@@ -2,6 +2,7 @@ package edu.kit.VorhersagenverwaltungSTA.model.dataModel;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.JsonNode;
 
 import java.util.Objects;
 
@@ -10,6 +11,14 @@ public class Thing {
     @JsonProperty("@iot.id")
     private long id;
     private String name;
+    private String description;
+    private JsonNode properties;
+    @JsonProperty("Datastream@iot.navigationLink")
+    private String datastreamURL;
+    @JsonProperty("Locations@iot.navigationLink")
+    private String locationsURL;
+    @JsonProperty("HistoricalLocations@iot.navigationLink")
+    private String historicalLocationsURL;
 
     public long getId() {
         return id;
