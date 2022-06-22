@@ -7,20 +7,20 @@ public class ObjectTypeEncoder implements Encoder<ObjectType> {
     public String encode(ObjectType objectType) {
         String encoded = "";
         switch (objectType) {
-            case DATASTREAM -> encoded = "Datastreams";
-            case SENSOR -> encoded = "Sensors";
-            case THING -> encoded = "Things";
-            case LOCATION -> encoded = "Locations";
-            case HISTORICAL_LOCATION -> encoded = "HistoricalLocations";
-            case OBSERVED_PROPERTY -> encoded = "ObservedProperties";
-            case OBSERVATION -> encoded = "Observations";
-            case FEATURE_OF_INTEREST -> encoded = "FeaturesOfInterest";
-            case DATASOURCE -> encoded = "Datasources";
-            case OWNER -> encoded = "Owners";
-            case CONTACT -> encoded = "Contacts";
-            case LICENSE -> encoded = "Licenses";
-            case ACCESS_INTERFACE -> encoded = "AccessInterfaces";
-            case PROCESSING_PROCEDURE -> encoded = "ProcessingProcedures";
+            case DATASTREAM -> encoded = "Datastream";
+            case SENSOR -> encoded = "Sensor";
+            case THING -> encoded = "Thing";
+            case LOCATION -> encoded = "Location";
+            case HISTORICAL_LOCATION -> encoded = "HistoricalLocation";
+            case OBSERVED_PROPERTY -> encoded = "ObservedProperty";
+            case OBSERVATION -> encoded = "Observation";
+            case FEATURE_OF_INTEREST -> encoded = "FeatureOfInterest";
+            case DATASOURCE -> encoded = "Datasource";
+            case OWNER -> encoded = "Owner";
+            case CONTACT -> encoded = "Contact";
+            case LICENSE -> encoded = "License";
+            case ACCESS_INTERFACE -> encoded = "AccessInterface";
+            case PROCESSING_PROCEDURE -> encoded = "MLMethod";
         }
         return encoded;
     }
