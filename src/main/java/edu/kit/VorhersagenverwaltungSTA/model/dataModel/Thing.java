@@ -83,6 +83,11 @@ public class Thing {
         return "Thing{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", description='" + description + '\'' +
+                ", properties=" + properties +
+                ", datastreamURL='" + datastreamURL + '\'' +
+                ", locationsURL='" + locationsURL + '\'' +
+                ", historicalLocationsURL='" + historicalLocationsURL + '\'' +
                 '}';
     }
 
