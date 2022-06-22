@@ -1,21 +1,19 @@
 package edu.kit.VorhersagenverwaltungSTA.model.dataModel;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class Sensor {
+public class Location {
+
     @JsonProperty("@iot.id")
     private long id;
-
     private String name;
     private String description;
     private String encodingType;
-    private JsonNode metadata;
-
+    private JsonNode location;
     private JsonNode properties;
-
-    @JsonProperty("Datastream@iot.navigationLink")
-    private String datastreamURL;
+    @JsonProperty("HistoricalLocations@iot.navigationLink")
+    private String historicalLocationsURL;
+    @JsonProperty("Things@iot.navigationLink")
+    private String thingsURL;
 }

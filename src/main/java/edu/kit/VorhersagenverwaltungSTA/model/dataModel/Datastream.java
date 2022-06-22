@@ -3,7 +3,9 @@ package edu.kit.VorhersagenverwaltungSTA.model.dataModel;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
+import edu.kit.VorhersagenverwaltungSTA.model.core.Pair;
 
+import java.time.Instant;
 import java.util.Objects;
 
 
@@ -17,10 +19,12 @@ public class Datastream {
     private String description;
     @JsonProperty("observationType")
     private String observationType;
-    //TODO: add unitOfMeasurement
-    //TODO: add observedArea
-    //TODO: add phenomenonTime
-    //TODO: add resultTime
+
+    private JsonNode unitOfMeasurement;
+    private JsonNode observedArea;
+    private Pair<Instant, Instant> phenomenonTime;
+    private Pair<Instant, Instant> resultTime;
+
     @JsonProperty("properties")
     private JsonNode properties;
 
