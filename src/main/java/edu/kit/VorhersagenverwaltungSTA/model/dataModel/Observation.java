@@ -6,6 +6,7 @@ import edu.kit.VorhersagenverwaltungSTA.model.core.Pair;
 
 import java.time.Instant;
 
+
 public class Observation {
 
     @JsonProperty("@iot.id")
@@ -20,8 +21,12 @@ public class Observation {
 
     @JsonProperty("Datastream@iot.navigationLink")
     private String datastreamURL;
+    @JsonProperty("Datastream")
+    private Datastream datastream;
     @JsonProperty("FeatureOfInterest@iot.navigationLink")
     private String featureOfInterestURL;
+    @JsonProperty("FeatureOfInterest")
+    private FeatureOfInterest featureOfInterest;
 
     public long getId() {
         return id;

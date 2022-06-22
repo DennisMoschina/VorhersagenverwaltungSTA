@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 
+import java.util.List;
 import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -16,10 +17,16 @@ public class Thing {
 
     @JsonProperty("Datastream@iot.navigationLink")
     private String datastreamURL;
+    @JsonProperty("Datastreams")
+    private List<Datastream> datastreams;
     @JsonProperty("Locations@iot.navigationLink")
     private String locationsURL;
+    @JsonProperty("Locations")
+    private List<Location> locations;
     @JsonProperty("HistoricalLocations@iot.navigationLink")
     private String historicalLocationsURL;
+    @JsonProperty("HistoricalLocations")
+    private List<HistoricalLocation> historicalLocations;
 
     public String getDescription() {
         return description;

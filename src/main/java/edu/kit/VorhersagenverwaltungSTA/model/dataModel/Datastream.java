@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import edu.kit.VorhersagenverwaltungSTA.model.core.Pair;
 
 import java.time.Instant;
+import java.util.List;
 import java.util.Objects;
 
 
@@ -40,9 +41,13 @@ public class Datastream {
 
     @JsonProperty("ObservedProperty@iot.navigationLink")
     private String observedPropertyURL;
+    @JsonProperty("ObservedProperty")
+    private ObservedProperty observedProperty;
 
     @JsonProperty("Observations@iot.navigationLink")
     private String observationsURL;
+    @JsonProperty("Observations")
+    private List<Observation> observations;
 
 
     @Override
