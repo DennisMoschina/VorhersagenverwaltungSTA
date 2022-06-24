@@ -1,6 +1,8 @@
 package edu.kit.VorhersagenverwaltungSTA.controller;
 
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.Datastream;
+import edu.kit.VorhersagenverwaltungSTA.service.requestManager.Source;
+import edu.kit.VorhersagenverwaltungSTA.service.singleItem.DatastreamService;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,18 +13,23 @@ import java.util.List;
 
 @RestController
 class DatastreamController {
-    private Logger logger;
+    private final Logger logger;
+    private final DatastreamService singleItemService;
 
     @Autowired
-    DatastreamController(Logger logger) {
+    DatastreamController(Logger logger, DatastreamService singleItemService) {
         this.logger = logger;
+        this.singleItemService = singleItemService;
+        //TODO: use real source
+        this.singleItemService.setSource(new Source("https://airquality-frost.k8s.ilt-dmz.iosb.fraunhofer.de/v1.1/"));
     }
 
     @GetMapping("/datastream/{id}")
     public Datastream getDatastream(@PathVariable long id) {
         this.logger.info(String.format("Requested Datastream with id %d", id));
-        //TODO: implement
-        return null;
+        singleItemService.load(id);
+
+        return singleItemService.getData();
     }
 
     @GetMapping("/datastreams/{id}/{items}/{page}")
