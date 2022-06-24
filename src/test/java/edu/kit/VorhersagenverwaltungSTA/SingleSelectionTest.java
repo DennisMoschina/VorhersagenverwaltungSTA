@@ -1,9 +1,9 @@
 package edu.kit.VorhersagenverwaltungSTA;
 
-import edu.kit.VorhersagenverwaltungSTA.model.requestManager.encoder.selection.SelectionEncoderTemplate;
-import edu.kit.VorhersagenverwaltungSTA.model.requestManager.encoder.selection.SingleSelectionEncoder;
-import edu.kit.VorhersagenverwaltungSTA.model.requestManager.selection.ObjectType;
-import edu.kit.VorhersagenverwaltungSTA.model.requestManager.selection.SingleSelection;
+import edu.kit.VorhersagenverwaltungSTA.service.requestManager.encoder.selection.SelectionEncoderTemplate;
+import edu.kit.VorhersagenverwaltungSTA.service.requestManager.encoder.selection.SingleSelectionEncoder;
+import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.ObjectType;
+import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.SingleSelection;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
