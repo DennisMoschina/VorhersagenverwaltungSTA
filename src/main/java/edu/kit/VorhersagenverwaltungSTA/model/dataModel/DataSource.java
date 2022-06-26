@@ -9,7 +9,7 @@ import java.time.Instant;
 
 public class DataSource {
 
-    //@JsonProperty("@id") or just "id"?
+    @JsonProperty("id")
     private long id;
     private String name;
     private String description;
@@ -21,7 +21,7 @@ public class DataSource {
     private Duration aggregationPeriod;
     private Duration transmissionPeriod;
     private String spatialDistribution;
-    //private GeometryJson? observedArea;
+    private JsonNode observedArea;
     private JsonNode accessData;
     private JsonNode properties;
 

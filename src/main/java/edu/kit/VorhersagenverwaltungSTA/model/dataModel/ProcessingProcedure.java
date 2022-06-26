@@ -5,7 +5,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 public class ProcessingProcedure {
 
-    //@JsonProperty("@id") or just "id"?
+    @JsonProperty("id")
     private long id;
     private String name;
     private String description;

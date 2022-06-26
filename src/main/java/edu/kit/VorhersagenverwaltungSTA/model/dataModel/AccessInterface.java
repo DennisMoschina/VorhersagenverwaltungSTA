@@ -7,7 +7,7 @@ import java.util.List;
 
 public class AccessInterface {
 
-    //@JsonProperty("@id") or just "id"?
+    @JsonProperty("id")
     private long id;
     private String name;
     private String description;
