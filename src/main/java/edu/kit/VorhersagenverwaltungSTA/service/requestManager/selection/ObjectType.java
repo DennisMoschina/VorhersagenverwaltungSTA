@@ -1,24 +1,22 @@
 package edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection;
 
-import edu.kit.VorhersagenverwaltungSTA.model.dataModel.Datastream;
-import edu.kit.VorhersagenverwaltungSTA.model.dataModel.Sensor;
-import edu.kit.VorhersagenverwaltungSTA.model.dataModel.Thing;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.*;
 
 public enum ObjectType {
     DATASTREAM(Datastream.class),
     SENSOR(Sensor.class),
     THING(Thing.class),
-    LOCATION(null),
-    HISTORICAL_LOCATION(null),
-    OBSERVED_PROPERTY(null),
-    OBSERVATION(null),
-    FEATURE_OF_INTEREST(null),
-    DATASOURCE(null),
-    OWNER(null),
-    CONTACT(null),
-    LICENSE(null),
-    ACCESS_INTERFACE(null),
-    PROCESSING_PROCEDURE(null);
+    LOCATION(Location.class),
+    HISTORICAL_LOCATION(HistoricalLocation.class),
+    OBSERVED_PROPERTY(ObservedProperty.class),
+    OBSERVATION(Observation.class),
+    FEATURE_OF_INTEREST(FeatureOfInterest.class),
+    DATASOURCE(DataSource.class),
+    OWNER(Owner.class),
+    CONTACT(Contact.class),
+    LICENSE(License.class),
+    ACCESS_INTERFACE(AccessInterface.class),
+    PROCESSING_PROCEDURE(ProcessingProcedure.class);
 
     private final Class<?> objectClass;
 
