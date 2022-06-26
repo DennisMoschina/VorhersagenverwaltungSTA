@@ -1,24 +1,29 @@
-package edu.kit.VorhersagenverwaltungSTA.model.dataModel;
+package edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.HistoricalLocation;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.Thing;
 
 import java.util.List;
 
-@JsonIgnoreProperties(ignoreUnknown = true)
-public class Sensor {
+public class Location {
+
     @JsonProperty("@iot.id")
     private long id;
     private String name;
     private String description;
     private String encodingType;
-    private JsonNode metadata;
+    private JsonNode location;
     private JsonNode properties;
-    @JsonProperty("Datastream@iot.navigationLink")
-    private String datastreamURL;
-    @JsonProperty("Datastreams")
-    private List<Datastream> datastreams;
+    @JsonProperty("HistoricalLocations@iot.navigationLink")
+    private String historicalLocationsURL;
+    @JsonProperty("HistoricalLocations")
+    private List<HistoricalLocation> historicalLocations;
+    @JsonProperty("Things@iot.navigationLink")
+    private String thingsURL;
+    @JsonProperty("Things")
+    private List<Thing> things;
 
     public long getId() {
         return id;
@@ -52,12 +57,12 @@ public class Sensor {
         this.encodingType = encodingType;
     }
 
-    public JsonNode getMetadata() {
-        return metadata;
+    public JsonNode getLocation() {
+        return location;
     }
 
-    public void setMetadata(JsonNode metadata) {
-        this.metadata = metadata;
+    public void setLocation(JsonNode location) {
+        this.location = location;
     }
 
     public JsonNode getProperties() {
@@ -68,24 +73,33 @@ public class Sensor {
         this.properties = properties;
     }
 
-    public String getDatastreamURL() {
-        return datastreamURL;
+    public String getHistoricalLocationsURL() {
+        return historicalLocationsURL;
     }
 
-    public void setDatastreamURL(String datastreamURL) {
-        this.datastreamURL = datastreamURL;
+    public void setHistoricalLocationsURL(String historicalLocationsURL) {
+        this.historicalLocationsURL = historicalLocationsURL;
+    }
+
+    public String getThingsURL() {
+        return thingsURL;
+    }
+
+    public void setThingsURL(String thingsURL) {
+        this.thingsURL = thingsURL;
     }
 
     @Override
     public String toString() {
-        return "Sensor{" +
+        return "Location{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", encodingType='" + encodingType + '\'' +
-                ", metadata=" + metadata +
+                ", location=" + location +
                 ", properties=" + properties +
-                ", datastreamURL='" + datastreamURL + '\'' +
+                ", historicalLocationsURL='" + historicalLocationsURL + '\'' +
+                ", thingsURL='" + thingsURL + '\'' +
                 '}';
     }
 }

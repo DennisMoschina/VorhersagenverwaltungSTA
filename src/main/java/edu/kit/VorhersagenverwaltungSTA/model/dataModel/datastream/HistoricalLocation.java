@@ -1,4 +1,4 @@
-package edu.kit.VorhersagenverwaltungSTA.model.dataModel;
+package edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

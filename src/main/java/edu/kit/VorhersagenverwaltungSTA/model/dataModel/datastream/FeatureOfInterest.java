@@ -1,27 +1,25 @@
-package edu.kit.VorhersagenverwaltungSTA.model.dataModel;
+package edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.Observation;
 
 import java.util.List;
 
-public class Location {
+public class FeatureOfInterest {
 
     @JsonProperty("@iot.id")
     private long id;
     private String name;
     private String description;
     private String encodingType;
-    private JsonNode location;
+    private JsonNode feature;
     private JsonNode properties;
-    @JsonProperty("HistoricalLocations@iot.navigationLink")
-    private String historicalLocationsURL;
-    @JsonProperty("HistoricalLocations")
-    private List<HistoricalLocation> historicalLocations;
-    @JsonProperty("Things@iot.navigationLink")
-    private String thingsURL;
-    @JsonProperty("Things")
-    private List<Thing> things;
+
+    @JsonProperty("Observations@iot.navigationLink")
+    private String observationsURL;
+    @JsonProperty("Observations")
+    private List<Observation> observations;
 
     public long getId() {
         return id;
@@ -55,12 +53,12 @@ public class Location {
         this.encodingType = encodingType;
     }
 
-    public JsonNode getLocation() {
-        return location;
+    public JsonNode getFeature() {
+        return feature;
     }
 
-    public void setLocation(JsonNode location) {
-        this.location = location;
+    public void setFeature(JsonNode feature) {
+        this.feature = feature;
     }
 
     public JsonNode getProperties() {
@@ -71,33 +69,24 @@ public class Location {
         this.properties = properties;
     }
 
-    public String getHistoricalLocationsURL() {
-        return historicalLocationsURL;
+    public String getObservationsURL() {
+        return observationsURL;
     }
 
-    public void setHistoricalLocationsURL(String historicalLocationsURL) {
-        this.historicalLocationsURL = historicalLocationsURL;
-    }
-
-    public String getThingsURL() {
-        return thingsURL;
-    }
-
-    public void setThingsURL(String thingsURL) {
-        this.thingsURL = thingsURL;
+    public void setObservationsURL(String observationsURL) {
+        this.observationsURL = observationsURL;
     }
 
     @Override
     public String toString() {
-        return "Location{" +
+        return "FeatureOfInterest{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", encodingType='" + encodingType + '\'' +
-                ", location=" + location +
+                ", feature=" + feature +
                 ", properties=" + properties +
-                ", historicalLocationsURL='" + historicalLocationsURL + '\'' +
-                ", thingsURL='" + thingsURL + '\'' +
+                ", observationsURL='" + observationsURL + '\'' +
                 '}';
     }
 }

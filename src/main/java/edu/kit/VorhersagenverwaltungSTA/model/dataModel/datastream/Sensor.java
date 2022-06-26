@@ -1,24 +1,25 @@
-package edu.kit.VorhersagenverwaltungSTA.model.dataModel;
+package edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.Datastream;
 
 import java.util.List;
 
-public class FeatureOfInterest {
-
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Sensor {
     @JsonProperty("@iot.id")
     private long id;
     private String name;
     private String description;
     private String encodingType;
-    private JsonNode feature;
+    private JsonNode metadata;
     private JsonNode properties;
-
-    @JsonProperty("Observations@iot.navigationLink")
-    private String observationsURL;
-    @JsonProperty("Observations")
-    private List<Observation> observations;
+    @JsonProperty("Datastream@iot.navigationLink")
+    private String datastreamURL;
+    @JsonProperty("Datastreams")
+    private List<Datastream> datastreams;
 
     public long getId() {
         return id;
@@ -52,12 +53,12 @@ public class FeatureOfInterest {
         this.encodingType = encodingType;
     }
 
-    public JsonNode getFeature() {
-        return feature;
+    public JsonNode getMetadata() {
+        return metadata;
     }
 
-    public void setFeature(JsonNode feature) {
-        this.feature = feature;
+    public void setMetadata(JsonNode metadata) {
+        this.metadata = metadata;
     }
 
     public JsonNode getProperties() {
@@ -68,24 +69,24 @@ public class FeatureOfInterest {
         this.properties = properties;
     }
 
-    public String getObservationsURL() {
-        return observationsURL;
+    public String getDatastreamURL() {
+        return datastreamURL;
     }
 
-    public void setObservationsURL(String observationsURL) {
-        this.observationsURL = observationsURL;
+    public void setDatastreamURL(String datastreamURL) {
+        this.datastreamURL = datastreamURL;
     }
 
     @Override
     public String toString() {
-        return "FeatureOfInterest{" +
+        return "Sensor{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", encodingType='" + encodingType + '\'' +
-                ", feature=" + feature +
+                ", metadata=" + metadata +
                 ", properties=" + properties +
-                ", observationsURL='" + observationsURL + '\'' +
+                ", datastreamURL='" + datastreamURL + '\'' +
                 '}';
     }
 }

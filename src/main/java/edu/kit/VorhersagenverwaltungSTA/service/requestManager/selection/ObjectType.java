@@ -1,6 +1,7 @@
 package edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection;
 
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.*;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.*;
 
 public enum ObjectType {
     DATASTREAM(Datastream.class),

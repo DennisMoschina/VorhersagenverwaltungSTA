@@ -1,6 +1,6 @@
 package edu.kit.VorhersagenverwaltungSTA.controller;
 
-import edu.kit.VorhersagenverwaltungSTA.model.dataModel.Datastream;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.Datastream;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.Source;
 import edu.kit.VorhersagenverwaltungSTA.service.singleItem.DatastreamService;
 import org.slf4j.Logger;
