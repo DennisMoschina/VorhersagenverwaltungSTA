@@ -3,6 +3,7 @@ package edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.Observation;
+import org.geojson.GeoJsonObject;
 
 import java.util.List;
 
@@ -13,7 +14,7 @@ public class FeatureOfInterest {
     private String name;
     private String description;
     private String encodingType;
-    private JsonNode feature;
+    private GeoJsonObject feature;
     private JsonNode properties;
 
     @JsonProperty("Observations@iot.navigationLink")
@@ -53,11 +54,11 @@ public class FeatureOfInterest {
         this.encodingType = encodingType;
     }
 
-    public JsonNode getFeature() {
+    public GeoJsonObject getFeature() {
         return feature;
     }
 
-    public void setFeature(JsonNode feature) {
+    public void setFeature(GeoJsonObject feature) {
         this.feature = feature;
     }
 

@@ -2,14 +2,14 @@ package edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import java.time.Instant;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 public class HistoricalLocation {
 
     @JsonProperty("@iot.id")
     private String id;
-    private Instant time;
+    private ZonedDateTime time;
 
     @JsonProperty("Thing@iot.navigationLink")
     private String thingURL;
@@ -28,11 +28,11 @@ public class HistoricalLocation {
         this.id = id;
     }
 
-    public Instant getTime() {
+    public ZonedDateTime getTime() {
         return time;
     }
 
-    public void setTime(Instant time) {
+    public void setTime(ZonedDateTime time) {
         this.time = time;
     }
 

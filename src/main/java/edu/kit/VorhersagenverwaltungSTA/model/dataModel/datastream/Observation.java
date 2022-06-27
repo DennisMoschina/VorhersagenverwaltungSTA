@@ -3,8 +3,10 @@ package edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import edu.kit.VorhersagenverwaltungSTA.model.core.Pair;
+import org.threeten.extra.Interval;
 
 import java.time.Instant;
+import java.time.ZonedDateTime;
 
 
 public class Observation {
@@ -12,11 +14,11 @@ public class Observation {
     @JsonProperty("@iot.id")
     private long id;
 
-    private Pair<Instant, Instant> phenomenonTime;
-    private Instant resultTime;
-    private JsonNode result;
-    //private DQ_Element dqElement;
-    private Pair<Instant, Instant> validTime;
+    private TimeObject phenomenonTime;
+    private ZonedDateTime resultTime;
+    private Object result;
+    private Object dqElement; // dataQuality
+    private Interval validTime;
     private JsonNode parameters;
 
     @JsonProperty("Datastream@iot.navigationLink")
@@ -36,35 +38,43 @@ public class Observation {
         this.id = id;
     }
 
-    public Pair<Instant, Instant> getPhenomenonTime() {
+    public TimeObject getPhenomenonTime() {
         return phenomenonTime;
     }
 
-    public void setPhenomenonTime(Pair<Instant, Instant> phenomenonTime) {
+    public void setPhenomenonTime(TimeObject phenomenonTime) {
         this.phenomenonTime = phenomenonTime;
     }
 
-    public Instant getResultTime() {
+    public ZonedDateTime getResultTime() {
         return resultTime;
     }
 
-    public void setResultTime(Instant resultTime) {
+    public void setResultTime(ZonedDateTime resultTime) {
         this.resultTime = resultTime;
     }
 
-    public JsonNode getResult() {
+    public Object getResult() {
         return result;
     }
 
-    public void setResult(JsonNode result) {
+    public void setResult(Object result) {
         this.result = result;
     }
 
-    public Pair<Instant, Instant> getValidTime() {
+    public Object getDqElement() {
+        return dqElement;
+    }
+
+    public void setDqElement(Object dqElement) {
+        this.dqElement = dqElement;
+    }
+
+    public Interval getValidTime() {
         return validTime;
     }
 
-    public void setValidTime(Pair<Instant, Instant> validTime) {
+    public void setValidTime(Interval validTime) {
         this.validTime = validTime;
     }
 

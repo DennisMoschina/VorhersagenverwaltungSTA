@@ -14,7 +14,7 @@ public class Sensor {
     private String name;
     private String description;
     private String encodingType;
-    private JsonNode metadata;
+    private Object metadata;
     private JsonNode properties;
     @JsonProperty("Datastream@iot.navigationLink")
     private String datastreamURL;
@@ -53,11 +53,11 @@ public class Sensor {
         this.encodingType = encodingType;
     }
 
-    public JsonNode getMetadata() {
+    public Object getMetadata() {
         return metadata;
     }
 
-    public void setMetadata(JsonNode metadata) {
+    public void setMetadata(Object metadata) {
         this.metadata = metadata;
     }
 

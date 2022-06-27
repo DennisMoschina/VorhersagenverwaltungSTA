@@ -8,6 +8,8 @@ import edu.kit.VorhersagenverwaltungSTA.model.core.Pair;
 import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
+import org.geojson.Polygon;
+import org.threeten.extra.Interval;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -22,9 +24,9 @@ public class Datastream {
     private String observationType;
 
     private JsonNode unitOfMeasurement;
-    private JsonNode observedArea;
-    private Pair<Instant, Instant> phenomenonTime;
-    private Pair<Instant, Instant> resultTime;
+    private Polygon observedArea;
+    private Interval phenomenonTime;
+    private Interval resultTime;
 
     @JsonProperty("properties")
     private JsonNode properties;

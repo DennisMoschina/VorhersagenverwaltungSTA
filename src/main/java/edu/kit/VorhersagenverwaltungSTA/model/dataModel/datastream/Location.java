@@ -14,7 +14,7 @@ public class Location {
     private String name;
     private String description;
     private String encodingType;
-    private JsonNode location;
+    private Object location;
     private JsonNode properties;
     @JsonProperty("HistoricalLocations@iot.navigationLink")
     private String historicalLocationsURL;
@@ -57,11 +57,11 @@ public class Location {
         this.encodingType = encodingType;
     }
 
-    public JsonNode getLocation() {
+    public Object getLocation() {
         return location;
     }
 
-    public void setLocation(JsonNode location) {
+    public void setLocation(Object location) {
         this.location = location;
     }
 
