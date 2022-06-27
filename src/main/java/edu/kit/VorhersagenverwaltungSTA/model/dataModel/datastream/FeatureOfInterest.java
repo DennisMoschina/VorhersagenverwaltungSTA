@@ -78,6 +78,14 @@ public class FeatureOfInterest {
         this.observationsURL = observationsURL;
     }
 
+    public List<Observation> getObservations() {
+        return List.copyOf(observations);
+    }
+
+    public void setObservations(List<Observation> observations) {
+        this.observations = observations;
+    }
+
     @Override
     public String toString() {
         return "FeatureOfInterest{" +

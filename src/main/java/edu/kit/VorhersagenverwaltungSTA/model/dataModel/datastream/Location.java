@@ -89,6 +89,22 @@ public class Location {
         this.thingsURL = thingsURL;
     }
 
+    public List<HistoricalLocation> getHistoricalLocations() {
+        return List.copyOf(historicalLocations);
+    }
+
+    public void setHistoricalLocations(List<HistoricalLocation> historicalLocations) {
+        this.historicalLocations = historicalLocations;
+    }
+
+    public List<Thing> getThings() {
+        return List.copyOf(things);
+    }
+
+    public void setThings(List<Thing> things) {
+        this.things = things;
+    }
+
     @Override
     public String toString() {
         return "Location{" +

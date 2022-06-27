@@ -51,6 +51,141 @@ public class Datastream {
     @JsonProperty("Observations")
     private List<Observation> observations;
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getObservationType() {
+        return observationType;
+    }
+
+    public void setObservationType(String observationType) {
+        this.observationType = observationType;
+    }
+
+    public JsonNode getUnitOfMeasurement() {
+        return unitOfMeasurement;
+    }
+
+    public void setUnitOfMeasurement(JsonNode unitOfMeasurement) {
+        this.unitOfMeasurement = unitOfMeasurement;
+    }
+
+    public Polygon getObservedArea() {
+        return observedArea;
+    }
+
+    public void setObservedArea(Polygon observedArea) {
+        this.observedArea = observedArea;
+    }
+
+    public Interval getPhenomenonTime() {
+        return phenomenonTime;
+    }
+
+    public void setPhenomenonTime(Interval phenomenonTime) {
+        this.phenomenonTime = phenomenonTime;
+    }
+
+    public Interval getResultTime() {
+        return resultTime;
+    }
+
+    public void setResultTime(Interval resultTime) {
+        this.resultTime = resultTime;
+    }
+
+    public JsonNode getProperties() {
+        return properties;
+    }
+
+    public void setProperties(JsonNode properties) {
+        this.properties = properties;
+    }
+
+    public String getThingURL() {
+        return thingURL;
+    }
+
+    public void setThingURL(String thingURL) {
+        this.thingURL = thingURL;
+    }
+
+    public Thing getThing() {
+        return thing;
+    }
+
+    public void setThing(Thing thing) {
+        this.thing = thing;
+    }
+
+    public String getSensorURL() {
+        return sensorURL;
+    }
+
+    public void setSensorURL(String sensorURL) {
+        this.sensorURL = sensorURL;
+    }
+
+    public Sensor getSensor() {
+        return sensor;
+    }
+
+    public void setSensor(Sensor sensor) {
+        this.sensor = sensor;
+    }
+
+    public String getObservedPropertyURL() {
+        return observedPropertyURL;
+    }
+
+    public void setObservedPropertyURL(String observedPropertyURL) {
+        this.observedPropertyURL = observedPropertyURL;
+    }
+
+    public ObservedProperty getObservedProperty() {
+        return observedProperty;
+    }
+
+    public void setObservedProperty(ObservedProperty observedProperty) {
+        this.observedProperty = observedProperty;
+    }
+
+    public String getObservationsURL() {
+        return observationsURL;
+    }
+
+    public void setObservationsURL(String observationsURL) {
+        this.observationsURL = observationsURL;
+    }
+
+    public List<Observation> getObservations() {
+        return List.copyOf(observations);
+    }
+
+    public void setObservations(List<Observation> observations) {
+        this.observations = observations;
+    }
 
     @Override
     public String toString() {

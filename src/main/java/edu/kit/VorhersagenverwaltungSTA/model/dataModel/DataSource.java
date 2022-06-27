@@ -3,6 +3,8 @@ package edu.kit.VorhersagenverwaltungSTA.model.dataModel;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import edu.kit.VorhersagenverwaltungSTA.model.core.Pair;
+import org.geojson.GeoJsonObject;
+import org.threeten.extra.Interval;
 
 import java.time.Duration;
 import java.time.Instant;
@@ -14,14 +16,14 @@ public class DataSource {
     private String name;
     private String description;
     private String sourceSystem;
-    private Pair<Instant, Instant> phenomenonTime;
+    private Interval phenomenonTime;
     private String dataType;
     private JsonNode dataQuality;
-    private Duration recordingPeriod;
-    private Duration aggregationPeriod;
-    private Duration transmissionPeriod;
+    private Duration recordingPeriod; //PeriodDuration?
+    private Duration aggregationPeriod; //PeriodDuration?
+    private Duration transmissionPeriod; //PeriodDuration?
     private String spatialDistribution;
-    private JsonNode observedArea;
+    private GeoJsonObject observedArea;
     private JsonNode accessData;
     private JsonNode properties;
 
@@ -41,6 +43,182 @@ public class DataSource {
     private String accessInterfaceURL;
     @JsonProperty("AccessInterface")
     private AccessInterface accessInterface;
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getSourceSystem() {
+        return sourceSystem;
+    }
+
+    public void setSourceSystem(String sourceSystem) {
+        this.sourceSystem = sourceSystem;
+    }
+
+    public Interval getPhenomenonTime() {
+        return phenomenonTime;
+    }
+
+    public void setPhenomenonTime(Interval phenomenonTime) {
+        this.phenomenonTime = phenomenonTime;
+    }
+
+    public String getDataType() {
+        return dataType;
+    }
+
+    public void setDataType(String dataType) {
+        this.dataType = dataType;
+    }
+
+    public JsonNode getDataQuality() {
+        return dataQuality;
+    }
+
+    public void setDataQuality(JsonNode dataQuality) {
+        this.dataQuality = dataQuality;
+    }
+
+    public Duration getRecordingPeriod() {
+        return recordingPeriod;
+    }
+
+    public void setRecordingPeriod(Duration recordingPeriod) {
+        this.recordingPeriod = recordingPeriod;
+    }
+
+    public Duration getAggregationPeriod() {
+        return aggregationPeriod;
+    }
+
+    public void setAggregationPeriod(Duration aggregationPeriod) {
+        this.aggregationPeriod = aggregationPeriod;
+    }
+
+    public Duration getTransmissionPeriod() {
+        return transmissionPeriod;
+    }
+
+    public void setTransmissionPeriod(Duration transmissionPeriod) {
+        this.transmissionPeriod = transmissionPeriod;
+    }
+
+    public String getSpatialDistribution() {
+        return spatialDistribution;
+    }
+
+    public void setSpatialDistribution(String spatialDistribution) {
+        this.spatialDistribution = spatialDistribution;
+    }
+
+    public GeoJsonObject getObservedArea() {
+        return observedArea;
+    }
+
+    public void setObservedArea(GeoJsonObject observedArea) {
+        this.observedArea = observedArea;
+    }
+
+    public JsonNode getAccessData() {
+        return accessData;
+    }
+
+    public void setAccessData(JsonNode accessData) {
+        this.accessData = accessData;
+    }
+
+    public JsonNode getProperties() {
+        return properties;
+    }
+
+    public void setProperties(JsonNode properties) {
+        this.properties = properties;
+    }
+
+    public String getOwnerURL() {
+        return ownerURL;
+    }
+
+    public void setOwnerURL(String ownerURL) {
+        this.ownerURL = ownerURL;
+    }
+
+    public Owner getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Owner owner) {
+        this.owner = owner;
+    }
+
+    public String getContactURL() {
+        return contactURL;
+    }
+
+    public void setContactURL(String contactURL) {
+        this.contactURL = contactURL;
+    }
+
+    public Contact getContact() {
+        return contact;
+    }
+
+    public void setContact(Contact contact) {
+        this.contact = contact;
+    }
+
+    public String getLicenseURL() {
+        return licenseURL;
+    }
+
+    public void setLicenseURL(String licenseURL) {
+        this.licenseURL = licenseURL;
+    }
+
+    public License getLicense() {
+        return license;
+    }
+
+    public void setLicense(License license) {
+        this.license = license;
+    }
+
+    public String getAccessInterfaceURL() {
+        return accessInterfaceURL;
+    }
+
+    public void setAccessInterfaceURL(String accessInterfaceURL) {
+        this.accessInterfaceURL = accessInterfaceURL;
+    }
+
+    public AccessInterface getAccessInterface() {
+        return accessInterface;
+    }
+
+    public void setAccessInterface(AccessInterface accessInterface) {
+        this.accessInterface = accessInterface;
+    }
 
     @Override
     public String toString() {

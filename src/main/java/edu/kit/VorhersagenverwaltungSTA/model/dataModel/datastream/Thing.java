@@ -28,6 +28,21 @@ public class Thing {
     @JsonProperty("HistoricalLocations")
     private List<HistoricalLocation> historicalLocations;
 
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
     public String getDescription() {
         return description;
     }
@@ -68,21 +83,28 @@ public class Thing {
         this.historicalLocationsURL = historicalLocationsURL;
     }
 
-
-    public long getId() {
-        return id;
+    public List<Datastream> getDatastreams() {
+        return List.copyOf(datastreams);
     }
 
-    public void setId(long id) {
-        this.id = id;
+    public void setDatastreams(List<Datastream> datastreams) {
+        this.datastreams = datastreams;
     }
 
-    public String getName() {
-        return name;
+    public List<Location> getLocations() {
+        return List.copyOf(locations);
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setLocations(List<Location> locations) {
+        this.locations = locations;
+    }
+
+    public List<HistoricalLocation> getHistoricalLocations() {
+        return List.copyOf(historicalLocations);
+    }
+
+    public void setHistoricalLocations(List<HistoricalLocation> historicalLocations) {
+        this.historicalLocations = historicalLocations;
     }
 
     @Override

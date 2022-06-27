@@ -77,6 +77,14 @@ public class Sensor {
         this.datastreamURL = datastreamURL;
     }
 
+    public List<Datastream> getDatastreams() {
+        return List.copyOf(datastreams);
+    }
+
+    public void setDatastreams(List<Datastream> datastreams) {
+        this.datastreams = datastreams;
+    }
+
     @Override
     public String toString() {
         return "Sensor{" +
