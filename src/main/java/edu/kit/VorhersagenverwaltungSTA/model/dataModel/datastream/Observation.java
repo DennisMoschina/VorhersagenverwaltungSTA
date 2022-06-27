@@ -102,6 +102,22 @@ public class Observation {
         this.featureOfInterestURL = featureOfInterestURL;
     }
 
+    public Datastream getDatastream() {
+        return datastream;
+    }
+
+    public void setDatastream(Datastream datastream) {
+        this.datastream = datastream;
+    }
+
+    public FeatureOfInterest getFeatureOfInterest() {
+        return featureOfInterest;
+    }
+
+    public void setFeatureOfInterest(FeatureOfInterest featureOfInterest) {
+        this.featureOfInterest = featureOfInterest;
+    }
+
     @Override
     public String toString() {
         return "Observation{" +
