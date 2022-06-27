@@ -2,13 +2,11 @@ package edu.kit.VorhersagenverwaltungSTA.service.itemList;
 
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.catalogue.Catalogue;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.CatalogueLoader;
-import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-@PropertySource("classpath:data.properties")
 public class CatalogueListService {
     private final CatalogueLoader catalogueLoader;
 
