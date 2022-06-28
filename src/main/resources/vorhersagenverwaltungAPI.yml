@@ -108,8 +108,75 @@ paths:
               schema:
                 $ref: '#/components/schemas/DataSource'
 
+  /catalogue/{catalogueId}/datasource/{dataSourceId}/datastreams/{items}/{page}:
+    parameters:
+      - name: catalogueId
+        in: path
+        description: the id of the catalogue
+        required: true
+        schema:
+          type: integer
+      - name: dataSourceId
+        in: path
+        description: the id of the dataSource
+        required: true
+        schema:
+          type: integer
+      - name: items
+        in: path
+        description: the number of items requested
+        required: true
+        schema:
+          type: integer
+      - name: page
+        in: path
+        description: the page on which the items should be
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Get a list of STA services
+      operationId: getDatastreamList
+      responses:
+        '200':
+          description: the list of datasources
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Datastream'
 
-
+  /catalogue/{catalogueId}/datasource/{dataSourceId}/datastream/{datastreamId}:
+    parameters:
+      - name: catalogueId
+        in: path
+        description: the id of the catalogue
+        required: true
+        schema:
+          type: integer
+      - name: dataSourceId
+        in: path
+        description: the id of the dataSource
+        required: true
+        schema:
+          type: integer
+      - name: datastreamId
+        in: path
+        description: the id of the datastream
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Get the datastream with the specified id from the dataSource
+      operationId: getDatastream
+      responses:
+        '200':
+          description: the datastream
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Datastream'
 
 components:
   schemas:
@@ -143,4 +210,17 @@ components:
           type: string
         phenomenonTime:
           type: object
+        #TODO: add all properties
+
+    Datastream:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
         #TODO: add all properties
