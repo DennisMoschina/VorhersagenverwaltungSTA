@@ -1,6 +1,7 @@
 package edu.kit.VorhersagenverwaltungSTA.model.core;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class ObjectContainer<K, V> {
@@ -20,5 +21,9 @@ public class ObjectContainer<K, V> {
 
     public void remove(K id) {
         objects.remove(id);
+    }
+
+    public List<V> getValues() {
+        return this.objects.values().stream().toList();
     }
 }
