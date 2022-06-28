@@ -1,0 +1,69 @@
+openapi: "3.0.0"
+info:
+  version: 0.0.1
+  title: "Vorhersagenverwaltung API"
+
+paths:
+  /catalogues/{items}/{page}:
+    parameters:
+      - name: items
+        in: path
+        description: the number of items requested
+        required: true
+        schema:
+          type: integer
+      - name: page
+        in: path
+        description: the page on which the items should be
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Get "items" amount of catalogues of page with the number "page"
+      operationId: getCatalogueList
+      responses:
+        '200':
+          description: a list of catalogues
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Catalogue'
+
+  /catalogue/{catalogueId}:
+    parameters:
+      - name: catalogueId
+        in: path
+        description: the id of the catalogue
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Get the catalogue with the specified id
+      operationId: getCatalogue
+      responses:
+        '200':
+          description: the catalogue
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Catalogue'
+
+
+components:
+  schemas:
+    Catalogue:
+      type: object
+      required:
+        - id
+        - url
+      properties:
+        id:
+          type: integer
+        url:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
