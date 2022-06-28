@@ -50,6 +50,66 @@ paths:
               schema:
                 $ref: '#/components/schemas/Catalogue'
 
+  /catalogue/{catalogueId}/datasources/{items}/{page}:
+    parameters:
+      - name: catalogueId
+        in: path
+        description: the id of the catalogue
+        required: true
+        schema:
+          type: integer
+      - name: items
+        in: path
+        description: the number of items requested
+        required: true
+        schema:
+          type: integer
+      - name: page
+        in: path
+        description: the page on which the items should be
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Get a list of STA services
+      operationId: getDataSourceList
+      responses:
+        '200':
+          description: the list of datasources
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/DataSource'
+
+  /catalogue/{catalogueId}/datasource/{dataSourceId}:
+    parameters:
+      - name: catalogueId
+        in: path
+        description: the id of the catalogue
+        required: true
+        schema:
+          type: integer
+      - name: dataSourceId
+        in: path
+        description: the id of the dataSource
+        required: true
+        schema:
+          type: integer
+    get:
+      summary: Get the dataSource with the specified id from the catalogue
+      operationId: getDataSource
+      responses:
+        '200':
+          description: the dataSource
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DataSource'
+
+
+
 
 components:
   schemas:
@@ -67,3 +127,20 @@ components:
           type: string
         description:
           type: string
+
+    DataSource:
+      type: object
+      required:
+        - id
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        description:
+          type: string
+        sourceSystem:
+          type: string
+        phenomenonTime:
+          type: object
+        #TODO: add all properties
