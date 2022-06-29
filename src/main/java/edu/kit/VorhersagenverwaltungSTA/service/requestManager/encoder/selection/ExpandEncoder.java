@@ -15,6 +15,8 @@ public class ExpandEncoder implements Encoder<Set<Selection>> {
 
     @Override
     public String encode(Set<Selection> selections) {
+        if (selections == null || selections.isEmpty()) return null;
+
         List<String> encodedSelections = selections.stream()
                 .map(selection -> new SingleExpandEncoder().encode(selection)).toList();
 

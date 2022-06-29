@@ -1,31 +1,49 @@
 package edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection;
 
-import edu.kit.VorhersagenverwaltungSTA.model.dataModel.*;
-import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.*;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.AccessInterface;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.Contact;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.DataSource;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.License;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.Owner;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.ProcessingProcedure;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.Datastream;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.FeatureOfInterest;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.HistoricalLocation;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.Location;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.Observation;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.ObservedProperty;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.Sensor;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.Thing;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.DatastreamList;
 
 public enum ObjectType {
-    DATASTREAM(Datastream.class),
-    SENSOR(Sensor.class),
-    THING(Thing.class),
-    LOCATION(Location.class),
-    HISTORICAL_LOCATION(HistoricalLocation.class),
-    OBSERVED_PROPERTY(ObservedProperty.class),
-    OBSERVATION(Observation.class),
-    FEATURE_OF_INTEREST(FeatureOfInterest.class),
-    DATASOURCE(DataSource.class),
-    OWNER(Owner.class),
-    CONTACT(Contact.class),
-    LICENSE(License.class),
-    ACCESS_INTERFACE(AccessInterface.class),
-    PROCESSING_PROCEDURE(ProcessingProcedure.class);
+    DATASTREAM(Datastream.class, DatastreamList.class),
+    SENSOR(Sensor.class, null),
+    THING(Thing.class, null),
+    LOCATION(Location.class, null),
+    HISTORICAL_LOCATION(HistoricalLocation.class, null),
+    OBSERVED_PROPERTY(ObservedProperty.class, null),
+    OBSERVATION(Observation.class, null),
+    FEATURE_OF_INTEREST(FeatureOfInterest.class, null),
+    DATASOURCE(DataSource.class, null),
+    OWNER(Owner.class, null),
+    CONTACT(Contact.class, null),
+    LICENSE(License.class, null),
+    ACCESS_INTERFACE(AccessInterface.class, null),
+    PROCESSING_PROCEDURE(ProcessingProcedure.class, null);
 
     private final Class<?> objectClass;
+    private final Class<?> listClass;
 
-    ObjectType(Class<?> objectClass) {
+    ObjectType(Class<?> objectClass, Class<?> listClass) {
         this.objectClass = objectClass;
+        this.listClass = listClass;
     }
 
     public Class<?> getObjectClass() {
         return objectClass;
+    }
+    public Class<?> getListClass() {
+        return listClass;
     }
 }

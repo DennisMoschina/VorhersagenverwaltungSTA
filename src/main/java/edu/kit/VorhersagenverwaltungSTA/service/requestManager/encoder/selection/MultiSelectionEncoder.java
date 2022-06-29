@@ -34,6 +34,6 @@ public class MultiSelectionEncoder extends SelectionEncoderTemplate {
 
     @Override
     protected String encodeHeader(Selection selection) {
-        return new PluralObjectTypeEncoder().encode(selection.getObjectType());
+        return new PluralObjectTypeEncoder().encode(selection.getObjectType()) + "?$count=true&";
     }
 }
