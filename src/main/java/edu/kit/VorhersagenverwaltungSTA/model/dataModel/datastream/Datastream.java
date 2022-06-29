@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import edu.kit.VorhersagenverwaltungSTA.jackson.IntervalDeserializer;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.Entity;
 import org.geojson.GeoJsonObject;
 import org.threeten.extra.Interval;
 
@@ -26,6 +27,7 @@ public class Datastream {
 
     private JsonNode unitOfMeasurement;
     private GeoJsonObject observedArea;
+    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
     @JsonDeserialize(using = IntervalDeserializer.class)
     private Interval phenomenonTime;
     @JsonDeserialize(using = IntervalDeserializer.class)
