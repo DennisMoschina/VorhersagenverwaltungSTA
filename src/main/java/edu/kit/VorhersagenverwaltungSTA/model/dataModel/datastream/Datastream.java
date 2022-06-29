@@ -6,12 +6,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import edu.kit.VorhersagenverwaltungSTA.jackson.IntervalDeserializer;
-
-import java.util.List;
-import java.util.Objects;
-
 import org.geojson.GeoJsonObject;
 import org.threeten.extra.Interval;
+
+import java.util.Objects;
 
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -186,9 +184,9 @@ public class Datastream {
 
     /*public List<Observation> getObservations() {
         return List.copyOf(observations);
-    }*/
+    }
 
-    /*public void setObservations(List<Observation> observations) {
+    public void setObservations(List<Observation> observations) {
         this.observations = observations;
     }*/
 

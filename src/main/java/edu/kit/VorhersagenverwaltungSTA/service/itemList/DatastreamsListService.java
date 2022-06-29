@@ -9,9 +9,12 @@ import java.util.Set;
 
 @Service
 public class DatastreamsListService extends ItemListService<Datastream> {
-    private static final Set<String> KEYS = Set.of("name, description");
+    private static final Set<String> KEYS = Set.of("name", "description");
     @Override
-    protected MultiSelection buildSelection() {
-        return new MultiSelection(KEYS, null, ObjectType.DATASTREAM);
+    protected MultiSelection buildSelection(int itemsCount, long startIndex) {
+        MultiSelection newSelection = new MultiSelection(KEYS, ObjectType.DATASTREAM);
+        newSelection.setCount(itemsCount);
+        newSelection.setSkip(startIndex);
+        return newSelection;
     }
 }

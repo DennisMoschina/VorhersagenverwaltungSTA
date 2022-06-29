@@ -35,7 +35,7 @@ public class RequestManager {
         String encodedSelection = new GenericSelectionEncoder().encode(selection);
         String request = this.source.url() + encodedSelection;
 
-        this.resultType = selection.getObjectType().getObjectClass();
+        this.resultType = selection.getObjectTypeClass();
 
         this.result = this.restTemplate.getForObject(request, this.resultType);
     }
