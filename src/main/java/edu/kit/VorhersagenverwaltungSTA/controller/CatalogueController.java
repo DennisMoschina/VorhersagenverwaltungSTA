@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 class CatalogueController {
@@ -28,10 +27,7 @@ class CatalogueController {
     }
 
     @GetMapping(GET_DATACATALOGUE_LINK)
-    Catalogue getDataCatalogue(@PathVariable long catalogueId) {
-        Optional<Catalogue> optionalCatalogue = this.service.getCatalogues().stream()
-                .filter(catalogue -> catalogue.getId() == catalogueId).findFirst();
-        if (optionalCatalogue.isEmpty()) return null;
-        return optionalCatalogue.get();
+    Catalogue getDataCatalogue(@PathVariable int catalogueId) {
+        return this.service.getCatalogue(catalogueId);
     }
 }

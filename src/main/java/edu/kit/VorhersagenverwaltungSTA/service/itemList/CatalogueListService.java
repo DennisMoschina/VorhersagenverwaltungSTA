@@ -15,7 +15,10 @@ public class CatalogueListService {
     }
 
     public List<Catalogue> getCatalogues() {
-        this.catalogueLoader.loadCatalogues();
         return this.catalogueLoader.getCatalogues();
+    }
+
+    public Catalogue getCatalogue(int id) {
+        return this.catalogueLoader.getCatalogue(id);
     }
 }

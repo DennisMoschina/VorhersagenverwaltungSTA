@@ -20,21 +20,36 @@ public class CatalogueLoader {
 
     private final ObjectContainer<Integer, Catalogue> catalogueContainer = new CacheProxyObjectContainer<>();
 
-    public void loadCatalogues() {
+    public List<Catalogue> getCatalogues() {
+        List<Catalogue> catalogues = this.loadCatalogueList();
+        for (Catalogue catalogue : catalogues) this.catalogueContainer.add(catalogue.getId(), catalogue);
+
+        return catalogues;
+    }
+
+    public Catalogue getCatalogue(int id) {
+        Catalogue catalogue = this.catalogueContainer.get(id);
+        if (catalogue != null) return catalogue;
+
+        catalogue = this.loadCatalogueList().stream()
+                .filter(c -> c.getId() == id).findFirst().orElse(null);
+
+        logger.info(String.format("reloaded catalogues to get catalogue with id %d", id));
+
+        this.catalogueContainer.add(id, catalogue);
+        return catalogue;
+    }
+
+    private List<Catalogue> loadCatalogueList() {
         ObjectMapper mapper = new ObjectMapper();
 
         try {
-            List<Catalogue> catalogues = mapper.readValue(new File(Objects.requireNonNull(getClass()
+            return mapper.readValue(new File(Objects.requireNonNull(getClass()
                     .getClassLoader().getResource("catalogues.json")).getFile()), new TypeReference<>() {
             });
-            for (Catalogue catalogue : catalogues) this.catalogueContainer.add(catalogue.getId(), catalogue);
         } catch (IOException e) {
             logger.error(e.getMessage());
             throw new RuntimeException(e);
         }
-    }
-
-    public List<Catalogue> getCatalogues() {
-        return this.catalogueContainer.getValues().stream().toList();
     }
 }
