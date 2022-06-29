@@ -2,6 +2,9 @@ package edu.kit.VorhersagenverwaltungSTA.model.dataModel;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import edu.kit.VorhersagenverwaltungSTA.jackson.DurationDeserializer;
+import edu.kit.VorhersagenverwaltungSTA.jackson.IntervalDeserializer;
 import edu.kit.VorhersagenverwaltungSTA.model.core.Pair;
 import org.geojson.GeoJsonObject;
 import org.threeten.extra.Interval;
@@ -16,11 +19,15 @@ public class DataSource {
     private String name;
     private String description;
     private String sourceSystem;
+    @JsonDeserialize(using = IntervalDeserializer.class)
     private Interval phenomenonTime;
     private String dataType;
     private JsonNode dataQuality;
+    @JsonDeserialize(using = DurationDeserializer.class)
     private Duration recordingPeriod; //PeriodDuration?
+    @JsonDeserialize(using = DurationDeserializer.class)
     private Duration aggregationPeriod; //PeriodDuration?
+    @JsonDeserialize(using = DurationDeserializer.class)
     private Duration transmissionPeriod; //PeriodDuration?
     private String spatialDistribution;
     private GeoJsonObject observedArea;

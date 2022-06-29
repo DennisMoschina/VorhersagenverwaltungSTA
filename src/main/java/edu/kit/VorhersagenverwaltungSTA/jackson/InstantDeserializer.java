@@ -4,24 +4,24 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.DeserializationContext;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
-import org.threeten.extra.Interval;
 
 import java.io.IOException;
+import java.time.Instant;
 
-public class IntervalDeserializer extends StdDeserializer<Interval> {
+public class InstantDeserializer extends StdDeserializer<Instant> {
 
-    public IntervalDeserializer() {
+    public InstantDeserializer() {
         this(null);
     }
 
-    public IntervalDeserializer(Class<?> valueClass) {
+    public InstantDeserializer(Class<?> valueClass) {
         super(valueClass);
     }
 
     @Override
-    public Interval deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
+    public Instant deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
             throws IOException {
         JsonNode node = jsonParser.getCodec().readTree(jsonParser);
-        return Interval.parse(node.asText());
+        return Instant.parse(node.asText());
     }
 }

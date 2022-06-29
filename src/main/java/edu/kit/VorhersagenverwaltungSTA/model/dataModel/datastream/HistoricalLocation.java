@@ -1,15 +1,19 @@
 package edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import edu.kit.VorhersagenverwaltungSTA.jackson.InstantDeserializer;
+import edu.kit.VorhersagenverwaltungSTA.jackson.IntervalDeserializer;
 
-import java.time.ZonedDateTime;
+import java.time.Instant;
 import java.util.List;
 
 public class HistoricalLocation {
 
     @JsonProperty("@iot.id")
     private String id;
-    private ZonedDateTime time;
+    @JsonDeserialize(using = InstantDeserializer.class)
+    private Instant time;
 
     @JsonProperty("Thing@iot.navigationLink")
     private String thingURL;
@@ -28,11 +32,11 @@ public class HistoricalLocation {
         this.id = id;
     }
 
-    public ZonedDateTime getTime() {
+    public Instant getTime() {
         return time;
     }
 
-    public void setTime(ZonedDateTime time) {
+    public void setTime(Instant time) {
         this.time = time;
     }
 

@@ -1,21 +1,25 @@
 package edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import edu.kit.VorhersagenverwaltungSTA.jackson.InstantDeserializer;
+import edu.kit.VorhersagenverwaltungSTA.jackson.IntervalDeserializer;
 import org.threeten.extra.Interval;
 
-import java.time.ZonedDateTime;
-import java.time.format.DateTimeFormatter;
+import java.time.Instant;
 import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
 /**
  * A time object can be a time instant or a time interval.
  *
- * @author Hylke van der Schaaf
+ * @author Hylke van der Schaaf, Elias Dirks
  */
 public class TimeObject {
 
+    @JsonDeserialize(using = IntervalDeserializer.class)
     private Interval valueInterval;
-    private ZonedDateTime valueDateTime;
+    @JsonDeserialize(using = InstantDeserializer.class)
+    private Instant valueInstant;
     private final boolean interval;
 
     public TimeObject(Interval value) {
@@ -23,8 +27,8 @@ public class TimeObject {
         interval = true;
     }
 
-    public TimeObject(ZonedDateTime value) {
-        valueDateTime = value;
+    public TimeObject(Instant value) {
+        valueInstant = value;
         interval = false;
     }
 
@@ -46,14 +50,14 @@ public class TimeObject {
         if (!Objects.equals(this.valueInterval, other.valueInterval)) {
             return false;
         }
-        return Objects.equals(this.valueDateTime, other.valueDateTime);
+        return Objects.equals(this.valueInstant, other.valueInstant);
     }
 
     @Override
     public int hashCode() {
         int hash = 7;
         hash = 29 * hash + Objects.hashCode(this.valueInterval);
-        hash = 29 * hash + Objects.hashCode(this.valueDateTime);
+        hash = 29 * hash + Objects.hashCode(this.valueInstant);
         hash = 29 * hash + (this.interval ? 1 : 0);
         return hash;
     }
@@ -69,11 +73,11 @@ public class TimeObject {
         return null;
     }
 
-    public ZonedDateTime getAsDateTime() {
+    public Instant getAsDateTime() {
         if (interval) {
             return null;
         }
-        return valueDateTime;
+        return valueInstant;
     }
 
     @Override
@@ -81,17 +85,17 @@ public class TimeObject {
         if (interval) {
             return valueInterval.toString();
         }
-        return valueDateTime.format(DateTimeFormatter.ISO_OFFSET_DATE_TIME);
+        return valueInstant.toString();
     }
 
     public static TimeObject parse(String value) {
         try {
-            ZonedDateTime dt = ZonedDateTime.parse(value);
+            Instant dt = Instant.parse(value);
             return new TimeObject(dt);
         } catch (DateTimeParseException e) {
             // Not a DateTime
         }
-        Interval i = Interval.parse(value);
-        return new TimeObject(i);
+        Interval interval = Interval.parse(value);
+        return new TimeObject(interval);
     }
 }

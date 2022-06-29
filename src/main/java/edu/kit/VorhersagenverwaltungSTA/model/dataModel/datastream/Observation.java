@@ -2,6 +2,9 @@ package edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import edu.kit.VorhersagenverwaltungSTA.jackson.InstantDeserializer;
+import edu.kit.VorhersagenverwaltungSTA.jackson.IntervalDeserializer;
 import edu.kit.VorhersagenverwaltungSTA.model.core.Pair;
 import org.threeten.extra.Interval;
 
@@ -15,9 +18,11 @@ public class Observation {
     private long id;
 
     private TimeObject phenomenonTime;
-    private ZonedDateTime resultTime;
+    @JsonDeserialize(using = InstantDeserializer.class)
+    private Instant resultTime;
     private Object result;
     private Object dqElement; // dataQuality
+    @JsonDeserialize(using = IntervalDeserializer.class)
     private Interval validTime;
     private JsonNode parameters;
 
@@ -46,11 +51,11 @@ public class Observation {
         this.phenomenonTime = phenomenonTime;
     }
 
-    public ZonedDateTime getResultTime() {
+    public Instant getResultTime() {
         return resultTime;
     }
 
-    public void setResultTime(ZonedDateTime resultTime) {
+    public void setResultTime(Instant resultTime) {
         this.resultTime = resultTime;
     }
 

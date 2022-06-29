@@ -7,21 +7,22 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import org.threeten.extra.Interval;
 
 import java.io.IOException;
+import java.time.Duration;
 
-public class IntervalDeserializer extends StdDeserializer<Interval> {
+public class DurationDeserializer extends StdDeserializer<Duration> {
 
-    public IntervalDeserializer() {
+    public DurationDeserializer() {
         this(null);
     }
 
-    public IntervalDeserializer(Class<?> valueClass) {
+    public DurationDeserializer(Class<?> valueClass) {
         super(valueClass);
     }
 
     @Override
-    public Interval deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
+    public Duration deserialize(JsonParser jsonParser, DeserializationContext deserializationContext)
             throws IOException {
         JsonNode node = jsonParser.getCodec().readTree(jsonParser);
-        return Interval.parse(node.asText());
+        return Duration.parse(node.asText());
     }
 }
