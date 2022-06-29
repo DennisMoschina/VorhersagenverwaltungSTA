@@ -26,4 +26,8 @@ public class ObjectContainer<K, V> {
     public List<V> getValues() {
         return this.objects.values().stream().toList();
     }
+
+    public void clear() {
+        this.objects.clear();
+    }
 }

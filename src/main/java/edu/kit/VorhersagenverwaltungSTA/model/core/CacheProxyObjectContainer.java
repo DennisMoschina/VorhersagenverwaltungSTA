@@ -70,4 +70,9 @@ public class CacheProxyObjectContainer<K, V> extends ObjectContainer<K, V> {
     public List<V> getValues() {
         return realContainer.getValues();
     }
+
+    @Override
+    public void clear() {
+        realContainer.clear();
+    }
 }
