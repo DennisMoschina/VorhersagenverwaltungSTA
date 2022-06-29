@@ -2,25 +2,25 @@ package edu.kit.VorhersagenverwaltungSTA.service.requestManager;
 
 import edu.kit.VorhersagenverwaltungSTA.model.core.ObjectContainer;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.encoder.selection.GenericSelectionEncoder;
+import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.ObjectType;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.Selection;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.SingleSelection;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.HashMap;
-import java.util.Map;
 
 public class RequestManager {
     private final RestTemplate restTemplate;
     private final Source source;
 
-    private final Map<Class<?>, ObjectContainer<Long, ?>> containers = new HashMap<>();
+    private final ObjectContainer<Long, Object> container;
+    private ObjectType recentlyRequestedType;
 
     private Object result;
     private Class<?> resultType;
 
-    public RequestManager(Source source, RestTemplate restTemplate) {
+    public RequestManager(Source source, ObjectContainer<Long, Object> container) {
         this.source = source;
-        this.restTemplate = restTemplate;
+        this.restTemplate = new RestTemplate();
+        this.container = container;
     }
 
     public void request(Selection selection) {
