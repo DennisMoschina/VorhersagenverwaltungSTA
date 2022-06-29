@@ -2,8 +2,6 @@ package edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
-import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.HistoricalLocation;
-import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.Thing;
 
 import java.util.List;
 
