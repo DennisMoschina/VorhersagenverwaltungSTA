@@ -5,7 +5,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import edu.kit.VorhersagenverwaltungSTA.jackson.DurationDeserializer;
 import edu.kit.VorhersagenverwaltungSTA.jackson.IntervalDeserializer;
+import edu.kit.VorhersagenverwaltungSTA.jackson.SourceDeserializer;
 import edu.kit.VorhersagenverwaltungSTA.model.core.Pair;
+import edu.kit.VorhersagenverwaltungSTA.service.requestManager.Source;
 import org.geojson.GeoJsonObject;
 import org.threeten.extra.Interval;
 
@@ -31,7 +33,8 @@ public class DataSource {
     private Duration transmissionPeriod; //PeriodDuration?
     private String spatialDistribution;
     private GeoJsonObject observedArea;
-    private JsonNode accessData;
+    @JsonDeserialize(using = SourceDeserializer.class)
+    private Source accessData;
     private JsonNode properties;
 
     @JsonProperty("Owner@navigationLink")
@@ -147,11 +150,11 @@ public class DataSource {
         this.observedArea = observedArea;
     }
 
-    public JsonNode getAccessData() {
+    public Source getAccessData() {
         return accessData;
     }
 
-    public void setAccessData(JsonNode accessData) {
+    public void setAccessData(Source accessData) {
         this.accessData = accessData;
     }
 
