@@ -3,7 +3,6 @@ package edu.kit.VorhersagenverwaltungSTA.service.requestManager.encoder.selectio
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.Selection;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.SingleSelection;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class SingleSelectionEncoder extends SelectionEncoderTemplate {
@@ -18,11 +17,8 @@ public class SingleSelectionEncoder extends SelectionEncoderTemplate {
 
     @Override
     public List<String> encodeParts(Selection selection) {
-        final List<String> encodedStatements = new LinkedList<>();
-
-        encodedStatements.add(new ExpandEncoder().encode(selection.getObjectsToExpand()));
-
-        return encodedStatements;
+        if (selection.getObjectsToExpand().isEmpty()) return null;
+        return List.of(new ExpandEncoder().encode(selection.getObjectsToExpand()));
     }
 
     @Override
