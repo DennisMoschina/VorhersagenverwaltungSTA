@@ -17,7 +17,6 @@ public class CatalogueLoaderTest {
 
     @Test
     public void loadCataloguesTest() {
-        this.loader.loadCatalogues();
         List<Catalogue> catalogues = this.loader.getCatalogues();
 
         Assertions.assertEquals(1, catalogues.size());

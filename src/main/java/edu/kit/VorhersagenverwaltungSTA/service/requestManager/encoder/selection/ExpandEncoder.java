@@ -8,6 +8,7 @@ import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.Selecti
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.SingleSelection;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 public class ExpandEncoder implements Encoder<Set<Selection>> {
@@ -18,7 +19,7 @@ public class ExpandEncoder implements Encoder<Set<Selection>> {
         if (selections == null || selections.isEmpty()) return null;
 
         List<String> encodedSelections = selections.stream()
-                .map(selection -> new SingleExpandEncoder().encode(selection)).toList();
+                .map(selection -> new SingleExpandEncoder().encode(selection)).filter(Objects::nonNull).toList();
 
         return String.format(EXPAND_FORMAT, String.join(";", encodedSelections));
     }
@@ -44,7 +45,7 @@ public class ExpandEncoder implements Encoder<Set<Selection>> {
 
             final String encodedHeader = headerEncoder.encode(selection.getObjectType());
 
-            if (encodedParts.isEmpty()) return encodedHeader;
+            if (encodedParts == null || encodedParts.isEmpty()) return encodedHeader;
 
             return String.format(EXPAND_ITEM_FORMAT, encodedHeader,
                     new ListEncoder<>((Encoder<String>) s -> s).encode(encodedParts));
