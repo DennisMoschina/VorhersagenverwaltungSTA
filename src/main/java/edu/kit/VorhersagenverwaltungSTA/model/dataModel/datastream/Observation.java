@@ -5,12 +5,9 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import edu.kit.VorhersagenverwaltungSTA.jackson.InstantDeserializer;
 import edu.kit.VorhersagenverwaltungSTA.jackson.IntervalDeserializer;
-import edu.kit.VorhersagenverwaltungSTA.model.core.Pair;
 import org.threeten.extra.Interval;
 
 import java.time.Instant;
-import java.time.ZonedDateTime;
-
 
 public class Observation {
 

@@ -3,7 +3,6 @@ package edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import edu.kit.VorhersagenverwaltungSTA.jackson.InstantDeserializer;
-import edu.kit.VorhersagenverwaltungSTA.jackson.IntervalDeserializer;
 
 import java.time.Instant;
 import java.util.List;

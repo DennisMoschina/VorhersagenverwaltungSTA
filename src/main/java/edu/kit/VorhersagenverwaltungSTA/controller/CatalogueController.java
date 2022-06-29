@@ -20,6 +20,7 @@ class CatalogueController {
     @GetMapping("/catalogues/{items}/{page}")
     List<Catalogue> getDataCatalogueList(@PathVariable int items, @PathVariable int page) {
         List<Catalogue> catalogues = this.service.getCatalogues();
+        //page starts at 0; items and page should normally be correct
         int startIndex = items * page;
         if (startIndex > catalogues.size()) startIndex = (catalogues.size() / items) ;
         int endIndex = Math.min(catalogues.size(), startIndex + items);
