@@ -1,4 +1,4 @@
-package edu.kit.VorhersagenverwaltungSTA;
+package edu.kit.VorhersagenverwaltungSTA.unitTests;
 
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.encoder.selection.SelectionEncoderTemplate;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.encoder.selection.SingleSelectionEncoder;
@@ -37,7 +37,8 @@ public class SingleSelectionTest {
     public void selectKeysTest() {
         Set<String> keys = Set.of("name", "description");
         final SingleSelection selection = new SingleSelection(keys, ObjectType.DATASTREAM, 1);
-        final String expectedResult = "Datastreams(1)?$select=name,description";
+        //TODO: make sure, that the order of keys is not important
+        final String expectedResult = "Datastreams(1)?$select=name,description,id";
 
         this.checkEncodedResult(expectedResult, selection);
     }
