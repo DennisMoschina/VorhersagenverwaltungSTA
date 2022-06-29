@@ -15,7 +15,7 @@ import java.util.Objects;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Datastream {
+public class Datastream extends Entity {
     @JsonProperty("@iot.id")
     private long id;
     @JsonProperty("name")

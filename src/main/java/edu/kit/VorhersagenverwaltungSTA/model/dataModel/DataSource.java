@@ -1,20 +1,20 @@
 package edu.kit.VorhersagenverwaltungSTA.model.dataModel;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import edu.kit.VorhersagenverwaltungSTA.jackson.DurationDeserializer;
 import edu.kit.VorhersagenverwaltungSTA.jackson.IntervalDeserializer;
 import edu.kit.VorhersagenverwaltungSTA.jackson.SourceDeserializer;
-import edu.kit.VorhersagenverwaltungSTA.model.core.Pair;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.Source;
 import org.geojson.GeoJsonObject;
 import org.threeten.extra.Interval;
 
 import java.time.Duration;
-import java.time.Instant;
 
-public class DataSource {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class DataSource extends Entity {
 
     @JsonProperty("id")
     private long id;

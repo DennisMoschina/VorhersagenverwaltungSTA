@@ -2,9 +2,10 @@ package edu.kit.VorhersagenverwaltungSTA.model.dataModel.catalogue;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.Entity;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class Catalogue {
+public class Catalogue extends Entity {
     @JsonProperty("id")
     private int id;
 
