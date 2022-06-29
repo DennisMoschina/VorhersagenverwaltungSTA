@@ -1,8 +1,6 @@
-package edu.kit.VorhersagenverwaltungSTA.service.singleItem;
+package edu.kit.VorhersagenverwaltungSTA.service.itemList;
 
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.DataSource;
-import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.Datastream;
-import edu.kit.VorhersagenverwaltungSTA.service.itemList.ItemListService;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.MultiSelection;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.ObjectType;
 import org.springframework.stereotype.Service;
