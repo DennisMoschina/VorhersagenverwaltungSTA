@@ -1,9 +1,11 @@
 package edu.kit.VorhersagenverwaltungSTA.model.dataModel;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 
-public class ProcessingProcedure {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class ProcessingProcedure extends Entity {
 
     @JsonProperty("id")
     private long id;

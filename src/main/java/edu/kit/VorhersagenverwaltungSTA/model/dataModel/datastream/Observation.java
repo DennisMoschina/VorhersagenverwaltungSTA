@@ -1,15 +1,18 @@
 package edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import edu.kit.VorhersagenverwaltungSTA.jackson.InstantDeserializer;
 import edu.kit.VorhersagenverwaltungSTA.jackson.IntervalDeserializer;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.Entity;
 import org.threeten.extra.Interval;
 
 import java.time.Instant;
 
-public class Observation {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Observation extends Entity {
 
     @JsonProperty("@iot.id")
     private long id;

@@ -1,13 +1,16 @@
 package edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import edu.kit.VorhersagenverwaltungSTA.jackson.InstantDeserializer;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.Entity;
 
 import java.time.Instant;
 import java.util.List;
 
-public class HistoricalLocation {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class HistoricalLocation extends Entity {
 
     @JsonProperty("@iot.id")
     private String id;
