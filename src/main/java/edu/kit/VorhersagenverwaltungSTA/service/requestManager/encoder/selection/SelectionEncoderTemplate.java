@@ -5,6 +5,7 @@ import edu.kit.VorhersagenverwaltungSTA.service.requestManager.encoder.ListEncod
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.Selection;
 
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 public abstract class SelectionEncoderTemplate implements SelectionEncoder {
@@ -13,10 +14,11 @@ public abstract class SelectionEncoderTemplate implements SelectionEncoder {
     @Override
     public String encode(Selection selection) {
         final List<String> selectionParts = this.encodeParts(selection);
-        if (!selection.getKeys().isEmpty())
+        if (selection.hasSelectKeys())
             selectionParts.add(0, this.encodeKeys(selection.getKeys()));
 
-        return this.encodeHeader(selection) + String.join("&", selectionParts);
+        return this.encodeHeader(selection) + String.join("&",
+                selectionParts.stream().filter(Objects::nonNull).toList());
     }
 
     /**

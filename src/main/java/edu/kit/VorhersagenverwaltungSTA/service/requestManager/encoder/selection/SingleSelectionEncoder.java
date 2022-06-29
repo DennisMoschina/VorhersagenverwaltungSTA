@@ -20,8 +20,7 @@ public class SingleSelectionEncoder extends SelectionEncoderTemplate {
     public List<String> encodeParts(Selection selection) {
         final List<String> encodedStatements = new LinkedList<>();
 
-        if (!selection.getObjectsToExpand().isEmpty())
-            encodedStatements.add(new ExpandEncoder().encode(selection.getObjectsToExpand()));
+        encodedStatements.add(new ExpandEncoder().encode(selection.getObjectsToExpand()));
 
         return encodedStatements;
     }
