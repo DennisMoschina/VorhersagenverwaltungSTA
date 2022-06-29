@@ -4,12 +4,13 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
-import edu.kit.VorhersagenverwaltungSTA.model.core.Pair;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import edu.kit.VorhersagenverwaltungSTA.jackson.IntervalDeserializer;
 
-import java.time.Instant;
 import java.util.List;
 import java.util.Objects;
-import org.geojson.Polygon;
+
+import org.geojson.GeoJsonObject;
 import org.threeten.extra.Interval;
 
 
@@ -26,8 +27,10 @@ public class Datastream {
     private String observationType;
 
     private JsonNode unitOfMeasurement;
-    private Polygon observedArea;
+    private GeoJsonObject observedArea;
+    @JsonDeserialize(using = IntervalDeserializer.class)
     private Interval phenomenonTime;
+    @JsonDeserialize(using = IntervalDeserializer.class)
     private Interval resultTime;
 
     @JsonProperty("properties")
@@ -50,8 +53,8 @@ public class Datastream {
 
     @JsonProperty("Observations@iot.navigationLink")
     private String observationsURL;
-    @JsonProperty("Observations")
-    private List<Observation> observations;
+    //@JsonProperty("Observations")
+    //private List<Observation> observations;
 
     public long getId() {
         return id;
@@ -93,11 +96,11 @@ public class Datastream {
         this.unitOfMeasurement = unitOfMeasurement;
     }
 
-    public Polygon getObservedArea() {
+    public GeoJsonObject getObservedArea() {
         return observedArea;
     }
 
-    public void setObservedArea(Polygon observedArea) {
+    public void setObservedArea(GeoJsonObject observedArea) {
         this.observedArea = observedArea;
     }
 
@@ -181,13 +184,13 @@ public class Datastream {
         this.observationsURL = observationsURL;
     }
 
-    public List<Observation> getObservations() {
+    /*public List<Observation> getObservations() {
         return List.copyOf(observations);
-    }
+    }*/
 
-    public void setObservations(List<Observation> observations) {
+    /*public void setObservations(List<Observation> observations) {
         this.observations = observations;
-    }
+    }*/
 
     @Override
     public String toString() {
