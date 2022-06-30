@@ -1,7 +1,7 @@
 [
   {
     "id": 1,
-    "url": "https://bml-catalog.k8s.ilt-dmz.iosb.fraunhofer.de/FROST-Server/v1.1/",
+    "url": "https://bml-catalog.k8s.ilt-dmz.iosb.fraunhofer.de/FROST-Server/ODATA_4.01/",
     "name": "BML",
     "description": "Test"
   }
