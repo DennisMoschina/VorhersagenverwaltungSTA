@@ -1,26 +1,29 @@
 package edu.kit.VorhersagenverwaltungSTA.service.requestManager;
 
+import edu.kit.VorhersagenverwaltungSTA.model.core.CacheProxyObjectContainer;
 import edu.kit.VorhersagenverwaltungSTA.model.core.ObjectContainer;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.encoder.selection.GenericSelectionEncoder;
-import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.ObjectType;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.Selection;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.SingleSelection;
 import org.springframework.web.client.RestTemplate;
+
+import java.util.HashMap;
+import java.util.Map;
 
 public class RequestManager {
     private final RestTemplate restTemplate;
     private final Source source;
 
-    private final ObjectContainer<Long, Object> container;
-    private ObjectType recentlyRequestedType;
+    private final Map<Class<?>, ObjectContainer<Long, Object>> containerMap;
+    private ObjectContainer<Long, Object> container;
 
     private Object result;
     private Class<?> resultType;
 
-    public RequestManager(Source source, ObjectContainer<Long, Object> container) {
+    public RequestManager(Source source) {
         this.source = source;
         this.restTemplate = new RestTemplate();
-        this.container = container;
+        this.containerMap = new HashMap<>();
     }
 
     public void request(Selection selection) {
@@ -37,6 +40,7 @@ public class RequestManager {
 
         this.resultType = selection.getObjectTypeClass();
 
+        //Object loadedObject = this.restTemplate.getForObject(request, this.resultType);
         this.result = this.restTemplate.getForObject(request, this.resultType);
     }
 
@@ -50,6 +54,14 @@ public class RequestManager {
 
     private void setResult(Object result) {
         this.result = result;
+    }
+
+    private void setResultType(Class<?> resultType) {
+        this.resultType = resultType;
+        if (!containerMap.containsKey(resultType)) {
+            this.containerMap.put(resultType, new CacheProxyObjectContainer<>());
+        }
+        this.container = this.containerMap.get(resultType);
     }
 
     /**

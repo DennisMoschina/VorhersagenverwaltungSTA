@@ -11,7 +11,7 @@ public class RequestManagerFactory {
 
     public static RequestManager get(Source source) {
         if (!REQUEST_MANAGERS.containsKey(source))
-            REQUEST_MANAGERS.put(source, new RequestManager(source, new CacheProxyObjectContainer<>()));
+            REQUEST_MANAGERS.put(source, new RequestManager(source));
         return REQUEST_MANAGERS.get(source);
     }
 }
