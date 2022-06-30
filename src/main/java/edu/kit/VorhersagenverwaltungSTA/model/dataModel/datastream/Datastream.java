@@ -1,5 +1,6 @@
 package edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -27,7 +28,11 @@ public class Datastream extends Entity {
 
     private JsonNode unitOfMeasurement;
     private GeoJsonObject observedArea;
-    @JsonInclude(JsonInclude.Include.NON_DEFAULT)
+    @JsonIgnoreProperties( value = {
+            "empty",
+            "unboundedStart",
+            "unboundedEnd"
+    })
     @JsonDeserialize(using = IntervalDeserializer.class)
     private Interval phenomenonTime;
     @JsonDeserialize(using = IntervalDeserializer.class)
