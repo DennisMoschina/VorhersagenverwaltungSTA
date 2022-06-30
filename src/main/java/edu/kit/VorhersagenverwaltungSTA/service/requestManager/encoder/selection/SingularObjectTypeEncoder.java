@@ -16,7 +16,7 @@ public class SingularObjectTypeEncoder implements Encoder<ObjectType> {
             case OBSERVED_PROPERTY -> encoded = "ObservedProperty";
             case OBSERVATION -> encoded = "Observation";
             case FEATURE_OF_INTEREST -> encoded = "FeatureOfInterest";
-            case DATASOURCE -> encoded = "Datasource";
+            case DATASOURCE -> encoded = "DataSource";
             case OWNER -> encoded = "Owner";
             case CONTACT -> encoded = "Contact";
             case LICENSE -> encoded = "License";

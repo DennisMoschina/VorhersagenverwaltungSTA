@@ -16,7 +16,7 @@ public class PluralObjectTypeEncoder implements Encoder<ObjectType> {
             case OBSERVED_PROPERTY -> encoded = "ObservedProperties";
             case OBSERVATION -> encoded = "Observations";
             case FEATURE_OF_INTEREST -> encoded = "FeaturesOfInterest";
-            case DATASOURCE -> encoded = "Datasources";
+            case DATASOURCE -> encoded = "DataSources";
             case OWNER -> encoded = "Owners";
             case CONTACT -> encoded = "Contacts";
             case LICENSE -> encoded = "Licenses";
