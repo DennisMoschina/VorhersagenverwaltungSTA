@@ -2,6 +2,7 @@ package edu.kit.VorhersagenverwaltungSTA.controller;
 
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.catalogue.Catalogue;
 import edu.kit.VorhersagenverwaltungSTA.service.itemList.CatalogueListService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
+@CrossOrigin("http://localhost:4200")
 class CatalogueController {
     public static final String GET_DATACATALOGUE_LINK = "/datacatalogue/{catalogueId}";
     private final CatalogueListService service;
