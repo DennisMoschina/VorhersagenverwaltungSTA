@@ -22,7 +22,7 @@ public class RequestManager {
 
     public RequestManager(Source source) {
         this.source = source;
-        this.restTemplate = new RestTemplate();
+        this.restTemplate = RestTemplateFactory.getRestTemplate(source);
         this.containerMap = new HashMap<>();
     }
 

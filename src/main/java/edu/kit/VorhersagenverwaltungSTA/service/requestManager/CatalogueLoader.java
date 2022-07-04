@@ -11,11 +11,12 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.List;
-import java.util.Objects;
 
 @Service
 public class CatalogueLoader {
+    private static final String CATALOGUE_SRC = "catalogues.json";
     private final Logger logger = LoggerFactory.getLogger(CatalogueLoader.class);
 
     private final ObjectContainer<Integer, Catalogue> catalogueContainer = new CacheProxyObjectContainer<>();
@@ -44,8 +45,11 @@ public class CatalogueLoader {
         ObjectMapper mapper = new ObjectMapper();
 
         try {
-            return mapper.readValue(new File(Objects.requireNonNull(getClass()
-                    .getClassLoader().getResource("catalogues.json")).getFile()), new TypeReference<>() {
+            URL resource = this.getClass().getClassLoader().getResource(CATALOGUE_SRC);
+            logger.info(String.format("path to catalogue list file: %s", resource));
+            assert resource != null;
+            File file = new File(resource.getFile());
+            return mapper.readValue(file, new TypeReference<>() {
             });
         } catch (IOException e) {
             logger.error(e.getMessage());
