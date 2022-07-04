@@ -1,19 +1,21 @@
 package edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists;
 
 import com.fasterxml.jackson.annotation.JsonAlias;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.ObjectType;
 
-import java.util.Arrays;
+import java.util.List;
 
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class STAObjectList<T> {
+    @JsonIgnore
     private final ObjectType type;
 
     @JsonProperty("value")
-    protected T[] list;
+    protected List<T> list;
 
     @JsonAlias({"count", "@iot.count", "@count"})
     protected long count;
@@ -22,15 +24,24 @@ public class STAObjectList<T> {
         this.type = type;
     }
 
+    public STAObjectList(ObjectType type, List<T> list) {
+        this.type = type;
+        this.list = list;
+        this.count = list.size();
+    }
+
+    public STAObjectList<T> subList(int startIndex, int endIndex) {
+        return new STAObjectList<>(this.type,  this.list.subList(startIndex,endIndex));
+    }
     public ObjectType getType() {
         return type;
     }
 
-    public T[] getList() {
-        return Arrays.copyOf(list, list.length);
+    public List<T> getList() {
+        return List.copyOf(list);
     }
 
-    public void setList(T[] list) {
+    public void setList(List<T> list) {
         this.list = list;
     }
 

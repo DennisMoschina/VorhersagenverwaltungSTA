@@ -1,6 +1,7 @@
 package edu.kit.VorhersagenverwaltungSTA.service.itemList;
 
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.catalogue.Catalogue;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.STAObjectList;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.CatalogueLoader;
 import org.springframework.stereotype.Service;
 
@@ -14,7 +15,7 @@ public class CatalogueListService {
         this.catalogueLoader = catalogueLoader;
     }
 
-    public List<Catalogue> getCatalogues() {
+    public STAObjectList<Catalogue> getCatalogues() {
         return this.catalogueLoader.getCatalogues();
     }
 

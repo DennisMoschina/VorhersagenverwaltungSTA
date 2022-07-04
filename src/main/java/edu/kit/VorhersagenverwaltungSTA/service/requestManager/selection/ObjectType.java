@@ -6,6 +6,7 @@ import edu.kit.VorhersagenverwaltungSTA.model.dataModel.DataSource;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.License;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.Owner;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.ProcessingProcedure;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.catalogue.Catalogue;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.Datastream;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.FeatureOfInterest;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.HistoricalLocation;
@@ -14,6 +15,8 @@ import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.Observation;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.ObservedProperty;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.Sensor;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.Thing;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.CatalogueList;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.DataSourceList;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.DatastreamList;
 
 public enum ObjectType {
@@ -25,12 +28,13 @@ public enum ObjectType {
     OBSERVED_PROPERTY(ObservedProperty.class, null),
     OBSERVATION(Observation.class, null),
     FEATURE_OF_INTEREST(FeatureOfInterest.class, null),
-    DATASOURCE(DataSource.class, null),
+    DATASOURCE(DataSource.class, DataSourceList.class),
     OWNER(Owner.class, null),
     CONTACT(Contact.class, null),
     LICENSE(License.class, null),
     ACCESS_INTERFACE(AccessInterface.class, null),
-    PROCESSING_PROCEDURE(ProcessingProcedure.class, null);
+    PROCESSING_PROCEDURE(ProcessingProcedure.class, null),
+    CATALOGUE(Catalogue.class, CatalogueList.class);
 
     private final Class<?> objectClass;
     private final Class<?> listClass;
