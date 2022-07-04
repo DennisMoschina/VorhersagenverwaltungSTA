@@ -1,6 +1,7 @@
 package edu.kit.VorhersagenverwaltungSTA.controller;
 
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.catalogue.Catalogue;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.STAObjectList;
 import edu.kit.VorhersagenverwaltungSTA.service.itemList.CatalogueListService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,12 +21,12 @@ class CatalogueController {
     }
 
     @GetMapping("/catalogues/{items}/{page}")
-    List<Catalogue> getDataCatalogueList(@PathVariable int items, @PathVariable int page) {
-        List<Catalogue> catalogues = this.service.getCatalogues();
+    STAObjectList<Catalogue> getDataCatalogueList(@PathVariable int items, @PathVariable int page) {
+        STAObjectList<Catalogue> catalogues = this.service.getCatalogues();
         //page starts at 0; items and page should normally be correct
         int startIndex = items * page;
-        if (startIndex > catalogues.size()) startIndex = (catalogues.size() / items) ;
-        int endIndex = Math.min(catalogues.size(), startIndex + items);
+        if (startIndex > catalogues.getList().size()) startIndex = (catalogues.getList().size() / items) ;
+        int endIndex = Math.min(catalogues.getList().size(), startIndex + items);
         return service.getCatalogues().subList(startIndex, endIndex);
     }
 
