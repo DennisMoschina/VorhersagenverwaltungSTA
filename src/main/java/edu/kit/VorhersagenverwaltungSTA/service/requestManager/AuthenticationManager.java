@@ -7,14 +7,15 @@ import org.springframework.stereotype.Service;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 @Service
 public class AuthenticationManager {
-    private Map<String, Authentication> authenticationMap;
+    private static final String FROST_AUTH_ENV_VARIABLE_NAME = "FROST_AUTH";
+
+    private final Map<String, Authentication> authenticationMap;
 
     public AuthenticationManager() {
         this.authenticationMap = new HashMap<>();
@@ -29,9 +30,8 @@ public class AuthenticationManager {
         ObjectMapper mapper = new ObjectMapper();
 
         try {
-            URL resource = this.getClass().getClassLoader().getResource("auth.json");
-            assert resource != null;
-            File file = new File(resource.getFile());
+            String path = System.getenv(FROST_AUTH_ENV_VARIABLE_NAME);
+            File file = new File(path);
             List<JsonNode> jsonNodeList = mapper.readValue(file, new TypeReference<>() {
             });
             for (JsonNode node : jsonNodeList) {
