@@ -6,8 +6,6 @@ import edu.kit.VorhersagenverwaltungSTA.model.dataModel.Entity;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Catalogue extends Entity {
-    @JsonProperty("id")
-    private int id;
 
     @JsonProperty("url")
     private String url;
@@ -18,9 +16,6 @@ public class Catalogue extends Entity {
     @JsonProperty("description")
     private String description;
 
-    public int getId() {
-        return id;
-    }
 
     public String getUrl() {
         return url;

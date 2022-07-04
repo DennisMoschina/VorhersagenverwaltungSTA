@@ -18,7 +18,7 @@ import java.util.Objects;
 public class CatalogueLoader {
     private final Logger logger = LoggerFactory.getLogger(CatalogueLoader.class);
 
-    private final ObjectContainer<Integer, Catalogue> catalogueContainer = new CacheProxyObjectContainer<>();
+    private final ObjectContainer<Long, Catalogue> catalogueContainer = new CacheProxyObjectContainer<>();
 
     public List<Catalogue> getCatalogues() {
         List<Catalogue> catalogues = this.loadCatalogueList();
@@ -27,7 +27,7 @@ public class CatalogueLoader {
         return catalogues;
     }
 
-    public Catalogue getCatalogue(int id) {
+    public Catalogue getCatalogue(long id) {
         Catalogue catalogue = this.catalogueContainer.get(id);
         if (catalogue != null) return catalogue;
 

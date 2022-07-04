@@ -9,8 +9,6 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AccessInterface extends Entity {
 
-    @JsonProperty("id")
-    private long id;
     private String name;
     private String description;
     private String contentType;
@@ -22,13 +20,6 @@ public class AccessInterface extends Entity {
     @JsonProperty("DataSources")
     private List<DataSource> dataSources;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

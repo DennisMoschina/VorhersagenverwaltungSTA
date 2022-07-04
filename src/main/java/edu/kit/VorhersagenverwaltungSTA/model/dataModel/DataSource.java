@@ -15,9 +15,6 @@ import java.time.Duration;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DataSource extends Entity {
-
-    @JsonProperty("id")
-    private long id;
     private String name;
     private String description;
     private String sourceSystem;
@@ -53,14 +50,6 @@ public class DataSource extends Entity {
     private String accessInterfaceURL;
     @JsonProperty("AccessInterface")
     private AccessInterface accessInterface;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

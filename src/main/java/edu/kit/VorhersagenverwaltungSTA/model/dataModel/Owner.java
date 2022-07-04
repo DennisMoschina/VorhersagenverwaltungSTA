@@ -8,9 +8,6 @@ import java.util.List;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Owner extends Entity {
-
-    @JsonProperty("id")
-    private long id;
     private String name;
     private String description;
     private JsonNode properties;
@@ -19,14 +16,6 @@ public class Owner extends Entity {
     private String dataSourceURL;
     @JsonProperty("DataSources")
     private List<DataSource> dataSources;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

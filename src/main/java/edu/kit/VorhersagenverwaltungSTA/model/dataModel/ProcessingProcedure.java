@@ -6,9 +6,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ProcessingProcedure extends Entity {
-
-    @JsonProperty("id")
-    private long id;
     private String name;
     private String description;
     private String category;
@@ -30,14 +27,6 @@ public class ProcessingProcedure extends Entity {
     private String licenseURL;
     @JsonProperty("License")
     private License license;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

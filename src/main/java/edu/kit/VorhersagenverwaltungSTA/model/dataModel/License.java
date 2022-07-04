@@ -9,8 +9,6 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class License extends Entity {
 
-    @JsonProperty("id")
-    private long id;
     private String name;
     private String description;
     private JsonNode properties;
@@ -19,14 +17,6 @@ public class License extends Entity {
     private String dataSourceURL;
     @JsonProperty("DataSources")
     private List<DataSource> dataSources;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;
