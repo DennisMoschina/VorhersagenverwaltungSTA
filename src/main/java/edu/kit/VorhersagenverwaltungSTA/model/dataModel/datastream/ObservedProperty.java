@@ -10,8 +10,6 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ObservedProperty extends Entity {
 
-    @JsonProperty("@iot.id")
-    private long id;
     private String name;
     private String definition;
     private String description;
@@ -22,13 +20,6 @@ public class ObservedProperty extends Entity {
     @JsonProperty("Datastreams")
     private List<Datastream> datastreams;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

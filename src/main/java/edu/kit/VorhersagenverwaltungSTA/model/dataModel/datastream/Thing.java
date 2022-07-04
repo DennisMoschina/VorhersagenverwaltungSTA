@@ -10,8 +10,7 @@ import java.util.Objects;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Thing extends Entity {
-    @JsonProperty("@iot.id")
-    private long id;
+
     private String name;
     private String description;
     private JsonNode properties;
@@ -28,14 +27,6 @@ public class Thing extends Entity {
     private String historicalLocationsURL;
     @JsonProperty("HistoricalLocations")
     private List<HistoricalLocation> historicalLocations;
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

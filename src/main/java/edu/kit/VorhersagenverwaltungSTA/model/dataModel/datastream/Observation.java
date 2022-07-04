@@ -14,9 +14,6 @@ import java.time.Instant;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Observation extends Entity {
 
-    @JsonProperty("@iot.id")
-    private long id;
-
     private TimeObject phenomenonTime;
     @JsonDeserialize(using = InstantDeserializer.class)
     private Instant resultTime;
@@ -35,13 +32,6 @@ public class Observation extends Entity {
     @JsonProperty("FeatureOfInterest")
     private FeatureOfInterest featureOfInterest;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public TimeObject getPhenomenonTime() {
         return phenomenonTime;

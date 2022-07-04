@@ -17,8 +17,7 @@ import java.util.Objects;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Datastream extends Entity {
-    @JsonProperty("@iot.id")
-    private long id;
+
     @JsonProperty("name")
     private String name;
     @JsonProperty("description")
@@ -61,13 +60,6 @@ public class Datastream extends Entity {
     //@JsonProperty("Observations")
     //private List<Observation> observations;
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 
     public String getName() {
         return name;

@@ -12,8 +12,6 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class HistoricalLocation extends Entity {
 
-    @JsonProperty("@iot.id")
-    private String id;
     @JsonDeserialize(using = InstantDeserializer.class)
     private Instant time;
 
@@ -26,13 +24,6 @@ public class HistoricalLocation extends Entity {
     @JsonProperty("Locations")
     private List<Location> locations;
 
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
-    }
 
     public Instant getTime() {
         return time;
