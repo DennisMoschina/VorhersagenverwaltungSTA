@@ -3,6 +3,11 @@ package edu.kit.VorhersagenverwaltungSTA.service.requestManager;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+/**
+ * This class holds an username and a password.
+ *
+ * @author Dennis Moschina
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Authentication {
     @JsonProperty("user")

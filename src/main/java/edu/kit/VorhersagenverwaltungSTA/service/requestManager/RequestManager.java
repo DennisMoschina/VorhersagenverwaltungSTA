@@ -10,6 +10,11 @@ import org.springframework.web.client.RestTemplate;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * This class is used to load elements from a specific FROST-server.
+ *
+ * @author Dennis Moschina
+ */
 public class RequestManager {
     private final RestTemplate restTemplate;
     private final Source source;
@@ -26,6 +31,11 @@ public class RequestManager {
         this.containerMap = new HashMap<>();
     }
 
+    /**
+     * Load the object selected by the {@link Selection} from the server. To get the actual data,
+     * use {@link RequestManager#getResult()}.
+     * @param selection the {@link Selection}, specifying, which Object should be loaded from the server
+     */
     public void request(Selection selection) {
         //TODO: add shouldLoad back in
         /*
@@ -50,6 +60,10 @@ public class RequestManager {
         return resultType;
     }
 
+    /**
+     * Get the object, previously loaded by {@link RequestManager#request(Selection)}.
+     * @return the previously loaded object
+     */
     public Object getResult() {
         return result;
     }

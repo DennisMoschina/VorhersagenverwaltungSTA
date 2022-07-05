@@ -14,8 +14,13 @@ import org.springframework.stereotype.Service;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
-import java.util.Objects;
 
+/**
+ * This class is responsible for loading the {@link Catalogue}s from a file, specified in the
+ * {@link CatalogueLoader#CATALOGUES_ENV_VARIABLE_NAME} environment variable.
+ *
+ * @author Dennis Moschina, Elias Dirks
+ */
 @Service
 public class CatalogueLoader {
     private static final String CATALOGUES_ENV_VARIABLE_NAME = "CATALOGUE_LIST";

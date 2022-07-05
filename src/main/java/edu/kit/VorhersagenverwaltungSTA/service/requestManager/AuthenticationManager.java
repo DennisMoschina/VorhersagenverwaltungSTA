@@ -11,6 +11,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This stores all {@link Authentication}s relative to the url in which the authentication is needed.
+ * The authentications are loaded from a file specified in the
+ * {@link AuthenticationManager#FROST_AUTH_ENV_VARIABLE_NAME} environment variable.
+ *
+ * @author Dennis Moschina
+ */
 @Service
 public class AuthenticationManager {
     private static final String FROST_AUTH_ENV_VARIABLE_NAME = "FROST_AUTH";
@@ -22,6 +29,11 @@ public class AuthenticationManager {
         this.loadAuthentications();
     }
 
+    /**
+     *
+     * @param url the server we want to get the credentials for
+     * @return the authentication or null, if the password is not required or not found
+     */
     public Authentication getAuthenticationFor(String url) {
         return this.authenticationMap.get(url);
     }
