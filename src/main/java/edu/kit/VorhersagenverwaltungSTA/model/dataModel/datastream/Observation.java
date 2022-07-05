@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import edu.kit.VorhersagenverwaltungSTA.jackson.InstantDeserializer;
 import edu.kit.VorhersagenverwaltungSTA.jackson.IntervalDeserializer;
+import edu.kit.VorhersagenverwaltungSTA.jackson.TimeObjectDeserializer;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.Entity;
 import org.threeten.extra.Interval;
 
@@ -14,6 +15,7 @@ import java.time.Instant;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Observation extends Entity {
 
+    @JsonDeserialize(using = TimeObjectDeserializer.class)
     private TimeObject phenomenonTime;
     @JsonDeserialize(using = InstantDeserializer.class)
     private Instant resultTime;
@@ -31,7 +33,6 @@ public class Observation extends Entity {
     private String featureOfInterestURL;
     @JsonProperty("FeatureOfInterest")
     private FeatureOfInterest featureOfInterest;
-
 
     public TimeObject getPhenomenonTime() {
         return phenomenonTime;

@@ -7,6 +7,8 @@ import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import edu.kit.VorhersagenverwaltungSTA.jackson.DurationDeserializer;
 import edu.kit.VorhersagenverwaltungSTA.jackson.IntervalDeserializer;
 import edu.kit.VorhersagenverwaltungSTA.jackson.SourceDeserializer;
+import edu.kit.VorhersagenverwaltungSTA.jackson.TimeObjectDeserializer;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.TimeObject;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.Source;
 import org.geojson.GeoJsonObject;
 import org.threeten.extra.Interval;
@@ -18,8 +20,8 @@ public class DataSource extends Entity {
     private String name;
     private String description;
     private String sourceSystem;
-    @JsonDeserialize(using = IntervalDeserializer.class)
-    private Interval phenomenonTime;
+    @JsonDeserialize(using = TimeObjectDeserializer.class)
+    private TimeObject phenomenonTime;
     private String dataType;
     private JsonNode dataQuality;
     @JsonDeserialize(using = DurationDeserializer.class)
@@ -75,11 +77,11 @@ public class DataSource extends Entity {
         this.sourceSystem = sourceSystem;
     }
 
-    public Interval getPhenomenonTime() {
+    public TimeObject getPhenomenonTime() {
         return phenomenonTime;
     }
 
-    public void setPhenomenonTime(Interval phenomenonTime) {
+    public void setPhenomenonTime(TimeObject phenomenonTime) {
         this.phenomenonTime = phenomenonTime;
     }
 
