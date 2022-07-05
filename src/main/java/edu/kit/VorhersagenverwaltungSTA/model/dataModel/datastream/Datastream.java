@@ -1,6 +1,5 @@
 package edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -57,8 +56,8 @@ public class Datastream extends Entity {
 
     @JsonProperty("Observations@iot.navigationLink")
     private String observationsURL;
-    //@JsonProperty("Observations")
-    //private List<Observation> observations;
+    @JsonProperty("Observations")
+    private Observation[] observations;
 
 
     public String getName() {
@@ -181,13 +180,13 @@ public class Datastream extends Entity {
         this.observationsURL = observationsURL;
     }
 
-    /*public List<Observation> getObservations() {
-        return List.copyOf(observations);
+    public Observation[] getObservations() {
+        return this.observations;
     }
 
-    public void setObservations(List<Observation> observations) {
+    public void setObservations(Observation[] observations) {
         this.observations = observations;
-    }*/
+    }
 
     @Override
     public String toString() {

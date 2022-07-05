@@ -36,7 +36,9 @@ public class RequestManager {
         }
         */
         String encodedSelection = new GenericSelectionEncoder().encode(selection);
-        String request = this.source.url() + encodedSelection;
+        String url = this.source.url();
+        if (!url.endsWith("/")) url += "/";
+        String request = url + encodedSelection;
 
         this.resultType = selection.getObjectTypeClass();
 
