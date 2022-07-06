@@ -1,15 +1,18 @@
 package edu.kit.VorhersagenverwaltungSTA.controller;
 
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.DataSource;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.ProcessingProcedure;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.catalogue.Catalogue;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.Datastream;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.STAObjectList;
 import edu.kit.VorhersagenverwaltungSTA.service.itemList.CatalogueListService;
 import edu.kit.VorhersagenverwaltungSTA.service.itemList.DataSourceListService;
 import edu.kit.VorhersagenverwaltungSTA.service.itemList.DatastreamsListService;
+import edu.kit.VorhersagenverwaltungSTA.service.itemList.ProcessingProcedureListService;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.Source;
 import edu.kit.VorhersagenverwaltungSTA.service.singleItem.DataSourceService;
 import edu.kit.VorhersagenverwaltungSTA.service.singleItem.DatastreamService;
+import edu.kit.VorhersagenverwaltungSTA.service.singleItem.ProcessingProcedureService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,24 +20,35 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class ApplicationRestController {
     private static final String GET_DATACATALOGUE_LINK = "/catalogue/{catalogueId}";
+    private static final String GET_CATALOGUE_LIST_LINK = "/catalogues/{items}/{page}";
     private static final String GET_DATASOURCE_LINK = GET_DATACATALOGUE_LINK + "/datasource/{dataSourceId}";
+    private static final String GET_DATASOURCE_LIST_LINK = GET_DATACATALOGUE_LINK + "/datasources/{items}/{page}";
+    private static final String GET_DATASTREAM_LINK = GET_DATASOURCE_LINK + "/datastream/{datastreamID}";
+    private static final String GET_DATASTREAM_LIST_LINK = GET_DATASOURCE_LINK + "/datasources/{items}/{page}";
+    private static final String GET_PROCESSING_PROCEDURE_LINK = GET_DATACATALOGUE_LINK + "/processingprocedure/{processingProcedureID}";
+    private static final String GET_PROCESSING_PROCEDURE_LIST_LINK = GET_DATACATALOGUE_LINK + "/processingprocedures/{items}/{page}";
 
     private final CatalogueListService catalogueListService;
     private final DataSourceListService dataSourceListService;
     private final DataSourceService dataSourceService;
     private final DatastreamsListService datastreamsListService;
     private final DatastreamService datastreamService;
+    private final ProcessingProcedureListService processingProcedureListService;
+    private final ProcessingProcedureService processingProcedureService;
 
-    public ApplicationRestController(CatalogueListService catalogueListService, DataSourceListService dataSourceListService, DataSourceService dataSourceService, DatastreamsListService datastreamsListService, DatastreamService datastreamService) {
+    public ApplicationRestController(CatalogueListService catalogueListService, DataSourceListService dataSourceListService, DataSourceService dataSourceService, DatastreamsListService datastreamsListService,
+                                     DatastreamService datastreamService, ProcessingProcedureListService processingProcedureListService, ProcessingProcedureService processingProcedureService) {
         this.catalogueListService = catalogueListService;
         this.dataSourceListService = dataSourceListService;
         this.dataSourceService = dataSourceService;
         this.datastreamsListService = datastreamsListService;
         this.datastreamService = datastreamService;
+        this.processingProcedureListService = processingProcedureListService;
+        this.processingProcedureService = processingProcedureService;
     }
 
 
-    @GetMapping("/catalogues/{items}/{page}")
+    @GetMapping(GET_CATALOGUE_LIST_LINK)
     STAObjectList<Catalogue> getCatalogueList(@PathVariable int items,
                                               @PathVariable int page) {
         STAObjectList<Catalogue> catalogues = this.catalogueListService.getCatalogues();
@@ -60,7 +74,7 @@ public class ApplicationRestController {
         return dataSourceService.getData();
     }
 
-    @GetMapping(GET_DATACATALOGUE_LINK + "/datasources/{items}/{page}")
+    @GetMapping(GET_DATASOURCE_LIST_LINK)
     public STAObjectList<DataSource> getDataSourceList(@PathVariable int items,
                                                        @PathVariable long page,
                                                        @PathVariable int catalogueId) {
@@ -71,7 +85,7 @@ public class ApplicationRestController {
         return this.dataSourceListService.getData();
     }
 
-    @GetMapping(GET_DATASOURCE_LINK + "/datastream/{datastreamID}")
+    @GetMapping(GET_DATASTREAM_LINK)
     public Datastream getDatastream(@PathVariable long datastreamID,
                                     @PathVariable int catalogueId,
                                     @PathVariable long dataSourceId) {
@@ -82,7 +96,7 @@ public class ApplicationRestController {
         return datastreamService.getData();
     }
 
-    @GetMapping(GET_DATASOURCE_LINK + "/datastreams/{items}/{page}")
+    @GetMapping(GET_DATASTREAM_LIST_LINK)
     public STAObjectList<Datastream> getDatastreamList(@PathVariable int items,
                                                        @PathVariable long page,
                                                        @PathVariable int catalogueId,
@@ -93,6 +107,27 @@ public class ApplicationRestController {
 
         this.datastreamsListService.load(items, this.calculateStartIndex(items, page));
         return this.datastreamsListService.getData();
+    }
+
+    @GetMapping(GET_PROCESSING_PROCEDURE_LINK)
+    ProcessingProcedure getProcessingProcedure(@PathVariable long processingProcedureID,
+                             @PathVariable int catalogueId) {
+        Catalogue catalogue = this.getCatalogue(catalogueId);
+        this.processingProcedureService.setSource(new Source(catalogue.getUrl()));
+
+        processingProcedureService.load(processingProcedureID);
+        return processingProcedureService.getData();
+    }
+
+    @GetMapping(GET_PROCESSING_PROCEDURE_LIST_LINK)
+    public STAObjectList<ProcessingProcedure> getProcessingProcedureList(@PathVariable int items,
+                                                                @PathVariable long page,
+                                                                @PathVariable int catalogueId) {
+        Catalogue catalogue = this.getCatalogue(catalogueId);
+        this.processingProcedureListService.setSource(new Source(catalogue.getUrl()));
+
+        this.processingProcedureListService.load(items, this.calculateStartIndex(items, page));
+        return this.processingProcedureListService.getData();
     }
 
     private long calculateStartIndex(int items, long page) {
