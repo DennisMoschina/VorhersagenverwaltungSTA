@@ -9,6 +9,10 @@ import org.threeten.extra.Interval;
 import java.io.IOException;
 import java.time.Duration;
 
+/**
+ * This class is used to deserialize a {@link Duration} out of a json node.
+ * @author Elias Dirks
+ */
 public class DurationDeserializer extends StdDeserializer<Duration> {
 
     public DurationDeserializer() {

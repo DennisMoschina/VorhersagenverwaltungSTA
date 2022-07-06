@@ -8,6 +8,10 @@ import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.TimeObject;
 
 import java.io.IOException;
 
+/**
+ * This class is used to deserialize a {@link TimeObject} out of a json node.
+ * @author Elias Dirks
+ */
 public class TimeObjectDeserializer extends StdDeserializer<TimeObject> {
 
     private static final String START_TIME_FIELD_NAME = "start";

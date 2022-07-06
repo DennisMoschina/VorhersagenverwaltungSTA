@@ -8,7 +8,12 @@ import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.ObjectT
 
 import java.util.List;
 
-
+/**
+ * This class is used to construct lists of a specific {@link ObjectType}.
+ *
+ * @param <T> the type parameter for the list
+ * @author Elias Dirks, Dennis Moschina
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class STAObjectList<T> {
     @JsonIgnore
@@ -30,6 +35,14 @@ public class STAObjectList<T> {
         this.count = list.size();
     }
 
+    /**
+     * Returns a {@link STAObjectList} of the same type containing only the elements as specified in
+     * {@link List#subList(int, int)}.
+     *
+     * @param startIndex the startIndex of the list (inclusive)
+     * @param endIndex the endIndex of the list (exclusive)
+     * @return a sublist of this STAObjectList
+     */
     public STAObjectList<T> subList(int startIndex, int endIndex) {
         return new STAObjectList<>(this.type,  this.list.subList(startIndex,endIndex));
     }

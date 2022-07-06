@@ -12,6 +12,12 @@ import org.threeten.extra.Interval;
 
 import java.time.Instant;
 
+/**
+ * This class describes an Observation as defined in the
+ * <a href="http://www.opengis.net/doc/is/sensorthings/1.1#observation">SensorThingsAPI</a>
+ *
+ * @author Elias Dirks
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Observation extends Entity {
 

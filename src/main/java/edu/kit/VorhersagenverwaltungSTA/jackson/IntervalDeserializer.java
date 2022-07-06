@@ -7,7 +7,12 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import org.threeten.extra.Interval;
 
 import java.io.IOException;
+import java.time.Duration;
 
+/**
+ * This class is used to deserialize a {@link Interval} out of a json node.
+ * @author Elias Dirks
+ */
 public class IntervalDeserializer extends StdDeserializer<Interval> {
 
     public IntervalDeserializer() {

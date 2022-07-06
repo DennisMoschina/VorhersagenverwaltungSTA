@@ -6,7 +6,12 @@ import com.fasterxml.jackson.databind.JsonNode;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.Entity;
 
 import java.util.List;
-
+/**
+ * This class describes a Location as defined in the
+ * <a href="http://www.opengis.net/doc/is/sensorthings/1.1#location">SensorThingsAPI</a>
+ *
+ * @author Elias Dirks
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Location extends Entity {
 
