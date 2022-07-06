@@ -18,6 +18,7 @@ import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.Thing;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.CatalogueList;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.DataSourceList;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.DatastreamList;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.ProcessingProcedureList;
 
 public enum ObjectType {
     DATASTREAM(Datastream.class, DatastreamList.class),
@@ -33,7 +34,7 @@ public enum ObjectType {
     CONTACT(Contact.class, null),
     LICENSE(License.class, null),
     ACCESS_INTERFACE(AccessInterface.class, null),
-    PROCESSING_PROCEDURE(ProcessingProcedure.class, null),
+    PROCESSING_PROCEDURE(ProcessingProcedure.class, ProcessingProcedureList.class),
     CATALOGUE(Catalogue.class, CatalogueList.class);
 
     private final Class<?> objectClass;
