@@ -12,7 +12,12 @@ import org.threeten.extra.Interval;
 
 import java.util.Objects;
 
-
+/**
+ * This class describes a Datastream as defined in the
+ * <a href="http://www.opengis.net/doc/is/sensorthings/1.1#datastream">SensorThingsAPI</a>
+ *
+ * @author Elias Dirks, Dennis Moschina
+ */
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Datastream extends Entity {

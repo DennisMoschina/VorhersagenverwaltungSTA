@@ -8,7 +8,12 @@ import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.Observation;
 import org.geojson.GeoJsonObject;
 
 import java.util.List;
-
+/**
+ * This class describes a FeatureOfInterest as defined in the
+ * <a href="http://www.opengis.net/doc/is/sensorthings/1.1#featureofinterest">SensorThingsAPI</a>
+ *
+ * @author Elias Dirks
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FeatureOfInterest extends Entity {
 

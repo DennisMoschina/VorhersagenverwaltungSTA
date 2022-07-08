@@ -4,6 +4,10 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 
+/**
+ * This class describes a processing procedure.
+ * @author Elias Dirks
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ProcessingProcedure extends Entity {
     private String name;

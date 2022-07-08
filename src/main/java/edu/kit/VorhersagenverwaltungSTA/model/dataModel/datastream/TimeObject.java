@@ -10,7 +10,7 @@ import java.time.format.DateTimeParseException;
 import java.util.Objects;
 
 /**
- * A time object can be a time instant or a time interval.
+ * A time object can be an {@link Instant} or an {@link Interval}.
  *
  * @author Hylke van der Schaaf, Elias Dirks
  */

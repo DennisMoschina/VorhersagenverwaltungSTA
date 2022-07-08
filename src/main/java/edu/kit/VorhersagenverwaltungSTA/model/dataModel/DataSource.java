@@ -15,6 +15,11 @@ import org.threeten.extra.Interval;
 
 import java.time.Duration;
 
+/**
+ * This class describes a DataSource of the SensorThingsAPI.
+ *
+ * @author Elias Dirks
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DataSource extends Entity {
     private String name;

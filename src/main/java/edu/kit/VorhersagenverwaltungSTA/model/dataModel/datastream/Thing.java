@@ -8,6 +8,12 @@ import edu.kit.VorhersagenverwaltungSTA.model.dataModel.Entity;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * This class describes a Thing as defined in the
+ * <a href="http://www.opengis.net/doc/is/sensorthings/1.1#thing">SensorThingsAPI</a>
+ *
+ * @author Elias Dirks, Dennis Moschina
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Thing extends Entity {
 

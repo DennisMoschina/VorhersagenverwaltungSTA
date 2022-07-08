@@ -8,7 +8,12 @@ import edu.kit.VorhersagenverwaltungSTA.model.dataModel.Entity;
 
 import java.time.Instant;
 import java.util.List;
-
+/**
+ * This class describes a HistoricalLocation as defined in the
+ * <a href="http://www.opengis.net/doc/is/sensorthings/1.1#historicallocation">SensorThingsAPI</a>
+ *
+ * @author Elias Dirks
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class HistoricalLocation extends Entity {
 

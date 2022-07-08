@@ -6,6 +6,11 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import java.util.List;
 
+/**
+ * This class describes an AccessInterface of the SensorThingsAPI.
+ *
+ * @author Elias Dirks
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class AccessInterface extends Entity {
 

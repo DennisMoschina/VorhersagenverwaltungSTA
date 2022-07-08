@@ -6,8 +6,13 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 
 import java.io.IOException;
+import java.time.Duration;
 import java.time.Instant;
 
+/**
+ * This class is used to deserialize a {@link Instant} out of a json node.
+ * @author Elias Dirks
+ */
 public class InstantDeserializer extends StdDeserializer<Instant> {
 
     public InstantDeserializer() {

@@ -9,6 +9,7 @@ import java.util.Queue;
  * replaces them, using the Least-Recently-Used strategy.
  * @param <K> the key type
  * @param <V> the value type
+ * @author Dennis Moschina
  */
 public class CacheProxyObjectContainer<K, V> extends ObjectContainer<K, V> {
     private static final int DEFAULT_CAPACITY = 50;

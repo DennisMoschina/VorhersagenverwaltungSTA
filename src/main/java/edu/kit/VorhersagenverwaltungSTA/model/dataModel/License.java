@@ -6,6 +6,11 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 import java.util.List;
 
+/**
+ * This class describes a License of the SensorThingsAPI.
+ *
+ * @author Elias Dirks
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class License extends Entity {
 

@@ -7,6 +7,12 @@ import edu.kit.VorhersagenverwaltungSTA.model.dataModel.Entity;
 
 import java.util.List;
 
+/**
+ * This class describes a Sensor as defined in the
+ * <a href="http://www.opengis.net/doc/is/sensorthings/1.1#sensor">SensorThingsAPI</a>
+ *
+ * @author Elias Dirks, Dennis Moschina
+ */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Sensor extends Entity {
 

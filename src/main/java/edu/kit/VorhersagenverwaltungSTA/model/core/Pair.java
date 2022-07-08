@@ -5,6 +5,7 @@ package edu.kit.VorhersagenverwaltungSTA.model.core;
  *
  * @param <S> type of the first element
  * @param <T> type of the second element
+ * @author Elias Dirks
  */
 public class Pair<S, T> {
     private final S first;

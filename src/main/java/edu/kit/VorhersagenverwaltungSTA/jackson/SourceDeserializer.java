@@ -7,7 +7,12 @@ import com.fasterxml.jackson.databind.deser.std.StdDeserializer;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.Source;
 
 import java.io.IOException;
+import java.time.Duration;
 
+/**
+ * This class is used to deserialize a {@link Source} out of a json node.
+ * @author Elias Dirks
+ */
 public class SourceDeserializer extends StdDeserializer<Source> {
 
     public SourceDeserializer() {
