@@ -24,7 +24,7 @@ import java.util.List;
 @Service
 public class CatalogueLoader {
     private static final String CATALOGUES_ENV_VARIABLE_NAME = "CATALOGUE_LIST";
-    private final Logger logger = LoggerFactory.getLogger(CatalogueLoader.class);
+    private static final Logger LOGGER = LoggerFactory.getLogger(CatalogueLoader.class);
 
     private final ObjectContainer<Long, Catalogue> catalogueContainer = new CacheProxyObjectContainer<>();
 
@@ -42,7 +42,7 @@ public class CatalogueLoader {
         catalogue = this.loadCatalogueList().getList().stream()
                 .filter(c -> c.getId() == id).findFirst().orElse(null);
 
-        logger.info(String.format("reloaded catalogues to get catalogue with id %d", id));
+        LOGGER.debug(String.format("reloaded catalogues to get catalogue with id %d", id));
 
         this.catalogueContainer.add(id, catalogue);
         return catalogue;
@@ -57,7 +57,7 @@ public class CatalogueLoader {
             });
             return new STAObjectList<>(ObjectType.CATALOGUE, catalogueList);
         } catch (IOException e) {
-            logger.error(e.getMessage());
+            LOGGER.error(e.getMessage());
             throw new RuntimeException(e);
         }
     }

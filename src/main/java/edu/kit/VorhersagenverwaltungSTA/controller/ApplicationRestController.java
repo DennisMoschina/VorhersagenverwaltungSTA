@@ -24,9 +24,11 @@ public class ApplicationRestController {
     private static final String GET_DATASOURCE_LINK = GET_DATACATALOGUE_LINK + "/datasource/{dataSourceId}";
     private static final String GET_DATASOURCE_LIST_LINK = GET_DATACATALOGUE_LINK + "/datasources/{items}/{page}";
     private static final String GET_DATASTREAM_LINK = GET_DATASOURCE_LINK + "/datastream/{datastreamID}";
-    private static final String GET_DATASTREAM_LIST_LINK = GET_DATASOURCE_LINK + "/datasources/{items}/{page}";
-    private static final String GET_PROCESSING_PROCEDURE_LINK = GET_DATACATALOGUE_LINK + "/processingprocedure/{processingProcedureID}";
-    private static final String GET_PROCESSING_PROCEDURE_LIST_LINK = GET_DATACATALOGUE_LINK + "/processingprocedures/{items}/{page}";
+    private static final String GET_DATASTREAM_LIST_LINK = GET_DATASOURCE_LINK + "/datastreams/{items}/{page}";
+    private static final String GET_PROCESSING_PROCEDURE_LINK
+            = GET_DATACATALOGUE_LINK + "/processingprocedure/{processingProcedureID}";
+    private static final String GET_PROCESSING_PROCEDURE_LIST_LINK
+            = GET_DATACATALOGUE_LINK + "/processingprocedures/{items}/{page}";
 
     private final CatalogueListService catalogueListService;
     private final DataSourceListService dataSourceListService;
@@ -36,8 +38,13 @@ public class ApplicationRestController {
     private final ProcessingProcedureListService processingProcedureListService;
     private final ProcessingProcedureService processingProcedureService;
 
-    public ApplicationRestController(CatalogueListService catalogueListService, DataSourceListService dataSourceListService, DataSourceService dataSourceService, DatastreamsListService datastreamsListService,
-                                     DatastreamService datastreamService, ProcessingProcedureListService processingProcedureListService, ProcessingProcedureService processingProcedureService) {
+    public ApplicationRestController(CatalogueListService catalogueListService,
+                                     DataSourceListService dataSourceListService,
+                                     DataSourceService dataSourceService,
+                                     DatastreamsListService datastreamsListService,
+                                     DatastreamService datastreamService,
+                                     ProcessingProcedureListService processingProcedureListService,
+                                     ProcessingProcedureService processingProcedureService) {
         this.catalogueListService = catalogueListService;
         this.dataSourceListService = dataSourceListService;
         this.dataSourceService = dataSourceService;

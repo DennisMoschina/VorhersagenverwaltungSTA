@@ -13,6 +13,7 @@ import java.util.List;
 public abstract class ItemListService<T> extends AbstractService<STAObjectList<T>> {
     protected List<Filter> filter = new LinkedList<>();
 
+    @SuppressWarnings("unchecked")
     public void load(int itemsCount, long startIndex) {
         final MultiSelection selection = this.buildSelection(itemsCount, startIndex);
         this.requestManager.request(selection);

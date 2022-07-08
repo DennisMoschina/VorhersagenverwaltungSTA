@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public abstract class SingleItemService<T> extends AbstractService<T> {
+    @SuppressWarnings("unchecked")
     public void load(long id) {
         final Selection selection = this.buildSelection(id);
         this.requestManager.request(selection);
