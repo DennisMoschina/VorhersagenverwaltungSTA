@@ -52,7 +52,7 @@ public class CatalogueLoader {
         ObjectMapper mapper = new ObjectMapper();
 
         try {
-            File file = new File(System.getenv(CATALOGUES_ENV_VARIABLE_NAME));
+            File file = new File(this.getCatalogueListPath());
             List<Catalogue> catalogueList = mapper.readValue(file, new TypeReference<>() {
             });
             return new STAObjectList<>(ObjectType.CATALOGUE, catalogueList);
@@ -60,5 +60,9 @@ public class CatalogueLoader {
             LOGGER.error(e.getMessage());
             throw new RuntimeException(e);
         }
+    }
+
+    private String getCatalogueListPath() {
+        return System.getenv(CATALOGUES_ENV_VARIABLE_NAME);
     }
 }
