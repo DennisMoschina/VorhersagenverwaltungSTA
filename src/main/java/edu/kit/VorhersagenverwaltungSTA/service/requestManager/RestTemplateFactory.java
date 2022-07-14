@@ -11,7 +11,7 @@ import org.springframework.web.client.RestTemplate;
 public class RestTemplateFactory {
     private static final RestTemplateBuilder TEMPLATE_BUILDER = new RestTemplateBuilder();
 
-    private static final AuthenticationManager AUTH_MANAGER = new AuthenticationManager();
+    private static final AuthenticationFactory AUTH_MANAGER = new AuthenticationFactory();
 
     /**
      * Get a {@link RestTemplate} with the correct authentication, if necessary.

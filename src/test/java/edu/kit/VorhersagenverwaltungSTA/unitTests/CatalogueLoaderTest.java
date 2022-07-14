@@ -1,4 +1,4 @@
-package edu.kit.VorhersagenverwaltungSTA;
+package edu.kit.VorhersagenverwaltungSTA.unitTests;
 
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.catalogue.Catalogue;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.STAObjectList;

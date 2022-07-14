@@ -13,11 +13,13 @@ import edu.kit.VorhersagenverwaltungSTA.service.requestManager.Source;
 import edu.kit.VorhersagenverwaltungSTA.service.singleItem.DataSourceService;
 import edu.kit.VorhersagenverwaltungSTA.service.singleItem.DatastreamService;
 import edu.kit.VorhersagenverwaltungSTA.service.singleItem.ProcessingProcedureService;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
+@CrossOrigin("4200")
 public class ApplicationRestController {
     private static final String GET_DATACATALOGUE_LINK = "/catalogue/{catalogueId}";
     private static final String GET_CATALOGUE_LIST_LINK = "/catalogues/{items}/{page}";

@@ -14,17 +14,17 @@ import java.util.Map;
 /**
  * This stores all {@link Authentication}s relative to the url in which the authentication is needed.
  * The authentications are loaded from a file specified in the
- * {@link AuthenticationManager#FROST_AUTH_ENV_VARIABLE_NAME} environment variable.
+ * {@link AuthenticationFactory#FROST_AUTH_ENV_VARIABLE_NAME} environment variable.
  *
  * @author Dennis Moschina
  */
 @Service
-public class AuthenticationManager {
+public class AuthenticationFactory {
     private static final String FROST_AUTH_ENV_VARIABLE_NAME = "FROST_AUTH";
 
     private final Map<String, Authentication> authenticationMap;
 
-    public AuthenticationManager() {
+    public AuthenticationFactory() {
         this.authenticationMap = new HashMap<>();
         this.loadAuthentications();
     }

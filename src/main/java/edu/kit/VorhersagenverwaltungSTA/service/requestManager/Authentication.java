@@ -3,6 +3,8 @@ package edu.kit.VorhersagenverwaltungSTA.service.requestManager;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Objects;
+
 /**
  * This class holds an username and a password.
  *
@@ -38,5 +40,17 @@ public class Authentication {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Authentication that)) return false;
+        return Objects.equals(getUser(), that.getUser()) && Objects.equals(getPassword(), that.getPassword());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getUser(), getPassword());
     }
 }
