@@ -127,6 +127,7 @@ public class ApplicationRestController {
      * @param items amount of datasources that should be loaded
      * @param page the page to start from
      * @param catalogueId the id of the catalogue containing the datasources
+     * @param filter optional filter that filters the list of datasources
      * @return {@link STAObjectList} of type {@link DataSource}
      */
     @GetMapping(value = {GET_DATASOURCE_LIST_LINK, GET_DATASOURCE_LIST_LINK + FILTER_ARG})
@@ -171,6 +172,7 @@ public class ApplicationRestController {
      * @param page the page to start from
      * @param catalogueId the id of the catalogue containing the datasource
      * @param dataSourceId the id of the datasource containing the datastreams
+     * @param filter optional filter that filters the list of datastreams
      * @return {@link STAObjectList} of type {@link Datastream}
      */
     @GetMapping({GET_DATASTREAM_LIST_LINK, GET_DATASTREAM_LIST_LINK + FILTER_ARG})
@@ -196,17 +198,19 @@ public class ApplicationRestController {
      * @param page the page to start from
      * @param catalogueId the id of the catalogue containing the datasource
      * @param dataSourceId the id of the datasource containing the datastreams
+     * @param filter optional filter that filters the list of things
      * @return {@link STAObjectList} of type {@link Thing}
      */
-    @GetMapping(GET_THING_LIST_LINK)
+    @GetMapping({GET_THING_LIST_LINK, GET_THING_LIST_LINK + FILTER_ARG})
     public STAObjectList<Thing> getThingList(@PathVariable int items,
                                              @PathVariable long page,
                                              @PathVariable int catalogueId,
-                                             @PathVariable long dataSourceId) {
+                                             @PathVariable long dataSourceId,
+                                             @PathVariable Optional<String> filter) {
         DataSource dataSource = this.getDataSource(dataSourceId, catalogueId);
         this.thingListService.setSource(dataSource.getAccessData());
 
-
+        filter.ifPresent(s -> this.datastreamsListService.addFilter(new FrostRequestFilter(s)));
         this.thingListService.load(items, this.calculateStartIndex(items, page));
         return this.thingListService.getData();
     }
@@ -256,6 +260,7 @@ public class ApplicationRestController {
      * @param items amount of processing procedures that should be loaded
      * @param page the page to start from
      * @param catalogueId the id of the catalogue containing the processing procedures
+     * @param filter optional filter that filters the list of processing procedures
      * @return {@link STAObjectList} of type {@link ProcessingProcedure}
      */
     @GetMapping({GET_PROCESSING_PROCEDURE_LIST_LINK, GET_PROCESSING_PROCEDURE_LIST_LINK + FILTER_ARG})
