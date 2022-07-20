@@ -5,13 +5,11 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import edu.kit.VorhersagenverwaltungSTA.jackson.DurationDeserializer;
-import edu.kit.VorhersagenverwaltungSTA.jackson.IntervalDeserializer;
 import edu.kit.VorhersagenverwaltungSTA.jackson.SourceDeserializer;
 import edu.kit.VorhersagenverwaltungSTA.jackson.TimeObjectDeserializer;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.TimeObject;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.Source;
 import org.geojson.GeoJsonObject;
-import org.threeten.extra.Interval;
 
 import java.time.Duration;
 

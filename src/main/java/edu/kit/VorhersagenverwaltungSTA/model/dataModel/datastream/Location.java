@@ -4,8 +4,8 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.Entity;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.STAObjectList;
 
-import java.util.List;
 /**
  * This class describes a Location as defined in the
  * <a href="http://www.opengis.net/doc/is/sensorthings/1.1#location">SensorThingsAPI</a>
@@ -23,11 +23,11 @@ public class Location extends Entity {
     @JsonProperty("HistoricalLocations@iot.navigationLink")
     private String historicalLocationsURL;
     @JsonProperty("HistoricalLocations")
-    private List<HistoricalLocation> historicalLocations;
+    private STAObjectList<HistoricalLocation> historicalLocations;
     @JsonProperty("Things@iot.navigationLink")
     private String thingsURL;
     @JsonProperty("Things")
-    private List<Thing> things;
+    private STAObjectList<Thing> things;
 
 
     public String getName() {
@@ -86,19 +86,19 @@ public class Location extends Entity {
         this.thingsURL = thingsURL;
     }
 
-    public List<HistoricalLocation> getHistoricalLocations() {
-        return List.copyOf(historicalLocations);
+    public STAObjectList<HistoricalLocation> getHistoricalLocations() {
+        return this.historicalLocations.copyOf();
     }
 
-    public void setHistoricalLocations(List<HistoricalLocation> historicalLocations) {
+    public void setHistoricalLocations(STAObjectList<HistoricalLocation> historicalLocations) {
         this.historicalLocations = historicalLocations;
     }
 
-    public List<Thing> getThings() {
-        return List.copyOf(things);
+    public STAObjectList<Thing> getThings() {
+        return this.things.copyOf();
     }
 
-    public void setThings(List<Thing> things) {
+    public void setThings(STAObjectList<Thing> things) {
         this.things = things;
     }
 

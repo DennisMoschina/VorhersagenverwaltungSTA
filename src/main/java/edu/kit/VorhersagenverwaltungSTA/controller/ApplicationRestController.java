@@ -120,8 +120,9 @@ public class ApplicationRestController {
      * and starting at the specified page. For example 5 items starting at page 1
      * (starts at zero) will be 6 to 10.
      *
-     * @param items amount of catalogues that should be loaded
+     * @param items amount of datasources that should be loaded
      * @param page the page to start from
+     * @param catalogueId the id of the catalogue containing the datasources
      * @return {@link STAObjectList} of type {@link DataSource}
      */
     @GetMapping(GET_DATASOURCE_LIST_LINK)
@@ -139,7 +140,7 @@ public class ApplicationRestController {
      * Returns the {@link Datastream} with the specified id from the respective {@link DataSource}
      * of a {@link Catalogue}.
      *
-     * @param datastreamID the id of the dtatstream
+     * @param datastreamID the id of the datastream
      * @param catalogueId the id of the catalogue containing the datasource
      * @param dataSourceId the id of the datasource containing the datastream
      * @return the specified the {@link Datastream}
@@ -160,8 +161,10 @@ public class ApplicationRestController {
      * and starting at the specified page. For example 5 items starting at page 1
      * (starts at zero) will be 6 to 10.
      *
-     * @param items amount of catalogues that should be loaded
+     * @param items amount of datastreams that should be loaded
      * @param page the page to start from
+     * @param catalogueId the id of the catalogue containing the datasource
+     * @param dataSourceId the id of the datasource containing the datastreams
      * @return {@link STAObjectList} of type {@link Datastream}
      */
     @GetMapping(GET_DATASTREAM_LIST_LINK)
@@ -177,6 +180,17 @@ public class ApplicationRestController {
         return this.datastreamsListService.getData();
     }
 
+    /**
+     * Returns a {@link STAObjectList} of type {@link Thing} with length as specified in items
+     * and starting at the specified page. For example 5 items starting at page 1
+     * (starts at zero) will be 6 to 10.
+     *
+     * @param items amount of things that should be loaded
+     * @param page the page to start from
+     * @param catalogueId the id of the catalogue containing the datasource
+     * @param dataSourceId the id of the datasource containing the datastreams
+     * @return {@link STAObjectList} of type {@link Thing}
+     */
     @GetMapping(GET_THING_LIST_LINK)
     public STAObjectList<Thing> getThingList(@PathVariable int items,
                                              @PathVariable long page,
@@ -190,6 +204,15 @@ public class ApplicationRestController {
         return this.thingListService.getData();
     }
 
+    /**
+     * Returns the {@link Thing} with the specified id from the respective {@link DataSource}
+     * of a {@link Catalogue}.
+     *
+     * @param thingId the id of the thing
+     * @param catalogueId the id of the catalogue containing the datasource
+     * @param dataSourceId the id of the datasource containing the thing
+     * @return the specified {@link Thing}
+     */
     @GetMapping(GET_THING_LINK)
     public Thing getThing(@PathVariable long thingId,
                          @PathVariable int catalogueId,
@@ -201,6 +224,13 @@ public class ApplicationRestController {
         return thingService.getData();
     }
 
+    /**
+     * Returns the {@link ProcessingProcedure} with the specified id from the respective catalogue.
+     *
+     * @param processingProcedureID the id of the processing procedure
+     * @param catalogueId the id of the catalogue containing the processing procedure
+     * @return the specified {@link ProcessingProcedure}
+     */
     @GetMapping(GET_PROCESSING_PROCEDURE_LINK)
     public ProcessingProcedure getProcessingProcedure(@PathVariable long processingProcedureID,
                              @PathVariable int catalogueId) {
@@ -211,6 +241,16 @@ public class ApplicationRestController {
         return processingProcedureService.getData();
     }
 
+    /**
+     * Returns a {@link STAObjectList} of type {@link ProcessingProcedure} with length as specified in items
+     * and starting at the specified page. For example 5 items starting at page 1
+     * (starts at zero) will be 6 to 10.
+     *
+     * @param items amount of processing procedures that should be loaded
+     * @param page the page to start from
+     * @param catalogueId the id of the catalogue containing the processing procedures
+     * @return {@link STAObjectList} of type {@link ProcessingProcedure}
+     */
     @GetMapping(GET_PROCESSING_PROCEDURE_LIST_LINK)
     public STAObjectList<ProcessingProcedure> getProcessingProcedureList(@PathVariable int items,
                                                                 @PathVariable long page,

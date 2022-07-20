@@ -21,7 +21,7 @@ public class Thing extends Entity {
     private JsonNode properties;
 
     @JsonProperty("Datastreams@iot.navigationLink")
-    private String datastreamURL;
+    private String datastreamsURL;
     @JsonProperty("Datastreams")
     private STAObjectList<Datastream> datastreams;
     @JsonProperty("Locations@iot.navigationLink")
@@ -56,12 +56,12 @@ public class Thing extends Entity {
         this.properties = properties;
     }
 
-    public String getDatastreamURL() {
-        return datastreamURL;
+    public String getDatastreamsURL() {
+        return datastreamsURL;
     }
 
-    public void setDatastreamURL(String datastreamURL) {
-        this.datastreamURL = datastreamURL;
+    public void setDatastreamsURL(String datastreamsURL) {
+        this.datastreamsURL = datastreamsURL;
     }
 
     public String getLocationsURL() {
@@ -81,7 +81,7 @@ public class Thing extends Entity {
     }
 
     public STAObjectList<Datastream> getDatastreams() {
-        return datastreams;
+        return this.datastreams.copyOf();
     }
 
     public void setDatastreams(STAObjectList<Datastream> datastreams) {
@@ -111,7 +111,7 @@ public class Thing extends Entity {
                 ", name='" + name + '\'' +
                 ", description='" + description + '\'' +
                 ", properties=" + properties +
-                ", datastreamURL='" + datastreamURL + '\'' +
+                ", datastreamsURL='" + datastreamsURL + '\'' +
                 ", locationsURL='" + locationsURL + '\'' +
                 ", historicalLocationsURL='" + historicalLocationsURL + '\'' +
                 '}';

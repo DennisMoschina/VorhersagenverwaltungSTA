@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.JsonNode;
 
 /**
  * This class describes a processing procedure.
+ *
  * @author Elias Dirks
  */
 @JsonIgnoreProperties(ignoreUnknown = true)

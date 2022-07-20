@@ -3,8 +3,7 @@ package edu.kit.VorhersagenverwaltungSTA.model.dataModel;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
-
-import java.util.List;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.STAObjectList;
 
 /**
  * This class describes a Contact of the SensorThingsAPI.
@@ -24,7 +23,7 @@ public class Contact extends Entity {
     @JsonProperty("DataSources@navigationLink")
     private String dataSourceURL;
     @JsonProperty("DataSources")
-    private List<DataSource> dataSources;
+    private STAObjectList<DataSource> dataSources;
 
 
     public String getName() {
@@ -83,11 +82,11 @@ public class Contact extends Entity {
         this.dataSourceURL = dataSourceURL;
     }
 
-    public List<DataSource> getDataSources() {
-        return dataSources;
+    public STAObjectList<DataSource> getDataSources() {
+        return this.dataSources.copyOf();
     }
 
-    public void setDataSources(List<DataSource> dataSources) {
+    public void setDataSources(STAObjectList<DataSource> dataSources) {
         this.dataSources = dataSources;
     }
 

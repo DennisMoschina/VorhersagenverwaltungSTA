@@ -15,7 +15,7 @@ import java.util.Set;
  */
 @Service
 public class DataSourceListService extends ItemListService<DataSource> {
-    private static final Set<String> KEYS = Set.of("name", "description");
+    private static final Set<String> KEYS = Set.of(NAME_KEY, DESCRIPTION_KEY);
     @Override
     protected MultiSelection buildSelection(int itemsCount, long startIndex) {
         MultiSelection newSelection = new MultiSelection(KEYS, ObjectType.DATASOURCE);

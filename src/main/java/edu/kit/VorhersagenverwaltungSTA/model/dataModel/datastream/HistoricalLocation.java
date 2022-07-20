@@ -5,9 +5,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import edu.kit.VorhersagenverwaltungSTA.jackson.InstantDeserializer;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.Entity;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.STAObjectList;
 
 import java.time.Instant;
-import java.util.List;
+
 /**
  * This class describes a HistoricalLocation as defined in the
  * <a href="http://www.opengis.net/doc/is/sensorthings/1.1#historicallocation">SensorThingsAPI</a>
@@ -27,7 +28,7 @@ public class HistoricalLocation extends Entity {
     @JsonProperty("Locations@iot.navigationLink")
     private String locationsURL;
     @JsonProperty("Locations")
-    private List<Location> locations;
+    private STAObjectList<Location> locations;
 
 
     public Instant getTime() {
@@ -62,11 +63,11 @@ public class HistoricalLocation extends Entity {
         this.thing = thing;
     }
 
-    public List<Location> getLocations() {
-        return List.copyOf(locations);
+    public STAObjectList<Location> getLocations() {
+        return this.locations.copyOf();
     }
 
-    public void setLocations(List<Location> locations) {
+    public void setLocations(STAObjectList<Location> locations) {
         this.locations = locations;
     }
 

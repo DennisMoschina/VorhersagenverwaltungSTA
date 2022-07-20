@@ -65,4 +65,8 @@ public class STAObjectList<T> {
     public void setCount(long count) {
         this.count = count;
     }
+
+    public STAObjectList<T> copyOf(){
+        return new STAObjectList<>(this.type, this.getList());
+    }
 }

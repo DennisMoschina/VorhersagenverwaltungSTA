@@ -14,7 +14,7 @@ import java.util.Set;
  */
 @Service
 public class ThingListService extends ItemListService<Thing> {
-    private static final Set<String> KEYS = Set.of("name", "description");
+    private static final Set<String> KEYS = Set.of(NAME_KEY, DESCRIPTION_KEY);
 
     @Override
     protected MultiSelection buildSelection(int itemsCount, long startIndex) {

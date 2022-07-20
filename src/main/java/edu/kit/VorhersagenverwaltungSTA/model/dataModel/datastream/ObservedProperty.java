@@ -4,8 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.Entity;
-
-import java.util.List;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.STAObjectList;
 
 /**
  * This class describes a ObservedProperty as defined in the
@@ -24,7 +23,7 @@ public class ObservedProperty extends Entity {
     @JsonProperty("Datastream@iot.navigationLink")
     private String datastreamURL;
     @JsonProperty("Datastreams")
-    private List<Datastream> datastreams;
+    private STAObjectList<Datastream> datastreams;
 
 
     public String getName() {
@@ -67,11 +66,11 @@ public class ObservedProperty extends Entity {
         this.datastreamURL = datastreamURL;
     }
 
-    public List<Datastream> getDatastreams() {
-        return List.copyOf(datastreams);
+    public STAObjectList<Datastream> getDatastreams() {
+        return this.datastreams.copyOf();
     }
 
-    public void setDatastreams(List<Datastream> datastreams) {
+    public void setDatastreams(STAObjectList<Datastream> datastreams) {
         this.datastreams = datastreams;
     }
 

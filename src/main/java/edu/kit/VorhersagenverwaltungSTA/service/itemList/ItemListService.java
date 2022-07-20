@@ -1,6 +1,5 @@
 package edu.kit.VorhersagenverwaltungSTA.service.itemList;
 
-import edu.kit.VorhersagenverwaltungSTA.model.dataModel.catalogue.Catalogue;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.STAObjectList;
 import edu.kit.VorhersagenverwaltungSTA.service.AbstractService;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.MultiSelection;
@@ -18,6 +17,8 @@ import java.util.List;
  */
 @Service
 public abstract class ItemListService<T> extends AbstractService<STAObjectList<T>> {
+    protected static final String NAME_KEY = "name";
+    protected static final String DESCRIPTION_KEY = "description";
     protected List<Filter> filter = new LinkedList<>();
 
     @SuppressWarnings("unchecked")
