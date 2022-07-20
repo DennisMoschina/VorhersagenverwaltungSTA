@@ -1,28 +1,24 @@
 package edu.kit.VorhersagenverwaltungSTA.unitTests;
 
-import edu.kit.VorhersagenverwaltungSTA.service.requestManager.encoder.selection.SelectionEncoderTemplate;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.encoder.selection.SingleSelectionEncoder;
+import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.MultiSelection;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.ObjectType;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.SingleSelection;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class SingleSelectionTest {
 
-
-    @BeforeAll
-    public static void setUpClass() {
-
-    }
+    private SingleSelectionEncoder encoder;
 
     @BeforeEach
-    public void setUp() {
-
+    public void setup() {
+        this.encoder = new SingleSelectionEncoder();
     }
 
     @Test
@@ -52,8 +48,13 @@ public class SingleSelectionTest {
         this.checkEncodedResult(expected, selection);
     }
 
+    @Test
+    public void wrongSelectionTest() {
+        final MultiSelection selection = new MultiSelection(ObjectType.DATASTREAM);
+        assertThrows(IllegalArgumentException.class, () -> encoder.encode(selection));
+    }
+
     private void checkEncodedResult(String expected, SingleSelection selection) {
-        final SelectionEncoderTemplate encoder = new SingleSelectionEncoder();
         assertEquals(expected, encoder.encode(selection));
     }
 }

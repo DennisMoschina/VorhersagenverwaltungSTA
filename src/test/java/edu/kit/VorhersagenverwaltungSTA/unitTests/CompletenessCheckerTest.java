@@ -132,6 +132,16 @@ public class CompletenessCheckerTest {
         Assertions.assertTrue(this.checker.isComplete(selection, dataSource));
     }
 
+    @Test
+    public void testDatastreamWithWrongId() {
+        final int id = 8;
+        SingleSelection selection = new SingleSelection(ObjectType.DATASTREAM, id);
+        Datastream datastream = new Datastream();
+        this.setupDatastreamWithId(datastream);
+
+        Assertions.assertFalse(this.checker.isComplete(selection, datastream));
+    }
+
     private void setupFullDataSourceWithoutExpand(DataSource dataSource) {
         this.setupDataSourceWithNameAndDescription(dataSource);
         dataSource.setSourceSystem("TestSystem");
