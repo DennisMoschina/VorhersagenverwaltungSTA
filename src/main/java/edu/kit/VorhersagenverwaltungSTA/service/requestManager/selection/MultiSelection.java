@@ -1,5 +1,7 @@
 package edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection;
 
+import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.filter.Filter;
+
 import java.util.Collection;
 import java.util.HashSet;
 
@@ -9,7 +11,7 @@ public class MultiSelection extends Selection {
 
     private Order orderBy;
 
-    //TODO: implement Filter
+    private Filter filter;
 
     public MultiSelection(Collection<String> keys, Collection<Selection> objectsToExpand, ObjectType objectType) {
         super(keys, objectsToExpand, objectType);
@@ -45,6 +47,14 @@ public class MultiSelection extends Selection {
 
     public void setOrderBy(Order orderBy) {
         this.orderBy = orderBy;
+    }
+
+    public Filter getFilter() {
+        return filter;
+    }
+
+    public void setFilter(Filter filter) {
+        this.filter = filter;
     }
 
     @Override
