@@ -135,7 +135,7 @@ public class ApplicationRestController {
                                              @PathVariable int catalogueId,
                                              @PathVariable long dataSourceId) {
         DataSource dataSource = this.getDataSource(dataSourceId, catalogueId);
-        this.datastreamsListService.setSource(dataSource.getAccessData());
+        this.thingListService.setSource(dataSource.getAccessData());
 
 
         this.thingListService.load(items, this.calculateStartIndex(items, page));
