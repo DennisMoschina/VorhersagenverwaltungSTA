@@ -7,6 +7,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
+/**
+ * This class is the {@link Service} used to load a list of {@link ProcessingProcedure}.
+ *
+ * @author Elias Dirks
+ */
 @Service
 public class ProcessingProcedureListService extends ItemListService<ProcessingProcedure>{
 

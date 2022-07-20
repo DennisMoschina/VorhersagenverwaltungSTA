@@ -1,5 +1,6 @@
 package edu.kit.VorhersagenverwaltungSTA.service.itemList;
 
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.catalogue.Catalogue;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.STAObjectList;
 import edu.kit.VorhersagenverwaltungSTA.service.AbstractService;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.MultiSelection;
@@ -9,6 +10,12 @@ import org.springframework.stereotype.Service;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * This class is the {@link Service} used to load a list of a specific type.
+ * Extend this class and override {@link #buildSelection(int, long)} to load a list of an object.
+ *
+ * @author Dennis Moschina
+ */
 @Service
 public abstract class ItemListService<T> extends AbstractService<STAObjectList<T>> {
     protected List<Filter> filter = new LinkedList<>();

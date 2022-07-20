@@ -67,9 +67,17 @@ public class ApplicationRestController {
         this.processingProcedureService = processingProcedureService;
     }
 
-
+    /**
+     * Returns a {@link STAObjectList} of type {@link Catalogue} with length as specified in items
+     * and starting at the specified page. For example 5 items starting at page 1
+     * (starts at zero) will be 6 to 10.
+     *
+     * @param items amount of catalogues that should be loaded
+     * @param page the page to start from
+     * @return {@link STAObjectList} of type {@link Catalogue}
+     */
     @GetMapping(GET_CATALOGUE_LIST_LINK)
-    STAObjectList<Catalogue> getCatalogueList(@PathVariable int items,
+    public STAObjectList<Catalogue> getCatalogueList(@PathVariable int items,
                                               @PathVariable int page) {
         STAObjectList<Catalogue> catalogues = this.catalogueListService.getCatalogues();
         //page starts at 0; items and page should normally be correct
@@ -79,13 +87,26 @@ public class ApplicationRestController {
         return catalogueListService.getCatalogues().subList(startIndex, endIndex);
     }
 
+    /**
+     * Returns the {@link Catalogue} with the specified id.
+     *
+     * @param catalogueId the id of the catalogue
+     * @return {@link Catalogue} with the specified id
+     */
     @GetMapping(GET_DATACATALOGUE_LINK)
-    Catalogue getCatalogue(@PathVariable int catalogueId) {
+    public Catalogue getCatalogue(@PathVariable int catalogueId) {
         return this.catalogueListService.getCatalogue(catalogueId);
     }
 
+    /**
+     * Returns the {@link DataSource} with the specified id from the respective catalogue.
+     *
+     * @param dataSourceId the id of the datasource
+     * @param catalogueId the id of the catalogue containing the datasource
+     * @return the specified {@link DataSource}
+     */
     @GetMapping(GET_DATASOURCE_LINK)
-    DataSource getDataSource(@PathVariable long dataSourceId,
+    public DataSource getDataSource(@PathVariable long dataSourceId,
                              @PathVariable int catalogueId) {
         Catalogue catalogue = this.getCatalogue(catalogueId);
         this.dataSourceService.setSource(new Source(catalogue.getUrl()));
@@ -94,6 +115,15 @@ public class ApplicationRestController {
         return dataSourceService.getData();
     }
 
+    /**
+     * Returns a {@link STAObjectList} of type {@link DataSource} with length as specified in items
+     * and starting at the specified page. For example 5 items starting at page 1
+     * (starts at zero) will be 6 to 10.
+     *
+     * @param items amount of catalogues that should be loaded
+     * @param page the page to start from
+     * @return {@link STAObjectList} of type {@link DataSource}
+     */
     @GetMapping(GET_DATASOURCE_LIST_LINK)
     public STAObjectList<DataSource> getDataSourceList(@PathVariable int items,
                                                        @PathVariable long page,
@@ -105,6 +135,15 @@ public class ApplicationRestController {
         return this.dataSourceListService.getData();
     }
 
+    /**
+     * Returns the {@link Datastream} with the specified id from the respective {@link DataSource}
+     * of a {@link Catalogue}.
+     *
+     * @param datastreamID the id of the dtatstream
+     * @param catalogueId the id of the catalogue containing the datasource
+     * @param dataSourceId the id of the datasource containing the datastream
+     * @return the specified the {@link Datastream}
+     */
     @GetMapping(GET_DATASTREAM_LINK)
     public Datastream getDatastream(@PathVariable long datastreamID,
                                     @PathVariable int catalogueId,
@@ -116,6 +155,15 @@ public class ApplicationRestController {
         return datastreamService.getData();
     }
 
+    /**
+     * Returns a {@link STAObjectList} of type {@link Datastream} with length as specified in items
+     * and starting at the specified page. For example 5 items starting at page 1
+     * (starts at zero) will be 6 to 10.
+     *
+     * @param items amount of catalogues that should be loaded
+     * @param page the page to start from
+     * @return {@link STAObjectList} of type {@link Datastream}
+     */
     @GetMapping(GET_DATASTREAM_LIST_LINK)
     public STAObjectList<Datastream> getDatastreamList(@PathVariable int items,
                                                        @PathVariable long page,
@@ -135,7 +183,7 @@ public class ApplicationRestController {
                                              @PathVariable int catalogueId,
                                              @PathVariable long dataSourceId) {
         DataSource dataSource = this.getDataSource(dataSourceId, catalogueId);
-        this.datastreamsListService.setSource(dataSource.getAccessData());
+        this.thingListService.setSource(dataSource.getAccessData());
 
 
         this.thingListService.load(items, this.calculateStartIndex(items, page));
@@ -154,7 +202,7 @@ public class ApplicationRestController {
     }
 
     @GetMapping(GET_PROCESSING_PROCEDURE_LINK)
-    ProcessingProcedure getProcessingProcedure(@PathVariable long processingProcedureID,
+    public ProcessingProcedure getProcessingProcedure(@PathVariable long processingProcedureID,
                              @PathVariable int catalogueId) {
         Catalogue catalogue = this.getCatalogue(catalogueId);
         this.processingProcedureService.setSource(new Source(catalogue.getUrl()));

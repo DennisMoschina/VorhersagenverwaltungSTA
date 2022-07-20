@@ -7,6 +7,11 @@ import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
+/**
+ * This class is the {@link Service} used to load a list of {@link Thing}.
+ *
+ * @author Dennis Moschina
+ */
 @Service
 public class ThingListService extends ItemListService<Thing> {
     private static final Set<String> KEYS = Set.of("name", "description");
