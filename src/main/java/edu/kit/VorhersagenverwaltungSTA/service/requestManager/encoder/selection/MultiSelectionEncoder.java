@@ -1,5 +1,6 @@
 package edu.kit.VorhersagenverwaltungSTA.service.requestManager.encoder.selection;
 
+import edu.kit.VorhersagenverwaltungSTA.service.requestManager.encoder.filter.GenericFilterEncoder;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.MultiSelection;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.Selection;
 
@@ -26,8 +27,7 @@ public class MultiSelectionEncoder extends SelectionEncoderTemplate {
         encodedParts.add(String.format(TOP_FORMAT, multiSelection.getCount()));
         encodedParts.add(String.format(SKIP_FORMAT, multiSelection.getSkip()));
         encodedParts.add(new OrderEncoder().encode(multiSelection.getOrderBy()));
-
-        //TODO: add filter
+        encodedParts.add(new GenericFilterEncoder().encode(multiSelection.getFilter()));
 
         return encodedParts;
     }

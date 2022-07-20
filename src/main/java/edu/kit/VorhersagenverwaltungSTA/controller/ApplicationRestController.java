@@ -12,6 +12,7 @@ import edu.kit.VorhersagenverwaltungSTA.service.itemList.DatastreamsListService;
 import edu.kit.VorhersagenverwaltungSTA.service.itemList.ProcessingProcedureListService;
 import edu.kit.VorhersagenverwaltungSTA.service.itemList.ThingListService;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.Source;
+import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.filter.FrostRequestFilter;
 import edu.kit.VorhersagenverwaltungSTA.service.singleItem.DataSourceService;
 import edu.kit.VorhersagenverwaltungSTA.service.singleItem.DatastreamService;
 import edu.kit.VorhersagenverwaltungSTA.service.singleItem.ProcessingProcedureService;
@@ -21,10 +22,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Optional;
+
 @RestController
 @CrossOrigin("4200")
 public class ApplicationRestController {
     private static final String LIST_ARGS = "/{items}/{page}";
+    private static final String FILTER_ARG = "/{filter}";
 
     private static final String GET_DATACATALOGUE_LINK = "/catalogue/{catalogueId}";
     private static final String GET_CATALOGUE_LIST_LINK = "/catalogues" + LIST_ARGS;
@@ -125,13 +129,15 @@ public class ApplicationRestController {
      * @param catalogueId the id of the catalogue containing the datasources
      * @return {@link STAObjectList} of type {@link DataSource}
      */
-    @GetMapping(GET_DATASOURCE_LIST_LINK)
+    @GetMapping(value = {GET_DATASOURCE_LIST_LINK, GET_DATASOURCE_LIST_LINK + FILTER_ARG})
     public STAObjectList<DataSource> getDataSourceList(@PathVariable int items,
                                                        @PathVariable long page,
-                                                       @PathVariable int catalogueId) {
+                                                       @PathVariable int catalogueId,
+                                                       @PathVariable Optional<String> filter) {
         Catalogue catalogue = this.getCatalogue(catalogueId);
         this.dataSourceListService.setSource(new Source(catalogue.getUrl()));
 
+        filter.ifPresent(s -> this.dataSourceListService.addFilter(new FrostRequestFilter(s)));
         this.dataSourceListService.load(items, this.calculateStartIndex(items, page));
         return this.dataSourceListService.getData();
     }
@@ -167,15 +173,16 @@ public class ApplicationRestController {
      * @param dataSourceId the id of the datasource containing the datastreams
      * @return {@link STAObjectList} of type {@link Datastream}
      */
-    @GetMapping(GET_DATASTREAM_LIST_LINK)
+    @GetMapping({GET_DATASTREAM_LIST_LINK, GET_DATASTREAM_LIST_LINK + FILTER_ARG})
     public STAObjectList<Datastream> getDatastreamList(@PathVariable int items,
                                                        @PathVariable long page,
                                                        @PathVariable int catalogueId,
-                                                       @PathVariable long dataSourceId) {
+                                                       @PathVariable long dataSourceId,
+                                                       @PathVariable Optional<String> filter) {
         DataSource dataSource = this.getDataSource(dataSourceId, catalogueId);
         this.datastreamsListService.setSource(dataSource.getAccessData());
 
-
+        filter.ifPresent(s -> this.datastreamsListService.addFilter(new FrostRequestFilter(s)));
         this.datastreamsListService.load(items, this.calculateStartIndex(items, page));
         return this.datastreamsListService.getData();
     }
@@ -251,13 +258,15 @@ public class ApplicationRestController {
      * @param catalogueId the id of the catalogue containing the processing procedures
      * @return {@link STAObjectList} of type {@link ProcessingProcedure}
      */
-    @GetMapping(GET_PROCESSING_PROCEDURE_LIST_LINK)
+    @GetMapping({GET_PROCESSING_PROCEDURE_LIST_LINK, GET_PROCESSING_PROCEDURE_LIST_LINK + FILTER_ARG})
     public STAObjectList<ProcessingProcedure> getProcessingProcedureList(@PathVariable int items,
-                                                                @PathVariable long page,
-                                                                @PathVariable int catalogueId) {
+                                                                         @PathVariable long page,
+                                                                         @PathVariable int catalogueId,
+                                                                         @PathVariable Optional<String> filter) {
         Catalogue catalogue = this.getCatalogue(catalogueId);
         this.processingProcedureListService.setSource(new Source(catalogue.getUrl()));
 
+        filter.ifPresent(s -> this.processingProcedureListService.addFilter(new FrostRequestFilter(s)));
         this.processingProcedureListService.load(items, this.calculateStartIndex(items, page));
         return this.processingProcedureListService.getData();
     }
