@@ -10,6 +10,7 @@ import java.io.IOException;
 
 /**
  * This class is used to deserialize a {@link TimeObject} out of a json node.
+ *
  * @author Elias Dirks
  */
 public class TimeObjectDeserializer extends StdDeserializer<TimeObject> {
