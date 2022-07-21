@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.Entity;
-import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.STAObjectList;
 
 /**
  * This class describes a Sensor as defined in the
@@ -23,7 +22,7 @@ public class Sensor extends Entity {
     @JsonProperty("Datastream@iot.navigationLink")
     private String datastreamURL;
     @JsonProperty("Datastreams")
-    private STAObjectList<Datastream> datastreams;
+    private Datastream[] datastreams;
 
 
     public String getName() {
@@ -74,11 +73,11 @@ public class Sensor extends Entity {
         this.datastreamURL = datastreamURL;
     }
 
-    public STAObjectList<Datastream> getDatastreams() {
-        return this.datastreams.copyOf();
+    public Datastream[] getDatastreams() {
+        return this.datastreams;
     }
 
-    public void setDatastreams(STAObjectList<Datastream> datastreams) {
+    public void setDatastreams(Datastream[] datastreams) {
         this.datastreams = datastreams;
     }
 

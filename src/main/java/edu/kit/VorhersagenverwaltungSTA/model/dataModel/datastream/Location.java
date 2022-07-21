@@ -27,7 +27,7 @@ public class Location extends Entity {
     @JsonProperty("Things@iot.navigationLink")
     private String thingsURL;
     @JsonProperty("Things")
-    private STAObjectList<Thing> things;
+    private Thing[] things;
 
 
     public String getName() {
@@ -94,11 +94,11 @@ public class Location extends Entity {
         this.historicalLocations = historicalLocations;
     }
 
-    public STAObjectList<Thing> getThings() {
-        return this.things.copyOf();
+    public Thing[] getThings() {
+        return this.things;
     }
 
-    public void setThings(STAObjectList<Thing> things) {
+    public void setThings(Thing[] things) {
         this.things = things;
     }
 

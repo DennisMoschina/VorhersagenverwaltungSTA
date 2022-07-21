@@ -58,7 +58,9 @@ public class ApplicationRestController {
                                      DataSourceService dataSourceService,
                                      DatastreamsListService datastreamsListService,
                                      DatastreamService datastreamService,
-                                     ThingListService thingListService, ThingService thingService, ProcessingProcedureListService processingProcedureListService,
+                                     ThingListService thingListService,
+                                     ThingService thingService,
+                                     ProcessingProcedureListService processingProcedureListService,
                                      ProcessingProcedureService processingProcedureService) {
         this.catalogueListService = catalogueListService;
         this.dataSourceListService = dataSourceListService;

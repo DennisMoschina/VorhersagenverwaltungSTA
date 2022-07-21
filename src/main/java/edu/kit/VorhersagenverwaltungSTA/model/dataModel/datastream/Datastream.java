@@ -7,7 +7,6 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import edu.kit.VorhersagenverwaltungSTA.jackson.IntervalDeserializer;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.Entity;
-import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.STAObjectList;
 import org.geojson.GeoJsonObject;
 import org.threeten.extra.Interval;
 
@@ -63,7 +62,7 @@ public class Datastream extends Entity {
     @JsonProperty("Observations@iot.navigationLink")
     private String observationsURL;
     @JsonProperty("Observations")
-    private STAObjectList<Observation> observations;
+    private Observation[] observations;
 
 
     public String getName() {
@@ -186,11 +185,11 @@ public class Datastream extends Entity {
         this.observationsURL = observationsURL;
     }
 
-    public STAObjectList<Observation> getObservations() {
-        return this.observations.copyOf();
+    public Observation[] getObservations() {
+        return this.observations;
     }
 
-    public void setObservations(STAObjectList<Observation> observations) {
+    public void setObservations(Observation[] observations) {
         this.observations = observations;
     }
 

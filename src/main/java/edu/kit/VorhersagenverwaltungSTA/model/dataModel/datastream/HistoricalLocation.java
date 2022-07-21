@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import edu.kit.VorhersagenverwaltungSTA.jackson.InstantDeserializer;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.Entity;
-import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.STAObjectList;
 
 import java.time.Instant;
 
@@ -28,7 +27,7 @@ public class HistoricalLocation extends Entity {
     @JsonProperty("Locations@iot.navigationLink")
     private String locationsURL;
     @JsonProperty("Locations")
-    private STAObjectList<Location> locations;
+    private Location[] locations;
 
 
     public Instant getTime() {
@@ -63,11 +62,11 @@ public class HistoricalLocation extends Entity {
         this.thing = thing;
     }
 
-    public STAObjectList<Location> getLocations() {
-        return this.locations.copyOf();
+    public Location[] getLocations() {
+        return this.locations;
     }
 
-    public void setLocations(STAObjectList<Location> locations) {
+    public void setLocations(Location[] locations) {
         this.locations = locations;
     }
 

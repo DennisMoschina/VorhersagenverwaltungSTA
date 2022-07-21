@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.Entity;
-import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.STAObjectList;
 
 import java.util.Objects;
 
@@ -23,15 +22,15 @@ public class Thing extends Entity {
     @JsonProperty("Datastreams@iot.navigationLink")
     private String datastreamsURL;
     @JsonProperty("Datastreams")
-    private STAObjectList<Datastream> datastreams;
+    private Datastream[] datastreams;
     @JsonProperty("Locations@iot.navigationLink")
     private String locationsURL;
     @JsonProperty("Locations")
-    private STAObjectList<Location> locations;
+    private Location[] locations;
     @JsonProperty("HistoricalLocations@iot.navigationLink")
     private String historicalLocationsURL;
     @JsonProperty("HistoricalLocations")
-    private STAObjectList<HistoricalLocation> historicalLocations;
+    private HistoricalLocation[] historicalLocations;
 
     public String getName() {
         return name;
@@ -80,27 +79,27 @@ public class Thing extends Entity {
         this.historicalLocationsURL = historicalLocationsURL;
     }
 
-    public STAObjectList<Datastream> getDatastreams() {
-        return this.datastreams.copyOf();
+    public Datastream[] getDatastreams() {
+        return this.datastreams;
     }
 
-    public void setDatastreams(STAObjectList<Datastream> datastreams) {
+    public void setDatastreams(Datastream[] datastreams) {
         this.datastreams = datastreams;
     }
 
-    public STAObjectList<Location> getLocations() {
+    public Location[] getLocations() {
         return locations;
     }
 
-    public void setLocations(STAObjectList<Location> locations) {
+    public void setLocations(Location[] locations) {
         this.locations = locations;
     }
 
-    public STAObjectList<HistoricalLocation> getHistoricalLocations() {
+    public HistoricalLocation[] getHistoricalLocations() {
         return historicalLocations;
     }
 
-    public void setHistoricalLocations(STAObjectList<HistoricalLocation> historicalLocations) {
+    public void setHistoricalLocations(HistoricalLocation[] historicalLocations) {
         this.historicalLocations = historicalLocations;
     }
 

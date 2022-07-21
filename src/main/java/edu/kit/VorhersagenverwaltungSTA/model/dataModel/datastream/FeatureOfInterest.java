@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.Entity;
-import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.STAObjectList;
 import org.geojson.GeoJsonObject;
 
 /**
@@ -27,7 +26,7 @@ public class FeatureOfInterest extends Entity {
     @JsonProperty("Observations@iot.navigationLink")
     private String observationsURL;
     @JsonProperty("Observations")
-    private STAObjectList<Observation> observations;
+    private Observation[] observations;
 
 
     public String getName() {
@@ -78,11 +77,11 @@ public class FeatureOfInterest extends Entity {
         this.observationsURL = observationsURL;
     }
 
-    public STAObjectList<Observation> getObservations() {
-        return this.observations.copyOf();
+    public Observation[] getObservations() {
+        return this.observations;
     }
 
-    public void setObservations(STAObjectList<Observation> observations) {
+    public void setObservations(Observation[] observations) {
         this.observations = observations;
     }
 

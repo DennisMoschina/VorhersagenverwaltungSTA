@@ -37,6 +37,6 @@ public abstract class SelectionEncoderTemplate implements SelectionEncoder {
     protected abstract String encodeHeader(Selection selection);
 
     private String encodeKeys(Set<String> keys) {
-        return String.format(SELECT_FORMAT, new ListEncoder<>((Encoder<String>) s -> s).encode(keys));
+        return String.format(SELECT_FORMAT, new ListEncoder<>((Encoder<String>) s -> s, ",").encode(keys));
     }
 }

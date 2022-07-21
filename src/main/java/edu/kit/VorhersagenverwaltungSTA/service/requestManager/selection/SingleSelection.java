@@ -15,6 +15,10 @@ public class SingleSelection extends Selection {
         this(new HashSet<>(), type, selectedId);
     }
 
+    public SingleSelection(Set<String> keys, ObjectType type) {
+        this(keys, type, -1);
+    }
+
     public SingleSelection(ObjectType type) {
         this(type, -1);
     }

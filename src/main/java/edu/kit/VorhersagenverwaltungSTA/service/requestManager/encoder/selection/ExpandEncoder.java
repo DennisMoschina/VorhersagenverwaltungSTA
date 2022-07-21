@@ -21,7 +21,7 @@ public class ExpandEncoder implements Encoder<Set<Selection>> {
         List<String> encodedSelections = selections.stream()
                 .map(selection -> new SingleExpandEncoder().encode(selection)).filter(Objects::nonNull).toList();
 
-        return String.format(EXPAND_FORMAT, String.join(";", encodedSelections));
+        return String.format(EXPAND_FORMAT, String.join(",", encodedSelections));
     }
 
     private static class SingleExpandEncoder implements SelectionEncoder {
@@ -48,7 +48,7 @@ public class ExpandEncoder implements Encoder<Set<Selection>> {
             if (encodedParts == null || encodedParts.isEmpty()) return encodedHeader;
 
             return String.format(EXPAND_ITEM_FORMAT, encodedHeader,
-                    new ListEncoder<>((Encoder<String>) s -> s).encode(encodedParts));
+                    new ListEncoder<>((Encoder<String>) s -> s, ";").encode(encodedParts));
         }
     }
 }
