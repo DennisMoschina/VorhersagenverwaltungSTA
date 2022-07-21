@@ -11,7 +11,8 @@ before_script:
 
 stages:
   - build
-  - deploy
+  - publish
+  - release
 
 build_job:
   stage: build
@@ -19,7 +20,7 @@ build_job:
     - ./gradlew build
 
 publish_job:
-  stage: deploy
+  stage: publish
   rules:
     - if: $CI_COMMIT_TAG
       when: never
@@ -32,7 +33,7 @@ publish_job:
       dotenv: variables.env
 
 release_job:
-  stage: deploy
+  stage: release
   image: registry.gitlab.com/gitlab-org/release-cli:latest
   needs:
     - job: publish_job
