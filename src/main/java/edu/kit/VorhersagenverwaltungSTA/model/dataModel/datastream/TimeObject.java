@@ -1,5 +1,8 @@
 package edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
 import edu.kit.VorhersagenverwaltungSTA.jackson.InstantDeserializer;
 import edu.kit.VorhersagenverwaltungSTA.jackson.IntervalDeserializer;
@@ -14,12 +17,14 @@ import java.util.Objects;
  *
  * @author Hylke van der Schaaf, Elias Dirks
  */
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class TimeObject {
 
     @JsonDeserialize(using = IntervalDeserializer.class)
     private Interval valueInterval;
     @JsonDeserialize(using = InstantDeserializer.class)
     private Instant valueInstant;
+    @JsonIgnore
     private final boolean interval;
 
     public TimeObject(Interval value) {
@@ -66,14 +71,15 @@ public class TimeObject {
         return interval;
     }
 
-    public Interval getAsInterval() {
+    @JsonIgnoreProperties({"empty","unboundedStart","unboundedEnd"})
+    public Interval getTimeInterval() {
         if (interval) {
             return valueInterval;
         }
         return null;
     }
 
-    public Instant getAsDateTime() {
+    public Instant getDateTime() {
         if (interval) {
             return null;
         }
@@ -95,7 +101,11 @@ public class TimeObject {
         } catch (DateTimeParseException e) {
             // Not a DateTime
         }
-        Interval interval = Interval.parse(value);
-        return new TimeObject(interval);
+        try {
+            Interval interval = Interval.parse(value);
+            return new TimeObject(interval);
+        } catch (DateTimeParseException e) {
+            return null;
+        }
     }
 }
