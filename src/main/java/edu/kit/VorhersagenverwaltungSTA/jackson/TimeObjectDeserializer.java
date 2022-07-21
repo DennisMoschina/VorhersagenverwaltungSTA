@@ -32,9 +32,14 @@ public class TimeObjectDeserializer extends StdDeserializer<TimeObject> {
         /* only works if the json fields are named "start" and "end" or if there
          * is only one field named "start" or if there are no json fields
          */
-        String time = node.get(START_TIME_FIELD_NAME).asText();
-        if (node.get(END_TIME_FIELD_NAME) != null) {
-            time += node.get(END_TIME_FIELD_NAME).asText();
+        String time;
+        if (node.isTextual()) {
+            time = node.asText();
+        } else {
+            time = node.get(START_TIME_FIELD_NAME).asText();
+            if (node.get(END_TIME_FIELD_NAME) != null) {
+                time += node.get(END_TIME_FIELD_NAME).asText();
+            }
         }
         return TimeObject.parse(time);
     }
