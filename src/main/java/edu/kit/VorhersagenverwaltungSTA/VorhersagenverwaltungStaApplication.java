@@ -12,6 +12,7 @@ import org.springframework.web.client.RestTemplate;
 public class VorhersagenverwaltungStaApplication {
 
 	public static void main(String[] args) {
+		System.setProperty("org.apache.tomcat.util.buf.UDecoder.ALLOW_ENCODED_SLASH", "true");
 		SpringApplication.run(VorhersagenverwaltungStaApplication.class, args);
 	}
 
