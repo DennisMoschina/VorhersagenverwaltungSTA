@@ -28,8 +28,9 @@ public class Datastream extends Entity {
     private String description;
     @JsonProperty("observationType")
     private String observationType;
-
+    @JsonProperty("unitOfMeasurement")
     private JsonNode unitOfMeasurement;
+    @JsonProperty("observedArea")
     private GeoJsonObject observedArea;
     @JsonIgnoreProperties( value = {
             "empty",

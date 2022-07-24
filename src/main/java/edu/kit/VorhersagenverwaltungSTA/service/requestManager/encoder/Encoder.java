@@ -2,7 +2,9 @@ package edu.kit.VorhersagenverwaltungSTA.service.requestManager.encoder;
 
 /**
  * This interfaces describes an {@code Encoder}, which encodes an object to a {@code String}.
+ *
  * @param <T> the type of the Object that should be encoded
+ * @author Dennis Moschina
  */
 public interface Encoder<T> {
     /**

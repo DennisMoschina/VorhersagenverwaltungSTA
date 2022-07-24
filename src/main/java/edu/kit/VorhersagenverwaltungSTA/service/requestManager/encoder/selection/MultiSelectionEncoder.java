@@ -10,6 +10,7 @@ import java.util.List;
 public class MultiSelectionEncoder extends SelectionEncoderTemplate {
     private static final String TOP_FORMAT = "$top=%d";
     private static final String SKIP_FORMAT = "$skip=%d";
+    private static final String COUNT_FORMAT = "?$count=true&";
 
     @Override
     public String encode(Selection selection) {
@@ -34,6 +35,6 @@ public class MultiSelectionEncoder extends SelectionEncoderTemplate {
 
     @Override
     protected String encodeHeader(Selection selection) {
-        return new PluralObjectTypeEncoder().encode(selection.getObjectType()) + "?$count=true&";
+        return new PluralObjectTypeEncoder().encode(selection.getObjectType()) + COUNT_FORMAT;
     }
 }

@@ -6,7 +6,9 @@ import java.util.Objects;
 
 /**
  * This {@link Encoder} encodes a {@link Collection} of Objects to a {@link String}.
+ *
  * @param <T> the type of the objects in the {@link Collection}
+ * @author Dennis Moschina
  */
 public class ListEncoder<T> implements Encoder<Collection<T>> {
     private final Encoder<T> encoder;

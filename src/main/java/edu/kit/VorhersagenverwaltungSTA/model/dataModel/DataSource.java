@@ -28,11 +28,11 @@ public class DataSource extends Entity {
     private String dataType;
     private JsonNode dataQuality;
     @JsonDeserialize(using = DurationDeserializer.class)
-    private Duration recordingPeriod; //PeriodDuration?
+    private Duration recordingPeriod;
     @JsonDeserialize(using = DurationDeserializer.class)
-    private Duration aggregationPeriod; //PeriodDuration?
+    private Duration aggregationPeriod;
     @JsonDeserialize(using = DurationDeserializer.class)
-    private Duration transmissionPeriod; //PeriodDuration?
+    private Duration transmissionPeriod;
     private String spatialDistribution;
     private GeoJsonObject observedArea;
     @JsonDeserialize(using = SourceDeserializer.class)
