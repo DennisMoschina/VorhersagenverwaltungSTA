@@ -20,6 +20,7 @@ import java.util.Objects;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class TimeObject {
 
+    private static final String INTERVAL_SEPARATOR = "/";
     @JsonDeserialize(using = IntervalDeserializer.class)
     private Interval valueInterval;
     @JsonDeserialize(using = InstantDeserializer.class)
@@ -96,14 +97,13 @@ public class TimeObject {
 
     public static TimeObject parse(String value) {
         try {
-            Instant dt = Instant.parse(value);
-            return new TimeObject(dt);
-        } catch (DateTimeParseException e) {
-            // Not a DateTime
-        }
-        try {
-            Interval interval = Interval.parse(value);
-            return new TimeObject(interval);
+            if (value.contains(INTERVAL_SEPARATOR)) {
+                Interval interval = Interval.parse(value);
+                return new TimeObject(interval);
+            } else {
+                Instant dt = Instant.parse(value);
+                return new TimeObject(dt);
+            }
         } catch (DateTimeParseException e) {
             return null;
         }
