@@ -214,7 +214,7 @@ public class ApplicationRestController {
         this.thingListService.setSource(dataSource.getAccessData());
 
         this.thingListService.removeFilter();
-        filter.ifPresent(s -> this.datastreamsListService.addFilter(new FrostRequestFilter(s)));
+        filter.ifPresent(s -> this.thingListService.addFilter(new FrostRequestFilter(s)));
         this.thingListService.load(items, this.calculateStartIndex(items, page));
         return this.thingListService.getData();
     }
