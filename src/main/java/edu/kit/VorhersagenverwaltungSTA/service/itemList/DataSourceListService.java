@@ -21,6 +21,7 @@ public class DataSourceListService extends ItemListService<DataSource> {
         MultiSelection newSelection = new MultiSelection(KEYS, ObjectType.DATASOURCE);
         newSelection.setCount(itemsCount);
         newSelection.setSkip(startIndex);
+        newSelection.setFilter(this.filter);
         return newSelection;
     }
 }

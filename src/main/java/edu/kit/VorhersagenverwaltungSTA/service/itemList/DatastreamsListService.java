@@ -21,6 +21,7 @@ public class DatastreamsListService extends ItemListService<Datastream> {
         MultiSelection newSelection = new MultiSelection(KEYS, ObjectType.DATASTREAM);
         newSelection.setCount(itemsCount);
         newSelection.setSkip(startIndex);
+        newSelection.setFilter(this.filter);
         return newSelection;
     }
 }

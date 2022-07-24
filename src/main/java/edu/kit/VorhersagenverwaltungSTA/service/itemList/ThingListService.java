@@ -21,6 +21,7 @@ public class ThingListService extends ItemListService<Thing> {
         MultiSelection selection = new MultiSelection(KEYS, ObjectType.THING);
         selection.setCount(itemsCount);
         selection.setSkip(startIndex);
+        selection.setFilter(this.filter);
         return selection;
     }
 }

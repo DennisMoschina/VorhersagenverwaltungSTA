@@ -21,6 +21,7 @@ public class ProcessingProcedureListService extends ItemListService<ProcessingPr
         MultiSelection newSelection = new MultiSelection(KEYS, ObjectType.PROCESSING_PROCEDURE);
         newSelection.setCount(itemsCount);
         newSelection.setSkip(startIndex);
+        newSelection.setFilter(this.filter);
         return newSelection;
     }
 }

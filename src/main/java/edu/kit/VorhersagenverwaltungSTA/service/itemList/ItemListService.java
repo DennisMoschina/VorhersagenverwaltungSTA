@@ -19,7 +19,7 @@ import java.util.List;
 public abstract class ItemListService<T> extends AbstractService<STAObjectList<T>> {
     protected static final String NAME_KEY = "name";
     protected static final String DESCRIPTION_KEY = "description";
-    protected List<Filter> filter = new LinkedList<>();
+    protected Filter filter;
 
     @SuppressWarnings("unchecked")
     public void load(int itemsCount, long startIndex) {
@@ -29,19 +29,11 @@ public abstract class ItemListService<T> extends AbstractService<STAObjectList<T
     }
 
     public void addFilter(Filter filter) {
-        this.filter.add(filter);
+        this.filter = filter;
     }
 
-    public void addFilter(List<Filter> filter) {
-        this.filter.addAll(filter);
-    }
-
-    public void removeFilter(Filter filter) {
-        this.filter.remove(filter);
-    }
-
-    public void removeFilter(List<Filter> filter) {
-        this.filter.removeAll(filter);
+    public void removeFilter() {
+        this.filter = null;
     }
 
     protected abstract MultiSelection buildSelection(int itemsCount, long startIndex);

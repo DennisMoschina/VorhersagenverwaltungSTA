@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Optional;
 
 @RestController
-@CrossOrigin("4200")
+@CrossOrigin("http://localhost:4200")
 public class ApplicationRestController {
     private static final String LIST_ARGS = "/{items}/{page}";
     private static final String FILTER_ARG = "/{filter}";
@@ -139,7 +139,7 @@ public class ApplicationRestController {
                                                        @PathVariable Optional<String> filter) {
         Catalogue catalogue = this.getCatalogue(catalogueId);
         this.dataSourceListService.setSource(new Source(catalogue.getUrl()));
-
+        this.dataSourceListService.removeFilter();
         filter.ifPresent(s -> this.dataSourceListService.addFilter(new FrostRequestFilter(s)));
         this.dataSourceListService.load(items, this.calculateStartIndex(items, page));
         return this.dataSourceListService.getData();
@@ -186,6 +186,7 @@ public class ApplicationRestController {
         DataSource dataSource = this.getDataSource(dataSourceId, catalogueId);
         this.datastreamsListService.setSource(dataSource.getAccessData());
 
+        this.datastreamsListService.removeFilter();
         filter.ifPresent(s -> this.datastreamsListService.addFilter(new FrostRequestFilter(s)));
         this.datastreamsListService.load(items, this.calculateStartIndex(items, page));
         return this.datastreamsListService.getData();
@@ -212,6 +213,7 @@ public class ApplicationRestController {
         DataSource dataSource = this.getDataSource(dataSourceId, catalogueId);
         this.thingListService.setSource(dataSource.getAccessData());
 
+        this.thingListService.removeFilter();
         filter.ifPresent(s -> this.datastreamsListService.addFilter(new FrostRequestFilter(s)));
         this.thingListService.load(items, this.calculateStartIndex(items, page));
         return this.thingListService.getData();
@@ -273,6 +275,7 @@ public class ApplicationRestController {
         Catalogue catalogue = this.getCatalogue(catalogueId);
         this.processingProcedureListService.setSource(new Source(catalogue.getUrl()));
 
+        this.processingProcedureListService.removeFilter();
         filter.ifPresent(s -> this.processingProcedureListService.addFilter(new FrostRequestFilter(s)));
         this.processingProcedureListService.load(items, this.calculateStartIndex(items, page));
         return this.processingProcedureListService.getData();
