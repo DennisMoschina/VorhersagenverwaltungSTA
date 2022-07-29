@@ -7,7 +7,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SingleSelectionEncoder extends SelectionEncoderTemplate {
-    private static final String DATA_FORMAT = "%s(%d)";
+    private static final String HEADER_WITH_ID_FORMAT = "%s(%d)";
+    private static final String HEADER_FORMAT = "%s";
+
     @Override
     public String encode(Selection selection) {
         if (!(selection instanceof SingleSelection))
@@ -25,7 +27,12 @@ public class SingleSelectionEncoder extends SelectionEncoderTemplate {
     @Override
     protected String encodeHeader(Selection selection) {
         SingleSelection singleSelection = (SingleSelection) selection;
-        final String encodedType = new PluralObjectTypeEncoder().encode(singleSelection.getObjectType());
-        return String.format(DATA_FORMAT, encodedType, singleSelection.getSelectedId());
+        final String encodedType;
+        if (singleSelection.getSelectedId() < 0) {
+            encodedType = new SingularObjectTypeEncoder().encode(singleSelection.getObjectType());
+            return String.format(HEADER_FORMAT, encodedType);
+        }
+        encodedType = new PluralObjectTypeEncoder().encode(singleSelection.getObjectType());
+        return String.format(HEADER_WITH_ID_FORMAT, encodedType, singleSelection.getSelectedId());
     }
 }

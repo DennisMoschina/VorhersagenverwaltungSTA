@@ -12,6 +12,7 @@ import edu.kit.VorhersagenverwaltungSTA.service.itemList.DatastreamsListService;
 import edu.kit.VorhersagenverwaltungSTA.service.itemList.ProcessingProcedureListService;
 import edu.kit.VorhersagenverwaltungSTA.service.itemList.ThingListService;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.Source;
+import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.ObjectType;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.filter.FrostRequestFilter;
 import edu.kit.VorhersagenverwaltungSTA.service.singleItem.DataSourceService;
 import edu.kit.VorhersagenverwaltungSTA.service.singleItem.DatastreamService;
@@ -42,6 +43,9 @@ public class ApplicationRestController {
             = GET_DATACATALOGUE_LINK + "/processingprocedure/{processingProcedureID}";
     private static final String GET_PROCESSING_PROCEDURE_LIST_LINK
             = GET_DATACATALOGUE_LINK + "/processingprocedures" + LIST_ARGS;
+
+    private static final String GET_DATASTREAM_LIST_FROM_THING_LINK = GET_THING_LINK + "/datastreams" + LIST_ARGS;
+    private static final String GET_THING_OF_STREAM_LINK = GET_DATASTREAM_LINK + "/thing";
 
     private final CatalogueListService catalogueListService;
     private final DataSourceListService dataSourceListService;
@@ -155,9 +159,9 @@ public class ApplicationRestController {
      * @return the specified the {@link Datastream}
      */
     @GetMapping(GET_DATASTREAM_LINK)
-    public Datastream getDatastream(@PathVariable long datastreamID,
-                                    @PathVariable int catalogueId,
-                                    @PathVariable long dataSourceId) {
+    public Datastream getDatastream(@PathVariable int catalogueId,
+                                    @PathVariable long dataSourceId,
+                                    @PathVariable long datastreamID) {
         DataSource dataSource = this.getDataSource(dataSourceId, catalogueId);
         this.datastreamService.setSource(dataSource.getAccessData());
 
@@ -239,6 +243,17 @@ public class ApplicationRestController {
         return thingService.getData();
     }
 
+    @GetMapping(GET_THING_OF_STREAM_LINK)
+    public Thing getThing(@PathVariable int catalogueId,
+                          @PathVariable long dataSourceId,
+                          @PathVariable long datastreamID) {
+        DataSource dataSource = this.getDataSource(dataSourceId, catalogueId);
+        this.thingService.setSource(dataSource.getAccessData());
+
+        thingService.getFromAssociatedObject(ObjectType.DATASTREAM, datastreamID);
+        return thingService.getData();
+    }
+
     /**
      * Returns the {@link ProcessingProcedure} with the specified id from the respective catalogue.
      *
@@ -279,6 +294,22 @@ public class ApplicationRestController {
         filter.ifPresent(s -> this.processingProcedureListService.addFilter(new FrostRequestFilter(s)));
         this.processingProcedureListService.load(items, this.calculateStartIndex(items, page));
         return this.processingProcedureListService.getData();
+    }
+
+    @GetMapping({GET_DATASTREAM_LIST_FROM_THING_LINK, GET_DATASTREAM_LIST_FROM_THING_LINK + FILTER_ARG})
+    public STAObjectList<Datastream> getDatastreamList(@PathVariable int catalogueId,
+                                                       @PathVariable long dataSourceId,
+                                                       @PathVariable long thingId,
+                                                       @PathVariable int items,
+                                                       @PathVariable long page,
+                                                       @PathVariable Optional<String> filter) {
+        DataSource dataSource = this.getDataSource(dataSourceId, catalogueId);
+        this.datastreamsListService.setSource(dataSource.getAccessData());
+
+        this.datastreamsListService.removeFilter();
+        filter.ifPresent(s -> this.datastreamsListService.addFilter(new FrostRequestFilter(s)));
+        this.datastreamsListService.getFromAssociatedObject(ObjectType.THING, thingId, items, page);
+        return this.datastreamsListService.getData();
     }
 
     private long calculateStartIndex(int items, long page) {
