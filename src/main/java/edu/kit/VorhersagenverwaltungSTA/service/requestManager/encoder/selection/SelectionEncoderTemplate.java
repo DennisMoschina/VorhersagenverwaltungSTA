@@ -17,7 +17,7 @@ public abstract class SelectionEncoderTemplate implements SelectionEncoder {
         if (selection.hasSelectKeys())
             selectionParts.add(0, this.encodeKeys(selection.getKeys()));
 
-        return this.encodeHeader(selection) + String.join("&",
+        return this.encodeHeader(selection) + "?" + String.join("&",
                 selectionParts.stream().filter(Objects::nonNull).toList());
     }
 

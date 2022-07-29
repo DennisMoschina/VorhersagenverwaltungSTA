@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SingleSelectionEncoder extends SelectionEncoderTemplate {
-    private static final String DATA_FORMAT = "%s(%d)?";
+    private static final String DATA_FORMAT = "%s(%d)";
     @Override
     public String encode(Selection selection) {
         if (!(selection instanceof SingleSelection))
