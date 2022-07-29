@@ -4,11 +4,13 @@ import edu.kit.VorhersagenverwaltungSTA.model.dataModel.DataSource;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.ProcessingProcedure;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.catalogue.Catalogue;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.Datastream;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.Observation;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.Thing;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.STAObjectList;
 import edu.kit.VorhersagenverwaltungSTA.service.itemList.CatalogueListService;
 import edu.kit.VorhersagenverwaltungSTA.service.itemList.DataSourceListService;
 import edu.kit.VorhersagenverwaltungSTA.service.itemList.DatastreamsListService;
+import edu.kit.VorhersagenverwaltungSTA.service.itemList.ObservationListService;
 import edu.kit.VorhersagenverwaltungSTA.service.itemList.ProcessingProcedureListService;
 import edu.kit.VorhersagenverwaltungSTA.service.itemList.ThingListService;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.Source;
@@ -46,6 +48,7 @@ public class ApplicationRestController {
 
     private static final String GET_DATASTREAM_LIST_FROM_THING_LINK = GET_THING_LINK + "/datastreams" + LIST_ARGS;
     private static final String GET_THING_OF_STREAM_LINK = GET_DATASTREAM_LINK + "/thing";
+    private static final String GET_OBSERVATIONS_LINK = GET_DATASTREAM_LINK + "/observations" + LIST_ARGS;
 
     private final CatalogueListService catalogueListService;
     private final DataSourceListService dataSourceListService;
@@ -56,6 +59,7 @@ public class ApplicationRestController {
     private final ThingService thingService;
     private final ProcessingProcedureListService processingProcedureListService;
     private final ProcessingProcedureService processingProcedureService;
+    private final ObservationListService observationListService;
 
     public ApplicationRestController(CatalogueListService catalogueListService,
                                      DataSourceListService dataSourceListService,
@@ -65,7 +69,7 @@ public class ApplicationRestController {
                                      ThingListService thingListService,
                                      ThingService thingService,
                                      ProcessingProcedureListService processingProcedureListService,
-                                     ProcessingProcedureService processingProcedureService) {
+                                     ProcessingProcedureService processingProcedureService, ObservationListService observationListService) {
         this.catalogueListService = catalogueListService;
         this.dataSourceListService = dataSourceListService;
         this.dataSourceService = dataSourceService;
@@ -75,6 +79,7 @@ public class ApplicationRestController {
         this.thingService = thingService;
         this.processingProcedureListService = processingProcedureListService;
         this.processingProcedureService = processingProcedureService;
+        this.observationListService = observationListService;
     }
 
     /**
@@ -310,6 +315,22 @@ public class ApplicationRestController {
         filter.ifPresent(s -> this.datastreamsListService.addFilter(new FrostRequestFilter(s)));
         this.datastreamsListService.getFromAssociatedObject(ObjectType.THING, thingId, items, page);
         return this.datastreamsListService.getData();
+    }
+
+    @GetMapping({GET_OBSERVATIONS_LINK, GET_OBSERVATIONS_LINK + FILTER_ARG})
+    public STAObjectList<Observation> getObservationList(@PathVariable int catalogueId,
+                                                         @PathVariable long dataSourceId,
+                                                         @PathVariable long datastreamID,
+                                                         @PathVariable int items,
+                                                         @PathVariable long page,
+                                                         @PathVariable Optional<String> filter) {
+        DataSource dataSource = this.getDataSource(dataSourceId, catalogueId);
+        this.observationListService.setSource(dataSource.getAccessData());
+
+        this.observationListService.removeFilter();
+        filter.ifPresent(s -> this.observationListService.addFilter(new FrostRequestFilter(s)));
+        this.observationListService.getFromAssociatedObject(ObjectType.DATASTREAM, datastreamID, items, page);
+        return this.observationListService.getData();
     }
 
     private long calculateStartIndex(int items, long page) {
