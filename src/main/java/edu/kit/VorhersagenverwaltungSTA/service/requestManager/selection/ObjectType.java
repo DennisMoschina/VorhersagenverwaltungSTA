@@ -7,6 +7,7 @@ import edu.kit.VorhersagenverwaltungSTA.model.dataModel.Entity;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.License;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.Owner;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.ProcessingProcedure;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.ProcessingService;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.catalogue.Catalogue;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.Datastream;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.FeatureOfInterest;
@@ -22,6 +23,7 @@ import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.DatastreamList;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.ObservationList;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.ProcessingProcedureList;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.STAObjectList;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.ServiceList;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.ThingList;
 
 import java.util.ArrayList;
@@ -43,7 +45,8 @@ public enum ObjectType {
     LICENSE(License.class, null),
     ACCESS_INTERFACE(AccessInterface.class, null),
     PROCESSING_PROCEDURE(ProcessingProcedure.class, ProcessingProcedureList.class),
-    CATALOGUE(Catalogue.class, CatalogueList.class);
+    CATALOGUE(Catalogue.class, CatalogueList.class),
+    SERVICE(ProcessingService.class, ServiceList.class);
 
     private final Class<? extends Entity> objectClass;
     private final Class<? extends STAObjectList<? extends Entity>> listClass;

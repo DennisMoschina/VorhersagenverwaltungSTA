@@ -22,6 +22,7 @@ public class PluralObjectTypeEncoder implements Encoder<ObjectType> {
             case LICENSE -> encoded = "Licenses";
             case ACCESS_INTERFACE -> encoded = "AccessInterfaces";
             case PROCESSING_PROCEDURE -> encoded = "MLMethods";
+            case SERVICE -> encoded = "Services";
         }
         return encoded;
     }

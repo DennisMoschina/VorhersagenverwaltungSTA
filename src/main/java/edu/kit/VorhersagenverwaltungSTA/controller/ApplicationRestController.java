@@ -2,6 +2,7 @@ package edu.kit.VorhersagenverwaltungSTA.controller;
 
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.DataSource;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.ProcessingProcedure;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.ProcessingService;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.catalogue.Catalogue;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.Datastream;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.Observation;
@@ -12,6 +13,7 @@ import edu.kit.VorhersagenverwaltungSTA.service.itemList.DataSourceListService;
 import edu.kit.VorhersagenverwaltungSTA.service.itemList.DatastreamsListService;
 import edu.kit.VorhersagenverwaltungSTA.service.itemList.ObservationListService;
 import edu.kit.VorhersagenverwaltungSTA.service.itemList.ProcessingProcedureListService;
+import edu.kit.VorhersagenverwaltungSTA.service.itemList.ServiceListService;
 import edu.kit.VorhersagenverwaltungSTA.service.itemList.ThingListService;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.Source;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.ObjectType;
@@ -19,6 +21,7 @@ import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.filter.
 import edu.kit.VorhersagenverwaltungSTA.service.singleItem.DataSourceService;
 import edu.kit.VorhersagenverwaltungSTA.service.singleItem.DatastreamService;
 import edu.kit.VorhersagenverwaltungSTA.service.singleItem.ProcessingProcedureService;
+import edu.kit.VorhersagenverwaltungSTA.service.singleItem.ProcessingServiceService;
 import edu.kit.VorhersagenverwaltungSTA.service.singleItem.ThingService;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,6 +48,10 @@ public class ApplicationRestController {
             = GET_DATACATALOGUE_LINK + "/processingprocedure/{processingProcedureID}";
     private static final String GET_PROCESSING_PROCEDURE_LIST_LINK
             = GET_DATACATALOGUE_LINK + "/processingprocedures" + LIST_ARGS;
+    private static final String GET_SERVICE_LIST_LINK
+            = GET_DATACATALOGUE_LINK + "/services" + LIST_ARGS;
+    private static final String GET_SERVICE_LINK
+            = GET_DATACATALOGUE_LINK + "/service/{serviceId}";
 
     private static final String GET_DATASTREAM_LIST_FROM_THING_LINK = GET_THING_LINK + "/datastreams" + LIST_ARGS;
     private static final String GET_THING_OF_STREAM_LINK = GET_DATASTREAM_LINK + "/thing";
@@ -60,6 +67,8 @@ public class ApplicationRestController {
     private final ProcessingProcedureListService processingProcedureListService;
     private final ProcessingProcedureService processingProcedureService;
     private final ObservationListService observationListService;
+    private final ServiceListService serviceListService;
+    private final ProcessingServiceService processingServiceService;
 
     public ApplicationRestController(CatalogueListService catalogueListService,
                                      DataSourceListService dataSourceListService,
@@ -69,7 +78,10 @@ public class ApplicationRestController {
                                      ThingListService thingListService,
                                      ThingService thingService,
                                      ProcessingProcedureListService processingProcedureListService,
-                                     ProcessingProcedureService processingProcedureService, ObservationListService observationListService) {
+                                     ProcessingProcedureService processingProcedureService,
+                                     ObservationListService observationListService,
+                                     ServiceListService serviceListService,
+                                     ProcessingServiceService processingServiceService) {
         this.catalogueListService = catalogueListService;
         this.dataSourceListService = dataSourceListService;
         this.dataSourceService = dataSourceService;
@@ -80,6 +92,8 @@ public class ApplicationRestController {
         this.processingProcedureListService = processingProcedureListService;
         this.processingProcedureService = processingProcedureService;
         this.observationListService = observationListService;
+        this.serviceListService = serviceListService;
+        this.processingServiceService = processingServiceService;
     }
 
     /**
@@ -299,6 +313,30 @@ public class ApplicationRestController {
         filter.ifPresent(s -> this.processingProcedureListService.addFilter(new FrostRequestFilter(s)));
         this.processingProcedureListService.load(items, this.calculateStartIndex(items, page));
         return this.processingProcedureListService.getData();
+    }
+
+    @GetMapping({GET_SERVICE_LIST_LINK, GET_SERVICE_LIST_LINK + FILTER_ARG})
+    public STAObjectList<ProcessingService> getServiceList(@PathVariable int items,
+                                                           @PathVariable long page,
+                                                           @PathVariable int catalogueId,
+                                                           @PathVariable Optional<String> filter) {
+        Catalogue catalogue = this.getCatalogue(catalogueId);
+        this.serviceListService.setSource(new Source(catalogue.getUrl()));
+
+        this.serviceListService.removeFilter();
+        filter.ifPresent(s -> this.serviceListService.addFilter(new FrostRequestFilter(s)));
+        this.serviceListService.load(items, this.calculateStartIndex(items, page));
+        return this.serviceListService.getData();
+    }
+
+    @GetMapping(GET_SERVICE_LINK)
+    public ProcessingService getProcessingService(@PathVariable int catalogueId,
+                                                  @PathVariable long serviceId) {
+        Catalogue catalogue = this.getCatalogue(catalogueId);
+        this.processingServiceService.setSource(new Source(catalogue.getUrl()));
+
+        this.processingServiceService.load(serviceId);
+        return this.processingServiceService.getData();
     }
 
     @GetMapping({GET_DATASTREAM_LIST_FROM_THING_LINK, GET_DATASTREAM_LIST_FROM_THING_LINK + FILTER_ARG})
