@@ -20,6 +20,7 @@ import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.Thing;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.CatalogueList;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.DataSourceList;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.DatastreamList;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.LocationList;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.ObservationList;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.ProcessingProcedureList;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.STAObjectList;
@@ -34,7 +35,7 @@ public enum ObjectType {
     DATASTREAM(Datastream.class, DatastreamList.class),
     SENSOR(Sensor.class, null),
     THING(Thing.class, ThingList.class),
-    LOCATION(Location.class, null),
+    LOCATION(Location.class, LocationList.class),
     HISTORICAL_LOCATION(HistoricalLocation.class, null),
     OBSERVED_PROPERTY(ObservedProperty.class, null),
     OBSERVATION(Observation.class, ObservationList.class),

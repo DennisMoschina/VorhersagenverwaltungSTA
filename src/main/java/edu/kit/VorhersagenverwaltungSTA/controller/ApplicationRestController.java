@@ -5,12 +5,14 @@ import edu.kit.VorhersagenverwaltungSTA.model.dataModel.ProcessingProcedure;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.ProcessingService;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.catalogue.Catalogue;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.Datastream;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.Location;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.Observation;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.Thing;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.STAObjectList;
 import edu.kit.VorhersagenverwaltungSTA.service.itemList.CatalogueListService;
 import edu.kit.VorhersagenverwaltungSTA.service.itemList.DataSourceListService;
 import edu.kit.VorhersagenverwaltungSTA.service.itemList.DatastreamsListService;
+import edu.kit.VorhersagenverwaltungSTA.service.itemList.LocationListService;
 import edu.kit.VorhersagenverwaltungSTA.service.itemList.ObservationListService;
 import edu.kit.VorhersagenverwaltungSTA.service.itemList.ProcessingProcedureListService;
 import edu.kit.VorhersagenverwaltungSTA.service.itemList.ServiceListService;
@@ -56,6 +58,8 @@ public class ApplicationRestController {
     private static final String GET_DATASTREAM_LIST_FROM_THING_LINK = GET_THING_LINK + "/datastreams" + LIST_ARGS;
     private static final String GET_THING_OF_STREAM_LINK = GET_DATASTREAM_LINK + "/thing";
     private static final String GET_OBSERVATIONS_LINK = GET_DATASTREAM_LINK + "/observations" + LIST_ARGS;
+    private static final String GET_LOCATIONS = "/locations" + LIST_ARGS;
+    private static final String GET_LOCATIONS_OF_THING_LINK = GET_THING_LINK + GET_LOCATIONS;
 
     private final CatalogueListService catalogueListService;
     private final DataSourceListService dataSourceListService;
@@ -69,6 +73,7 @@ public class ApplicationRestController {
     private final ObservationListService observationListService;
     private final ServiceListService serviceListService;
     private final ProcessingServiceService processingServiceService;
+    private final LocationListService locationListService;
 
     public ApplicationRestController(CatalogueListService catalogueListService,
                                      DataSourceListService dataSourceListService,
@@ -81,7 +86,8 @@ public class ApplicationRestController {
                                      ProcessingProcedureService processingProcedureService,
                                      ObservationListService observationListService,
                                      ServiceListService serviceListService,
-                                     ProcessingServiceService processingServiceService) {
+                                     ProcessingServiceService processingServiceService,
+                                     LocationListService locationListService) {
         this.catalogueListService = catalogueListService;
         this.dataSourceListService = dataSourceListService;
         this.dataSourceService = dataSourceService;
@@ -94,6 +100,7 @@ public class ApplicationRestController {
         this.observationListService = observationListService;
         this.serviceListService = serviceListService;
         this.processingServiceService = processingServiceService;
+        this.locationListService = locationListService;
     }
 
     /**
@@ -369,6 +376,22 @@ public class ApplicationRestController {
         filter.ifPresent(s -> this.observationListService.addFilter(new FrostRequestFilter(s)));
         this.observationListService.getFromAssociatedObject(ObjectType.DATASTREAM, datastreamID, items, page);
         return this.observationListService.getData();
+    }
+
+    @GetMapping({GET_LOCATIONS_OF_THING_LINK, GET_LOCATIONS_OF_THING_LINK + FILTER_ARG})
+    public STAObjectList<Location> getLocationOfThing(@PathVariable int catalogueId,
+                                                      @PathVariable long dataSourceId,
+                                                      @PathVariable long thingId,
+                                                      @PathVariable int items,
+                                                      @PathVariable long page,
+                                                      @PathVariable Optional<String> filter) {
+        DataSource dataSource = this.getDataSource(dataSourceId, catalogueId);
+        this.locationListService.setSource(dataSource.getAccessData());
+
+        this.locationListService.removeFilter();
+        filter.ifPresent(s -> this.locationListService.addFilter(new FrostRequestFilter(s)));
+        this.locationListService.getFromAssociatedObject(ObjectType.THING, thingId, items, page);
+        return this.locationListService.getData();
     }
 
     private long calculateStartIndex(int items, long page) {

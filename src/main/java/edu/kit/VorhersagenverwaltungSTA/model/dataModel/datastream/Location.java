@@ -87,6 +87,7 @@ public class Location extends Entity {
     }
 
     public STAObjectList<HistoricalLocation> getHistoricalLocations() {
+        if (this.historicalLocations == null) return null;
         return this.historicalLocations.copyOf();
     }
 

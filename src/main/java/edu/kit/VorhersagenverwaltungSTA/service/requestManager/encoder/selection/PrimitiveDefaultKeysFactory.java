@@ -10,6 +10,7 @@ public class PrimitiveDefaultKeysFactory implements DefaultKeysFactory {
         switch (objectType) {
             case OBSERVATION -> keys = Set.of("result", "phenomenonTime");
             case HISTORICAL_LOCATION -> keys = Set.of("time");
+            case LOCATION -> keys = Set.of("name", "description, location");
             default -> keys = Set.of("name", "description");
         }
         return keys;
