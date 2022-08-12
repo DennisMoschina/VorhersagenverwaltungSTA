@@ -17,7 +17,7 @@ public class GenericSelectionEncoder implements SelectionEncoder {
         } else if (selection.getClass().equals(ObjectAssociatedSelection.class)) {
             encoder = new ObjectAssociatedSelectionEncoder();
         } else {
-            throw new IllegalStateException("type of Selection is unknown");
+            throw new IllegalArgumentException("type of Selection is unknown");
         }
         return encoder.encode(selection);
     }

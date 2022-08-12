@@ -1,4 +1,4 @@
-package edu.kit.VorhersagenverwaltungSTA.unitTests;
+package edu.kit.VorhersagenverwaltungSTA.unitTests.selection;
 
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.encoder.selection.SingleSelectionEncoder;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.MultiSelection;

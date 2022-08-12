@@ -1,4 +1,4 @@
-package edu.kit.VorhersagenverwaltungSTA.unitTests;
+package edu.kit.VorhersagenverwaltungSTA.unitTests.jackson;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
