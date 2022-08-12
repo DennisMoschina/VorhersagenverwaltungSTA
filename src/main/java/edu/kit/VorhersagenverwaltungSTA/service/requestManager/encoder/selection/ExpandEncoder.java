@@ -4,6 +4,7 @@ import edu.kit.VorhersagenverwaltungSTA.service.requestManager.encoder.Encoder;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.encoder.ListEncoder;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.MultiSelection;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.ObjectType;
+import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.RelationSelection;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.Selection;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.SingleSelection;
 
@@ -31,17 +32,29 @@ public class ExpandEncoder implements Encoder<Set<Selection>> {
         public String encode(Selection selection) {
             SelectionEncoderTemplate encoder;
             Encoder<ObjectType> headerEncoder;
+            Selection selectionToEncode = selection;
 
             if (selection.getClass().equals(MultiSelection.class)) {
                 encoder = new MultiSelectionEncoder();
                 headerEncoder = new PluralObjectTypeEncoder();
-            }
-            else if (selection.getClass().equals(SingleSelection.class)) {
+            } else if (selection.getClass().equals(SingleSelection.class)) {
                 encoder = new SingleSelectionEncoder();
                 headerEncoder = new SingularObjectTypeEncoder();
+            } else if (selection.getClass().equals(RelationSelection.class)) {
+                RelationSelection relationSelection = (RelationSelection) selection;
+                if (relationSelection.getRelation().isAsList()) {
+                    encoder = new MultiSelectionEncoder();
+                    headerEncoder = new PluralObjectTypeEncoder();
+                } else {
+                    encoder = new SingleSelectionEncoder();
+                    headerEncoder = new SingularObjectTypeEncoder();
+                }
+                if (relationSelection.getRelation().getName() != null)
+                    headerEncoder = objectType -> relationSelection.getRelation().getName();
+                selectionToEncode = relationSelection.getSelection();
             } else throw new IllegalStateException("Unknown Selection type");
 
-            final List<String> encodedParts = encoder.encodeParts(selection);
+            final List<String> encodedParts = encoder.encodeParts(selectionToEncode);
 
             final String encodedHeader = headerEncoder.encode(selection.getObjectType());
 

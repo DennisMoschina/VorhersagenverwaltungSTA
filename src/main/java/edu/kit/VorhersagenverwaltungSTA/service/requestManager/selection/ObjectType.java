@@ -26,6 +26,8 @@ import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.ProcessingProcedur
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.STAObjectList;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.ServiceList;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.ThingList;
+import edu.kit.VorhersagenverwaltungSTA.service.requestManager.encoder.selection.PluralObjectTypeEncoder;
+import edu.kit.VorhersagenverwaltungSTA.service.requestManager.encoder.selection.SingularObjectTypeEncoder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -63,6 +65,27 @@ public enum ObjectType {
         );
         SENSOR.addRelations(new Relation(true, DATASTREAM));
         OBSERVED_PROPERTY.addRelations(new Relation(true, DATASTREAM));
+
+        SERVICE.addRelations(
+                new Relation(true, DATASOURCE, "WritesSources"),
+                new Relation(true, DATASOURCE, "ReadsSources"),
+                new Relation(true, PROCESSING_PROCEDURE, "AppliesMethods")
+        );
+
+        PROCESSING_PROCEDURE.addRelations(
+                new Relation(OWNER),
+                new Relation(CONTACT),
+                new Relation(LICENSE),
+                new Relation(true, SERVICE, "ApplyingServices")
+        );
+
+        DATASOURCE.addRelations(
+                new Relation(OWNER),
+                new Relation(CONTACT),
+                new Relation(LICENSE),
+                new Relation(true, SERVICE, "WritingServices"),
+                new Relation(true, SERVICE, "ReadingServices")
+        );
     }
 
     ObjectType(Class<? extends Entity> objectClass, Class<? extends STAObjectList<? extends Entity>> listClass) {
@@ -87,14 +110,26 @@ public enum ObjectType {
     public static class Relation {
         private final boolean asList;
         private final ObjectType objectType;
+        private final String name;
 
         public Relation(ObjectType objectType) {
             this(false, objectType);
         }
 
         public Relation(boolean asList, ObjectType objectType) {
+            this(asList,
+                    objectType,
+                    (asList ? new PluralObjectTypeEncoder() : new SingularObjectTypeEncoder()).encode(objectType));
+        }
+
+        public Relation(ObjectType objectType, String name) {
+            this(false, objectType, name);
+        }
+
+        public Relation(boolean asList, ObjectType objectType, String name) {
             this.asList = asList;
             this.objectType = objectType;
+            this.name = name;
         }
 
         public boolean isAsList() {
@@ -103,6 +138,10 @@ public enum ObjectType {
 
         public ObjectType getObjectType() {
             return objectType;
+        }
+
+        public String getName() {
+            return name;
         }
     }
 }

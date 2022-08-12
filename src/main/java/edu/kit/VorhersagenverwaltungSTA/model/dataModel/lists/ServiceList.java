@@ -5,6 +5,6 @@ import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.ObjectT
 
 public class ServiceList extends STAObjectList<ProcessingService> {
     public ServiceList() {
-        super(ObjectType.THING);
+        super(ObjectType.SERVICE);
     }
 }

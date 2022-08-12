@@ -12,6 +12,7 @@ import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.STAObjectList;
 import edu.kit.VorhersagenverwaltungSTA.service.itemList.CatalogueListService;
 import edu.kit.VorhersagenverwaltungSTA.service.itemList.DataSourceListService;
 import edu.kit.VorhersagenverwaltungSTA.service.itemList.DatastreamsListService;
+import edu.kit.VorhersagenverwaltungSTA.service.itemList.ItemListService;
 import edu.kit.VorhersagenverwaltungSTA.service.itemList.LocationListService;
 import edu.kit.VorhersagenverwaltungSTA.service.itemList.ObservationListService;
 import edu.kit.VorhersagenverwaltungSTA.service.itemList.ProcessingProcedureListService;
@@ -60,6 +61,14 @@ public class ApplicationRestController {
     private static final String GET_OBSERVATIONS_LINK = GET_DATASTREAM_LINK + "/observations" + LIST_ARGS;
     private static final String GET_LOCATIONS = "/locations" + LIST_ARGS;
     private static final String GET_LOCATIONS_OF_THING_LINK = GET_THING_LINK + GET_LOCATIONS;
+
+    private static final String GET_WRITES_SOURCES_LINK = GET_SERVICE_LINK + "/writesSources" + LIST_ARGS;
+    private static final String GET_READS_SOURCES_LINK = GET_SERVICE_LINK + "/readsSources" + LIST_ARGS;
+    private static final String GET_WRITING_SERVICES_LINK = GET_DATASOURCE_LINK + "/writingServices" + LIST_ARGS;
+    private static final String GET_READING_SERVICES_LINK = GET_DATASOURCE_LINK + "/readingServices" + LIST_ARGS;
+    private static final String GET_APPLYING_SERVICES_LINK = GET_PROCESSING_PROCEDURE_LINK + "/applyingServices" + LIST_ARGS;
+    private static final String GET_APPLIES_METHODS_LINK = GET_SERVICE_LINK + "/appliesMethods" + LIST_ARGS;
+
 
     private final CatalogueListService catalogueListService;
     private final DataSourceListService dataSourceListService;
@@ -213,11 +222,7 @@ public class ApplicationRestController {
                                                        @PathVariable int catalogueId,
                                                        @PathVariable long dataSourceId,
                                                        @PathVariable Optional<String> filter) {
-        DataSource dataSource = this.getDataSource(dataSourceId, catalogueId);
-        this.datastreamsListService.setSource(dataSource.getAccessData());
-
-        this.datastreamsListService.removeFilter();
-        filter.ifPresent(s -> this.datastreamsListService.addFilter(new FrostRequestFilter(s)));
+        this.prepareListService(catalogueId, dataSourceId, filter, this.datastreamsListService);
         this.datastreamsListService.load(items, this.calculateStartIndex(items, page));
         return this.datastreamsListService.getData();
     }
@@ -240,11 +245,7 @@ public class ApplicationRestController {
                                              @PathVariable int catalogueId,
                                              @PathVariable long dataSourceId,
                                              @PathVariable Optional<String> filter) {
-        DataSource dataSource = this.getDataSource(dataSourceId, catalogueId);
-        this.thingListService.setSource(dataSource.getAccessData());
-
-        this.thingListService.removeFilter();
-        filter.ifPresent(s -> this.thingListService.addFilter(new FrostRequestFilter(s)));
+        this.prepareListService(catalogueId, dataSourceId, filter, this.thingListService);
         this.thingListService.load(items, this.calculateStartIndex(items, page));
         return this.thingListService.getData();
     }
@@ -353,11 +354,7 @@ public class ApplicationRestController {
                                                        @PathVariable int items,
                                                        @PathVariable long page,
                                                        @PathVariable Optional<String> filter) {
-        DataSource dataSource = this.getDataSource(dataSourceId, catalogueId);
-        this.datastreamsListService.setSource(dataSource.getAccessData());
-
-        this.datastreamsListService.removeFilter();
-        filter.ifPresent(s -> this.datastreamsListService.addFilter(new FrostRequestFilter(s)));
+        this.prepareListService(catalogueId, dataSourceId, filter, this.datastreamsListService);
         this.datastreamsListService.getFromAssociatedObject(ObjectType.THING, thingId, items, page);
         return this.datastreamsListService.getData();
     }
@@ -369,11 +366,7 @@ public class ApplicationRestController {
                                                          @PathVariable int items,
                                                          @PathVariable long page,
                                                          @PathVariable Optional<String> filter) {
-        DataSource dataSource = this.getDataSource(dataSourceId, catalogueId);
-        this.observationListService.setSource(dataSource.getAccessData());
-
-        this.observationListService.removeFilter();
-        filter.ifPresent(s -> this.observationListService.addFilter(new FrostRequestFilter(s)));
+        this.prepareListService(catalogueId, dataSourceId, filter, this.observationListService);
         this.observationListService.getFromAssociatedObject(ObjectType.DATASTREAM, datastreamID, items, page);
         return this.observationListService.getData();
     }
@@ -385,13 +378,110 @@ public class ApplicationRestController {
                                                       @PathVariable int items,
                                                       @PathVariable long page,
                                                       @PathVariable Optional<String> filter) {
-        DataSource dataSource = this.getDataSource(dataSourceId, catalogueId);
-        this.locationListService.setSource(dataSource.getAccessData());
-
-        this.locationListService.removeFilter();
-        filter.ifPresent(s -> this.locationListService.addFilter(new FrostRequestFilter(s)));
+        this.prepareListService(catalogueId, dataSourceId, filter, this.locationListService);
         this.locationListService.getFromAssociatedObject(ObjectType.THING, thingId, items, page);
         return this.locationListService.getData();
+    }
+
+    @GetMapping({GET_WRITES_SOURCES_LINK, GET_WRITES_SOURCES_LINK + FILTER_ARG})
+    public STAObjectList<DataSource> getWriteSources(@PathVariable int catalogueId,
+                                                     @PathVariable long serviceId,
+                                                     @PathVariable int items,
+                                                     @PathVariable long page,
+                                                     @PathVariable Optional<String> filter) {
+        Catalogue catalogue = this.getCatalogue(catalogueId);
+        this.dataSourceListService.setSource(new Source(catalogue.getUrl()));
+        this.dataSourceListService.removeFilter();
+        filter.ifPresent(s -> this.dataSourceListService.addFilter(new FrostRequestFilter(s)));
+
+        this.dataSourceListService.getFromAssociatedObject(ObjectType.SERVICE, serviceId, items, page, "WritesSources");
+        return this.dataSourceListService.getData();
+    }
+
+    @GetMapping({GET_READS_SOURCES_LINK, GET_READS_SOURCES_LINK + FILTER_ARG})
+    public STAObjectList<DataSource> getReadsSources(@PathVariable int catalogueId,
+                                                     @PathVariable long serviceId,
+                                                     @PathVariable int items,
+                                                     @PathVariable long page,
+                                                     @PathVariable Optional<String> filter) {
+        Catalogue catalogue = this.getCatalogue(catalogueId);
+        this.dataSourceListService.setSource(new Source(catalogue.getUrl()));
+        this.dataSourceListService.removeFilter();
+        filter.ifPresent(s -> this.dataSourceListService.addFilter(new FrostRequestFilter(s)));
+
+        this.dataSourceListService.getFromAssociatedObject(ObjectType.SERVICE, serviceId, items, page, "ReadsSources");
+        return this.dataSourceListService.getData();
+    }
+
+    @GetMapping({GET_WRITING_SERVICES_LINK, GET_WRITING_SERVICES_LINK + FILTER_ARG})
+    public STAObjectList<ProcessingService> getWritingServices(@PathVariable int catalogueId,
+                                                               @PathVariable long dataSourceId,
+                                                               @PathVariable int items,
+                                                               @PathVariable long page,
+                                                               @PathVariable Optional<String> filter) {
+        Catalogue catalogue = this.getCatalogue(catalogueId);
+        this.serviceListService.setSource(new Source(catalogue.getUrl()));
+        this.serviceListService.removeFilter();
+        filter.ifPresent(s -> this.serviceListService.addFilter(new FrostRequestFilter(s)));
+
+        this.serviceListService.getFromAssociatedObject(ObjectType.SERVICE, dataSourceId, items, page, "WritingServices");
+        return this.serviceListService.getData();
+    }
+
+    @GetMapping({GET_READING_SERVICES_LINK, GET_READING_SERVICES_LINK + FILTER_ARG})
+    public STAObjectList<ProcessingService> getReadingServices(@PathVariable int catalogueId,
+                                                            @PathVariable long dataSourceId,
+                                                            @PathVariable int items,
+                                                            @PathVariable long page,
+                                                            @PathVariable Optional<String> filter) {
+        Catalogue catalogue = this.getCatalogue(catalogueId);
+        this.serviceListService.setSource(new Source(catalogue.getUrl()));
+        this.serviceListService.removeFilter();
+        filter.ifPresent(s -> this.serviceListService.addFilter(new FrostRequestFilter(s)));
+
+        this.serviceListService.getFromAssociatedObject(ObjectType.SERVICE, dataSourceId, items, page, "ReadingServices");
+        return this.serviceListService.getData();
+    }
+
+    @GetMapping({GET_APPLIES_METHODS_LINK, GET_APPLIES_METHODS_LINK + FILTER_ARG})
+    public STAObjectList<ProcessingProcedure> getAppliesMethods(@PathVariable int catalogueId,
+                                                              @PathVariable long serviceId,
+                                                              @PathVariable int items,
+                                                              @PathVariable long page,
+                                                              @PathVariable Optional<String> filter) {
+        Catalogue catalogue = this.getCatalogue(catalogueId);
+        this.processingProcedureListService.setSource(new Source(catalogue.getUrl()));
+        this.processingProcedureListService.removeFilter();
+        filter.ifPresent(s -> this.processingProcedureListService.addFilter(new FrostRequestFilter(s)));
+
+        this.processingProcedureListService.getFromAssociatedObject(ObjectType.SERVICE, serviceId, items, page, "AppliesMethods");
+        return this.processingProcedureListService.getData();
+    }
+
+    @GetMapping({GET_APPLYING_SERVICES_LINK, GET_APPLYING_SERVICES_LINK + FILTER_ARG})
+    public STAObjectList<ProcessingService> getApplyingServices(@PathVariable int catalogueId,
+                                                                @PathVariable long processingProcedureID,
+                                                                @PathVariable int items,
+                                                                @PathVariable long page,
+                                                                @PathVariable Optional<String> filter) {
+        Catalogue catalogue = this.getCatalogue(catalogueId);
+        this.serviceListService.setSource(new Source(catalogue.getUrl()));
+        this.serviceListService.removeFilter();
+        filter.ifPresent(s -> this.serviceListService.addFilter(new FrostRequestFilter(s)));
+
+        this.serviceListService.getFromAssociatedObject(ObjectType.PROCESSING_PROCEDURE, processingProcedureID, items, page, "ApplyingServices");
+        return this.serviceListService.getData();
+    }
+
+    private void prepareListService(int catalogueId,
+                                    long dataSourceId,
+                                    Optional<String> filter,
+                                    ItemListService<?> service) {
+        DataSource dataSource = this.getDataSource(dataSourceId, catalogueId);
+        service.setSource(dataSource.getAccessData());
+
+        service.removeFilter();
+        filter.ifPresent(s -> service.addFilter(new FrostRequestFilter(s)));
     }
 
     private long calculateStartIndex(int items, long page) {

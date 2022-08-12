@@ -27,12 +27,22 @@ public abstract class ItemListService<T> extends AbstractService<STAObjectList<T
         this.loadFrom(selection);
     }
 
-    public void getFromAssociatedObject(ObjectType associatedObjectType, long id, int itemsCount, long startIndex) {
+    public void getFromAssociatedObject(ObjectType associatedObjectType,
+                                        long id,
+                                        int itemsCount,
+                                        long startIndex,
+                                        String associationName) {
         final SingleSelection sourceSelection = new SingleSelection(associatedObjectType, id);
         final Selection objectSelection = this.buildSelection(itemsCount, startIndex);
-        final Selection associatedObjectSelection = new ObjectAssociatedSelection(sourceSelection, objectSelection);
+        final Selection associatedObjectSelection = associationName != null ?
+                new ObjectAssociatedSelection(sourceSelection, objectSelection, associationName)
+                : new ObjectAssociatedSelection(sourceSelection, objectSelection);
 
         this.loadFrom(associatedObjectSelection);
+    }
+
+    public void getFromAssociatedObject(ObjectType associatedObjectType, long id, int itemsCount, long startIndex) {
+        this.getFromAssociatedObject(associatedObjectType, id, itemsCount, startIndex, null);
     }
 
     public void addFilter(Filter filter) {

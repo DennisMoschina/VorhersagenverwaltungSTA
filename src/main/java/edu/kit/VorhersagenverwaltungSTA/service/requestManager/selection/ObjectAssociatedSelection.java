@@ -10,12 +10,33 @@ public class ObjectAssociatedSelection extends Selection {
     private final SingleSelection sourceObjectSelection;
     private final Selection selection;
 
+    private final ObjectType.Relation relation;
+
     public ObjectAssociatedSelection(SingleSelection sourceObject, Selection selection) {
-        super(null);
+        this(sourceObject, selection, (ObjectType.Relation) null);
+    }
+    public ObjectAssociatedSelection(SingleSelection sourceObject, Selection selection, String relationName) {
+        this(sourceObject,
+                selection,
+                sourceObject.getObjectType().getRelations().stream()
+                        .filter(r -> relationName.equalsIgnoreCase(r.getName()))
+                        .findFirst().orElse(null));
+    }
+
+    public ObjectAssociatedSelection(SingleSelection sourceObject, Selection selection, ObjectType.Relation relation) {
+        super(selection.getObjectType());
 
         this.sourceObjectSelection = sourceObject;
         this.selection = selection;
+        this.relation = relation;
+
+        if (relation != null) {
+            if (relation.isAsList() && !(selection instanceof MultiSelection)
+                    || !relation.isAsList() && selection instanceof MultiSelection)
+                throw new IllegalArgumentException("the relation and selection do not match");
+        }
     }
+
 
     public SingleSelection getSourceObjectSelection() {
         return sourceObjectSelection;
@@ -23,6 +44,10 @@ public class ObjectAssociatedSelection extends Selection {
 
     public Selection getSelection() {
         return selection;
+    }
+
+    public ObjectType.Relation getRelation() {
+        return relation;
     }
 
     @Override
