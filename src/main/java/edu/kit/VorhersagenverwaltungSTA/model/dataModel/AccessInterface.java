@@ -3,7 +3,8 @@ package edu.kit.VorhersagenverwaltungSTA.model.dataModel;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
-import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.STAObjectList;
+
+import java.util.Arrays;
 
 /**
  * This class describes an AccessInterface of the SensorThingsAPI.
@@ -22,7 +23,7 @@ public class AccessInterface extends Entity {
     @JsonProperty("DataSources@navigationLink")
     private String dataSourceURL;
     @JsonProperty("DataSources")
-    private STAObjectList<DataSource> dataSources;
+    private DataSource[] dataSources;
 
 
     public String getName() {
@@ -73,11 +74,11 @@ public class AccessInterface extends Entity {
         this.dataSourceURL = dataSourceURL;
     }
 
-    public STAObjectList<DataSource> getDataSources() {
-        return this.dataSources.copyOf();
+    public DataSource[] getDataSources() {
+        return this.dataSources;
     }
 
-    public void setDataSources(STAObjectList<DataSource> dataSources) {
+    public void setDataSources(DataSource[] dataSources) {
         this.dataSources = dataSources;
     }
 
@@ -91,7 +92,7 @@ public class AccessInterface extends Entity {
                 ", specification=" + specification +
                 ", properties=" + properties +
                 ", dataSourceURL='" + dataSourceURL + '\'' +
-                ", dataSources=" + dataSources +
+                ", dataSources=" + Arrays.toString(dataSources) +
                 '}';
     }
 }

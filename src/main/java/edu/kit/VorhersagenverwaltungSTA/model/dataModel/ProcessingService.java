@@ -2,7 +2,6 @@ package edu.kit.VorhersagenverwaltungSTA.model.dataModel;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.STAObjectList;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class ProcessingService extends Entity {
@@ -15,11 +14,11 @@ public class ProcessingService extends Entity {
     @JsonProperty("implementationURL")
     private String implementationURL;
     @JsonProperty("WritesSources")
-    private STAObjectList<DataSource> writesSource;
+    private DataSource[] writesSource;
     @JsonProperty("ReadsSources")
-    private STAObjectList<DataSource> readsSources;
+    private DataSource[] readsSources;
     @JsonProperty("AppliesMethods")
-    private STAObjectList<ProcessingProcedure> appliesMethods;
+    private ProcessingProcedure[] appliesMethods;
 
     @Override
     public long getId() {
@@ -55,27 +54,27 @@ public class ProcessingService extends Entity {
         this.implementationURL = implementationURL;
     }
 
-    public STAObjectList<DataSource> getWritesSource() {
+    public DataSource[] getWritesSource() {
         return writesSource;
     }
 
-    public void setWritesSource(STAObjectList<DataSource> writesSource) {
+    public void setWritesSource(DataSource[] writesSource) {
         this.writesSource = writesSource;
     }
 
-    public STAObjectList<DataSource> getReadsSources() {
+    public DataSource[] getReadsSources() {
         return readsSources;
     }
 
-    public void setReadsSources(STAObjectList<DataSource> readsSources) {
+    public void setReadsSources(DataSource[] readsSources) {
         this.readsSources = readsSources;
     }
 
-    public STAObjectList<ProcessingProcedure> getAppliesMethods() {
+    public ProcessingProcedure[] getAppliesMethods() {
         return appliesMethods;
     }
 
-    public void setAppliesMethods(STAObjectList<ProcessingProcedure> appliesMethods) {
+    public void setAppliesMethods(ProcessingProcedure[] appliesMethods) {
         this.appliesMethods = appliesMethods;
     }
 }
