@@ -84,7 +84,14 @@ public enum ObjectType {
                 new Relation(CONTACT),
                 new Relation(LICENSE),
                 new Relation(true, SERVICE, "WritingServices"),
-                new Relation(true, SERVICE, "ReadingServices")
+                new Relation(true, SERVICE, "ReadingServices"),
+                new Relation(ACCESS_INTERFACE)
+        );
+
+        THING.addRelations(
+                new Relation(true, LOCATION),
+                new Relation(true, DATASTREAM),
+                new Relation(true, HISTORICAL_LOCATION)
         );
     }
 
