@@ -3,6 +3,8 @@ package edu.kit.VorhersagenverwaltungSTA.service.requestManager;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.io.File;
@@ -20,6 +22,7 @@ import java.util.Map;
  */
 @Service
 public class AuthenticationFactory {
+    private static final Logger LOGGER = LoggerFactory.getLogger(AuthenticationFactory.class);
     private static final String FROST_AUTH_ENV_VARIABLE_NAME = "FROST_AUTH";
 
     private final Map<String, Authentication> authenticationMap;
@@ -41,8 +44,13 @@ public class AuthenticationFactory {
     private void loadAuthentications() {
         ObjectMapper mapper = new ObjectMapper();
 
+        String path = "";
         try {
-            String path = System.getenv(FROST_AUTH_ENV_VARIABLE_NAME);
+            path = System.getenv(FROST_AUTH_ENV_VARIABLE_NAME);
+            if (path == null) {
+                LOGGER.warn("the environment variable {} is not set", FROST_AUTH_ENV_VARIABLE_NAME);
+                return;
+            }
             File file = new File(path);
             List<JsonNode> jsonNodeList = mapper.readValue(file, new TypeReference<>() {
             });
@@ -54,7 +62,7 @@ public class AuthenticationFactory {
                 this.authenticationMap.put(url, authentication);
             }
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            LOGGER.error("could not find file at path {}", path);
         }
     }
 }

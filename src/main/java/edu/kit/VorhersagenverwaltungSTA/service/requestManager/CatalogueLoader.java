@@ -5,6 +5,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import edu.kit.VorhersagenverwaltungSTA.model.core.CacheProxyObjectContainer;
 import edu.kit.VorhersagenverwaltungSTA.model.core.ObjectContainer;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.catalogue.Catalogue;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.CatalogueList;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.STAObjectList;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.ObjectType;
 import org.slf4j.Logger;
@@ -52,14 +53,18 @@ public class CatalogueLoader {
         ObjectMapper mapper = new ObjectMapper();
 
         try {
-            File file = new File(this.getCatalogueListPath());
-            List<Catalogue> catalogueList = mapper.readValue(file, new TypeReference<>() {
-            });
+            final String path = this.getCatalogueListPath();
+            if (path == null) {
+                LOGGER.error("the environment variable {} is not set", CATALOGUES_ENV_VARIABLE_NAME);
+                return new CatalogueList();
+            }
+            final File file = new File(path);
+            List<Catalogue> catalogueList = mapper.readValue(file, new TypeReference<>() { });
             return new STAObjectList<>(ObjectType.CATALOGUE, catalogueList);
         } catch (IOException e) {
             LOGGER.error(e.getMessage());
-            throw new RuntimeException(e);
         }
+        return new CatalogueList();
     }
 
     private String getCatalogueListPath() {
