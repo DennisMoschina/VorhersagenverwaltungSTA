@@ -424,7 +424,7 @@ public class ApplicationRestController {
         this.serviceListService.removeFilter();
         filter.ifPresent(s -> this.serviceListService.addFilter(new FrostRequestFilter(s)));
 
-        this.serviceListService.getFromAssociatedObject(ObjectType.SERVICE, dataSourceId, items, page, "WritingServices");
+        this.serviceListService.getFromAssociatedObject(ObjectType.DATASOURCE, dataSourceId, items, page, "WritingServices");
         return this.serviceListService.getData();
     }
 
