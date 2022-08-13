@@ -439,7 +439,7 @@ public class ApplicationRestController {
         this.serviceListService.removeFilter();
         filter.ifPresent(s -> this.serviceListService.addFilter(new FrostRequestFilter(s)));
 
-        this.serviceListService.getFromAssociatedObject(ObjectType.SERVICE, dataSourceId, items, page, "ReadingServices");
+        this.serviceListService.getFromAssociatedObject(ObjectType.DATASOURCE, dataSourceId, items, page, "ReadingServices");
         return this.serviceListService.getData();
     }
 
