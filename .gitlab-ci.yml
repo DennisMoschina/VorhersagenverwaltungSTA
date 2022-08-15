@@ -34,7 +34,7 @@ build_job:
     - echo GE_JOB_ID=$CI_JOB_ID >> build.env
   script:
     - ./gradlew build
-    - ./gradlew jib -Djib.from.image=openjdk:18 -Djib.to.image=${CI_REGISTRY_IMAGE}:latest -Djib.to.auth.username=${CI_REGISTRY_USER} -Djib.to.auth.password=${CI_REGISTRY_PASSWORD} -Djib.container.mainClass=edu.kit.VorhersagenverwaltungSTA.VorhersagenverwaltungStaApplication -Djib.container.ports=['8080']
+    - ./gradlew jib -Djib.to.image=${CI_REGISTRY_IMAGE}:latest -Djib.to.auth.username=${CI_REGISTRY_USER} -Djib.to.auth.password=${CI_REGISTRY_PASSWORD}
   artifacts:
     paths:
       - build/libs/

@@ -32,6 +32,17 @@ jar {
 	}
 }
 
+jib {
+	from {
+		image = "openjdk:18"
+	}
+	container {
+		mainClass = "edu.kit.VorhersagenverwaltungSTA.VorhersagenverwaltungStaApplication"
+		ports = ['8080']
+	}
+}
+
+
 tasks.named('test') {
 	useJUnitPlatform()
 }
