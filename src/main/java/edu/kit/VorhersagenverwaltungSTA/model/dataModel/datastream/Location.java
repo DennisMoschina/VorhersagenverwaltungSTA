@@ -3,8 +3,9 @@ package edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import edu.kit.VorhersagenverwaltungSTA.jackson.GeoObjectDeserializer;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.Entity;
-import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.STAObjectList;
 
 /**
  * This class describes a Location as defined in the
@@ -18,17 +19,17 @@ public class Location extends Entity {
     private String name;
     private String description;
     private String encodingType;
-    private Object location;
+    @JsonDeserialize(using = GeoObjectDeserializer.class)
+    private GeoObject location;
     private JsonNode properties;
     @JsonProperty("HistoricalLocations@iot.navigationLink")
     private String historicalLocationsURL;
     @JsonProperty("HistoricalLocations")
-    private STAObjectList<HistoricalLocation> historicalLocations;
+    private HistoricalLocation[] historicalLocations;
     @JsonProperty("Things@iot.navigationLink")
     private String thingsURL;
     @JsonProperty("Things")
     private Thing[] things;
-
 
     public String getName() {
         return name;
@@ -54,11 +55,11 @@ public class Location extends Entity {
         this.encodingType = encodingType;
     }
 
-    public Object getLocation() {
+    public GeoObject getLocation() {
         return location;
     }
 
-    public void setLocation(Object location) {
+    public void setLocation(GeoObject location) {
         this.location = location;
     }
 
@@ -86,12 +87,12 @@ public class Location extends Entity {
         this.thingsURL = thingsURL;
     }
 
-    public STAObjectList<HistoricalLocation> getHistoricalLocations() {
+    public HistoricalLocation[] getHistoricalLocations() {
         if (this.historicalLocations == null) return null;
-        return this.historicalLocations.copyOf();
+        return this.historicalLocations;
     }
 
-    public void setHistoricalLocations(STAObjectList<HistoricalLocation> historicalLocations) {
+    public void setHistoricalLocations(HistoricalLocation[] historicalLocations) {
         this.historicalLocations = historicalLocations;
     }
 
