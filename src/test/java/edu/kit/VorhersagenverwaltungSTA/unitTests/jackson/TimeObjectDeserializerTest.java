@@ -30,6 +30,9 @@ public class TimeObjectDeserializerTest {
         Assertions.assertDoesNotThrow( () -> this.timeObjectTestClass
                 = new ObjectMapper().readerFor(TimeObjectTestClass.class).readValue(INSTANT_JSON));
         Assertions.assertEquals(EXPECTED_INSTANT, this.timeObjectTestClass.getTimeObject());
+        Assertions.assertEquals(EXPECTED_INSTANT.getDateTime(), this.timeObjectTestClass.getTimeObject().getDateTime());
+        Assertions.assertFalse(this.timeObjectTestClass.getTimeObject().isInterval());
+        Assertions.assertNull(this.timeObjectTestClass.getTimeObject().getTimeInterval());
     }
 
     @Test
@@ -37,6 +40,9 @@ public class TimeObjectDeserializerTest {
         Assertions.assertDoesNotThrow( () -> this.timeObjectTestClass
                 = new ObjectMapper().readerFor(TimeObjectTestClass.class).readValue(INTERVAL_JSON));
         Assertions.assertEquals(EXPECTED_INTERVAL, this.timeObjectTestClass.getTimeObject());
+        Assertions.assertEquals(EXPECTED_INTERVAL.getTimeInterval(), this.timeObjectTestClass.getTimeObject().getTimeInterval());
+        Assertions.assertTrue(this.timeObjectTestClass.getTimeObject().isInterval());
+        Assertions.assertNull(this.timeObjectTestClass.getTimeObject().getDateTime());
     }
 
     @Test
@@ -44,6 +50,9 @@ public class TimeObjectDeserializerTest {
         Assertions.assertDoesNotThrow( () -> this.timeObjectTestClass
                 = new ObjectMapper().readerFor(TimeObjectTestClass.class).readValue(DIVIDED_INTERVAL_JSON));
         Assertions.assertEquals(EXPECTED_INTERVAL, this.timeObjectTestClass.getTimeObject());
+        Assertions.assertEquals(EXPECTED_INTERVAL.getTimeInterval(), this.timeObjectTestClass.getTimeObject().getTimeInterval());
+        Assertions.assertTrue(this.timeObjectTestClass.getTimeObject().isInterval());
+        Assertions.assertNull(this.timeObjectTestClass.getTimeObject().getDateTime());
     }
 
     private static class TimeObjectTestClass {
