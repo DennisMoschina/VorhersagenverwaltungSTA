@@ -3,6 +3,7 @@ plugins {
 	id 'io.spring.dependency-management' version '1.0.11.RELEASE'
 	id 'java'
 	id 'pl.allegro.tech.build.axion-release' version '1.13.6'
+	id "com.google.cloud.tools.jib" version "3.2.1"
 }
 
 group = 'edu.kit'
@@ -20,8 +21,8 @@ dependencies {
 	implementation 'org.springdoc:springdoc-openapi-ui:1.6.9'
 
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
-	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.2'
-	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.2'
+	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.9.0'
+	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.9.0'
 	testImplementation 'com.github.stefanbirkner:system-rules:1.17.2' // newer Versions do not work
 }
 
@@ -30,6 +31,17 @@ jar {
 		attributes 'VorhersagenverwaltungStaApplication': 'edu.kit.VorhersagenverwaltungSTA.VorhersagenverwaltungStaApplication'
 	}
 }
+
+jib {
+	from {
+		image = "openjdk:18"
+	}
+	container {
+		mainClass = "edu.kit.VorhersagenverwaltungSTA.VorhersagenverwaltungStaApplication"
+		ports = ['8080']
+	}
+}
+
 
 tasks.named('test') {
 	useJUnitPlatform()
