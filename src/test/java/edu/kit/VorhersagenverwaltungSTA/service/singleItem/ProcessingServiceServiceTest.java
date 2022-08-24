@@ -2,7 +2,7 @@ package edu.kit.VorhersagenverwaltungSTA.service.singleItem;
 
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.ObjectType;
 
-public class ProcessingServiceServiceTest extends AbstractServiceTest {
+public class ProcessingServiceServiceTest extends AbstractSingleItemServiceTest {
     public ProcessingServiceServiceTest() {
         super(ObjectType.SERVICE);
     }

@@ -1,42 +1,50 @@
 package edu.kit.VorhersagenverwaltungSTA.service.itemList;
 
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.STAObjectList;
+import edu.kit.VorhersagenverwaltungSTA.service.AbstractServiceTest;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.encoder.selection.PrimitiveDefaultKeysFactory;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.MultiSelection;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.ObjectType;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.util.HashSet;
 import java.util.Set;
 
-public abstract class AbstractListServiceTest {
-    protected final ObjectType type;
+public abstract class AbstractListServiceTest extends AbstractServiceTest {
     protected final Set<String> keys;
-    protected ItemListService<?> service;
 
     public AbstractListServiceTest(ObjectType type) {
-        this.type = type;
+        super(type);
         this.keys = new HashSet<>(new PrimitiveDefaultKeysFactory().getDefaultKeys(type));
         this.keys.add("id");
     }
-
-    @BeforeEach
-    public void setup() {
-        assign();
-    }
-
-    protected abstract void assign();
 
     @Test
     public void testBuildSelection() {
         final int count = 10;
         final int startIndex = 0;
-        MultiSelection result = service.buildSelection(count, startIndex);
+        MultiSelection result = ((ItemListService<?>) service).buildSelection(count, startIndex);
 
         Assertions.assertEquals(type, result.getObjectType());
         Assertions.assertEquals(count, result.getCount());
         Assertions.assertEquals(startIndex, result.getSkip());
         Assertions.assertEquals(keys, result.getKeys());
+    }
+
+    @Test
+    public void testLoad() {
+        ((ItemListService<?>) this.service).load(5, 0);
+        STAObjectList<?> result = (STAObjectList<?>) this.service.getData();
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(this.type, result.getType());
+    }
+
+    @Test
+    public void testLoadAssociated() {
+        ((ItemListService<?>) this.service).getFromAssociatedObject(ObjectType.DATASOURCE, 1, 5, 0);
+        STAObjectList<?> result = (STAObjectList<?>) this.service.getData();
+        Assertions.assertNotNull(result);
+        Assertions.assertEquals(type.getListClass(), result.getClass());
     }
 }

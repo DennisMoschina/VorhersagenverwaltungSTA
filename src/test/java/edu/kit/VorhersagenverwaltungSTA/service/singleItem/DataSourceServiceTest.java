@@ -2,7 +2,7 @@ package edu.kit.VorhersagenverwaltungSTA.service.singleItem;
 
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.ObjectType;
 
-public class DataSourceServiceTest extends AbstractServiceTest {
+public class DataSourceServiceTest extends AbstractSingleItemServiceTest {
     public DataSourceServiceTest() {
         super(ObjectType.DATASOURCE);
     }
