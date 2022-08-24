@@ -4,5 +4,35 @@
     "url": "https://example.org/",
     "name": "TestCatalogue",
     "description": "This catalogue is a test"
+  },
+  {
+    "id": 2,
+    "url": "https://example2.org/",
+    "name": "TestCatalogue2",
+    "description": "This catalogue2 is a test"
+  },
+  {
+    "id": 3,
+    "url": "https://example3.org/",
+    "name": "TestCatalogue3",
+    "description": "This catalogue3 is a test"
+  },
+  {
+    "id": 4,
+    "url": "https://example4.org/",
+    "name": "TestCatalogue4",
+    "description": "This catalogue4 is a test"
+  },
+  {
+    "id": 5,
+    "url": "https://example5.org/",
+    "name": "TestCatalogue5",
+    "description": "This catalogue5 is a test"
+  },
+  {
+    "id": 6,
+    "url": "https://example6.org/",
+    "name": "TestCatalogue6",
+    "description": "This catalogue6 is a test"
   }
 ]

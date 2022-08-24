@@ -1,4 +1,4 @@
-package edu.kit.VorhersagenverwaltungSTA.unitTests;
+package edu.kit.VorhersagenverwaltungSTA.service.itemList;
 
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.catalogue.Catalogue;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.STAObjectList;
@@ -13,31 +13,50 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-
-public class CatalogueLoaderTest {
+public class CatalogueListServiceTest {
     private static final String CATALOGUE_LIST_FILE = "/catalogues.json";
+
+    private CatalogueListService service;
+
     private List<Catalogue> expectedList;
 
     @Rule
     public final EnvironmentVariables envVariables = new EnvironmentVariables();
 
-    private CatalogueLoader loader;
 
     @BeforeEach
     public void setup() {
-        this.loader = new CatalogueLoader();
+        CatalogueLoader loader = new CatalogueLoader();
         String resource = Objects.requireNonNull(this.getClass().getResource(CATALOGUE_LIST_FILE)).getFile();
         this.envVariables.set("CATALOGUE_LIST", resource);
 
         this.setExpectedList();
+        this.service = new CatalogueListService(loader);
     }
 
     @Test
-    public void loadCataloguesTest() {
-        STAObjectList<Catalogue> catalogues = this.loader.getCatalogues();
+    public void getCatalogueListTest() {
+        STAObjectList<Catalogue> result = service.getCatalogues();
 
-        Assertions.assertEquals(expectedList.size(), catalogues.getList().size());
-        Assertions.assertEquals(expectedList, catalogues.getList());
+        Assertions.assertEquals(expectedList, result.getList());
+    }
+
+    @Test
+    public void getCatalogueWithCorrectIdTest() {
+        final int catalogueId = 1;
+        Catalogue result = service.getCatalogue(catalogueId);
+        Catalogue expected = this.expectedList.stream()
+                .filter(c -> c.getId() == catalogueId).findFirst().orElseThrow();
+
+        Assertions.assertEquals(expected, result);
+    }
+
+    @Test
+    public void getCatalogueWithWrongIdTest() {
+        final int catalogueId = 0;
+        Catalogue result = service.getCatalogue(catalogueId);
+
+        Assertions.assertNull(result);
     }
 
     private void setExpectedList() {
