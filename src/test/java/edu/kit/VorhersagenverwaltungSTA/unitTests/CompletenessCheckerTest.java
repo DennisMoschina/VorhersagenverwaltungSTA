@@ -160,6 +160,8 @@ public class CompletenessCheckerTest {
         dataSource.setContactURL("");
         dataSource.setLicenseURL("");
         dataSource.setAccessInterfaceURL("");
+        dataSource.setReadingServicesURL("");
+        dataSource.setWritingServicesURL("");
     }
 
     private void setupDataSourceWithId(DataSource dataSource) {

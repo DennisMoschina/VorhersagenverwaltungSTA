@@ -18,7 +18,6 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 /**
@@ -32,12 +31,13 @@ public class EntityCompletenessCheckerImplementation implements EntityCompletene
     private static final List<String> POSSIBLE_EXPAND_PROPERTIES;
 
     static {
-        List<String> singularNames = Arrays.stream(ObjectType.values())
-                .map(type -> new SingularObjectTypeEncoder().encode(type).toLowerCase()).toList();
-        List<String> pluralNames = Arrays.stream(ObjectType.values())
-                .map(type -> new PluralObjectTypeEncoder().encode(type).toLowerCase()).toList();
-        POSSIBLE_EXPAND_PROPERTIES = new LinkedList<>(singularNames);
-        POSSIBLE_EXPAND_PROPERTIES.addAll(pluralNames);
+        POSSIBLE_EXPAND_PROPERTIES = Arrays.stream(ObjectType.values())
+                .flatMap(type -> type.getRelations().stream().map(relation -> {
+                    if (relation.getName() != null) return relation.getName();
+                    if (relation.isAsList()) return new PluralObjectTypeEncoder().encode(type);
+                    else return new SingularObjectTypeEncoder().encode(type);
+                }))
+                .map(String::toLowerCase).toList();
     }
 
     @Override
@@ -57,8 +57,10 @@ public class EntityCompletenessCheckerImplementation implements EntityCompletene
                     = new java.util.ArrayList<>(
                             Arrays.stream(BeanUtils.getPropertyDescriptors(entity.getClass())).toList()
             );
-            descriptors.removeIf(pd -> POSSIBLE_EXPAND_PROPERTIES.contains(pd.getName().toLowerCase()));
-            List<String> propertyNames = descriptors.stream().map(FeatureDescriptor::getName).toList();
+//            descriptors.removeIf(pd -> POSSIBLE_EXPAND_PROPERTIES.contains(pd.getName().toLowerCase()));
+            List<String> propertyNames
+                    = new java.util.ArrayList<>(descriptors.stream().map(FeatureDescriptor::getName).toList());
+            propertyNames.removeIf(n -> POSSIBLE_EXPAND_PROPERTIES.contains(n.toLowerCase()));
 
             for (String property : propertyNames) {
                 if (this.propertyIsNull(entity, property)) return false;

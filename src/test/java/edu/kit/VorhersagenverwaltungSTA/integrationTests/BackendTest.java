@@ -1,13 +1,22 @@
-package edu.kit.VorhersagenverwaltungSTA.unitTests;
+package edu.kit.VorhersagenverwaltungSTA.integrationTests;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import edu.kit.VorhersagenverwaltungSTA.model.dataModel.*;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.DataSource;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.ProcessingProcedure;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.ProcessingService;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.catalogue.Catalogue;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.Datastream;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.datastream.Thing;
-import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.*;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.CatalogueList;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.DataSourceList;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.DatastreamList;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.LocationList;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.ObservationList;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.ProcessingProcedureList;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.ServiceList;
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.ThingList;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.Source;
 import org.geojson.GeoJsonObject;
 import org.geojson.LngLatAlt;
