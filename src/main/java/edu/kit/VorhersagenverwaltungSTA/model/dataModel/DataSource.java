@@ -55,6 +55,14 @@ public class DataSource extends Entity {
     private String accessInterfaceURL;
     @JsonProperty("AccessInterface")
     private AccessInterface accessInterface;
+    @JsonProperty("WritingServices@navigationLink")
+    private String writingServicesURL;
+    @JsonProperty("WritingServices")
+    private ProcessingService[] writingServices;
+    @JsonProperty("ReadingServices@navigationLink")
+    private String readingServicesURL;
+    @JsonProperty("ReadingServices")
+    private ProcessingService[] readingServices;
 
     public String getName() {
         return name;
@@ -224,30 +232,36 @@ public class DataSource extends Entity {
         this.accessInterface = accessInterface;
     }
 
-    @Override
-    public String toString() {
-        return "DataSource{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", sourceSystem='" + sourceSystem + '\'' +
-                ", phenomenonTime=" + phenomenonTime +
-                ", dataType='" + dataType + '\'' +
-                ", dataQuality=" + dataQuality +
-                ", recordingPeriod=" + recordingPeriod +
-                ", aggregationPeriod=" + aggregationPeriod +
-                ", transmissionPeriod=" + transmissionPeriod +
-                ", spatialDistribution='" + spatialDistribution + '\'' +
-                ", accessData=" + accessData +
-                ", properties=" + properties +
-                ", ownerURL='" + ownerURL + '\'' +
-                ", owner=" + owner +
-                ", contactURL='" + contactURL + '\'' +
-                ", contact=" + contact +
-                ", licenseURL='" + licenseURL + '\'' +
-                ", license=" + license +
-                ", accessInterfaceURL='" + accessInterfaceURL + '\'' +
-                ", accessInterface=" + accessInterface +
-                '}';
+    public String getWritingServicesURL() {
+        return writingServicesURL;
     }
+
+    public void setWritingServicesURL(String writingServicesURL) {
+        this.writingServicesURL = writingServicesURL;
+    }
+
+    public ProcessingService[] getWritingServices() {
+        return writingServices;
+    }
+
+    public void setWritingServices(ProcessingService[] writingServices) {
+        this.writingServices = writingServices;
+    }
+
+    public String getReadingServicesURL() {
+        return readingServicesURL;
+    }
+
+    public void setReadingServicesURL(String readingServicesURL) {
+        this.readingServicesURL = readingServicesURL;
+    }
+
+    public ProcessingService[] getReadingServices() {
+        return readingServices;
+    }
+
+    public void setReadingServices(ProcessingService[] readingServices) {
+        this.readingServices = readingServices;
+    }
+
 }
