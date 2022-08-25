@@ -72,16 +72,4 @@ public class ObservedProperty extends Entity {
     public void setDatastreams(Datastream[] datastreams) {
         this.datastreams = datastreams;
     }
-
-    @Override
-    public String toString() {
-        return "ObservedProperty{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", definition='" + definition + '\'' +
-                ", description='" + description + '\'' +
-                ", properties=" + properties +
-                ", datastreamURL='" + datastreamURL + '\'' +
-                '}';
-    }
 }

@@ -119,18 +119,4 @@ public class Observation extends Entity {
     public void setFeatureOfInterest(FeatureOfInterest featureOfInterest) {
         this.featureOfInterest = featureOfInterest;
     }
-
-    @Override
-    public String toString() {
-        return "Observation{" +
-                "id=" + id +
-                ", phenomenonTime=" + phenomenonTime +
-                ", resultTime=" + resultTime +
-                ", result=" + result +
-                ", validTime=" + validTime +
-                ", parameters=" + parameters +
-                ", datastreamURL='" + datastreamURL + '\'' +
-                ", featureOfInterestURL='" + featureOfInterestURL + '\'' +
-                '}';
-    }
 }

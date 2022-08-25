@@ -70,13 +70,4 @@ public class HistoricalLocation extends Entity {
         this.locations = locations;
     }
 
-    @Override
-    public String toString() {
-        return "HistoricalLocation{" +
-                "id='" + id + '\'' +
-                ", time=" + time +
-                ", thingURL='" + thingURL + '\'' +
-                ", locationsURL='" + locationsURL + '\'' +
-                '}';
-    }
 }

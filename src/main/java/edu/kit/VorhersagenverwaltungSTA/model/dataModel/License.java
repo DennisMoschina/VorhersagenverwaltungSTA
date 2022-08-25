@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 
-import java.util.Arrays;
-
 /**
  * This class describes a License of the SensorThingsAPI.
  *
@@ -61,17 +59,5 @@ public class License extends Entity {
 
     public void setDataSources(DataSource[] dataSources) {
         this.dataSources = dataSources;
-    }
-
-    @Override
-    public String toString() {
-        return "License{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", properties=" + properties +
-                ", dataSourceURL='" + dataSourceURL + '\'' +
-                ", dataSources=" + Arrays.toString(dataSources) +
-                '}';
     }
 }

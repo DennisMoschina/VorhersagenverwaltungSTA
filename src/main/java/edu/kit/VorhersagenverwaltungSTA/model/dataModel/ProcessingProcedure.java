@@ -144,25 +144,4 @@ public class ProcessingProcedure extends Entity {
     public void setLicense(License license) {
         this.license = license;
     }
-
-    @Override
-    public String toString() {
-        return "ProcessingProcedure{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", category='" + category + '\'' +
-                ", useCase='" + useCase + '\'' +
-                ", method='" + method + '\'' +
-                ", domain='" + domain + '\'' +
-                ", configuration=" + configuration +
-                ", properties=" + properties +
-                ", ownerURL='" + ownerURL + '\'' +
-                ", owner=" + owner +
-                ", contactURL='" + contactURL + '\'' +
-                ", contact=" + contact +
-                ", licenseURL='" + licenseURL + '\'' +
-                ", license=" + license +
-                '}';
-    }
 }

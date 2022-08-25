@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 
-import java.util.Arrays;
-
 /**
  * This class describes an AccessInterface of the SensorThingsAPI.
  *
@@ -80,19 +78,5 @@ public class AccessInterface extends Entity {
 
     public void setDataSources(DataSource[] dataSources) {
         this.dataSources = dataSources;
-    }
-
-    @Override
-    public String toString() {
-        return "AccessInterface{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", contentType='" + contentType + '\'' +
-                ", specification=" + specification +
-                ", properties=" + properties +
-                ", dataSourceURL='" + dataSourceURL + '\'' +
-                ", dataSources=" + Arrays.toString(dataSources) +
-                '}';
     }
 }

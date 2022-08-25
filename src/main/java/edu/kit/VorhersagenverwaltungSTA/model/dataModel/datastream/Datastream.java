@@ -195,27 +195,6 @@ public class Datastream extends Entity {
     }
 
     @Override
-    public String toString() {
-        return "Datastream{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", observationType='" + observationType + '\'' +
-                ", unitOfMeasurement=" + unitOfMeasurement +
-                ", observedArea=" + observedArea +
-                ", phenomenonTime=" + phenomenonTime +
-                ", resultTime=" + resultTime +
-                ", properties=" + properties +
-                ", thingURL='" + thingURL + '\'' +
-                ", thing=" + thing +
-                ", sensorURL='" + sensorURL + '\'' +
-                ", sensor=" + sensor +
-                ", observedPropertyURL='" + observedPropertyURL + '\'' +
-                ", observationsURL='" + observationsURL + '\'' +
-                '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Datastream that)) return false;

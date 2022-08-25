@@ -104,17 +104,4 @@ public class Location extends Entity {
         this.things = things;
     }
 
-    @Override
-    public String toString() {
-        return "Location{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", encodingType='" + encodingType + '\'' +
-                ", location=" + location +
-                ", properties=" + properties +
-                ", historicalLocationsURL='" + historicalLocationsURL + '\'' +
-                ", thingsURL='" + thingsURL + '\'' +
-                '}';
-    }
 }

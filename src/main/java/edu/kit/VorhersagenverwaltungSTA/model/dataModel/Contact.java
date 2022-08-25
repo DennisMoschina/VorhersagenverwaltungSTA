@@ -4,8 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.JsonNode;
 
-import java.util.Arrays;
-
 /**
  * This class describes a Contact of the SensorThingsAPI.
  *
@@ -89,20 +87,5 @@ public class Contact extends Entity {
 
     public void setDataSources(DataSource[] dataSources) {
         this.dataSources = dataSources;
-    }
-
-    @Override
-    public String toString() {
-        return "Contact{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", address='" + address + '\'' +
-                ", email='" + email + '\'' +
-                ", web='" + web + '\'' +
-                ", properties=" + properties +
-                ", dataSourceURL='" + dataSourceURL + '\'' +
-                ", dataSources=" + Arrays.toString(dataSources) +
-                '}';
     }
 }

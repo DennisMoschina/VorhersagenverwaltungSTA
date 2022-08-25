@@ -80,17 +80,4 @@ public class Sensor extends Entity {
     public void setDatastreams(Datastream[] datastreams) {
         this.datastreams = datastreams;
     }
-
-    @Override
-    public String toString() {
-        return "Sensor{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", encodingType='" + encodingType + '\'' +
-                ", metadata=" + metadata +
-                ", properties=" + properties +
-                ", datastreamURL='" + datastreamURL + '\'' +
-                '}';
-    }
 }

@@ -53,12 +53,4 @@ public class GeoObject {
         isGeoJson = geoJson;
     }
 
-    @Override
-    public String toString() {
-        return "GeoObject{" +
-                "geoJsonObject=" + geoJsonObject +
-                ", object=" + location +
-                ", isGeoJson=" + isGeoJson +
-                '}';
-    }
 }

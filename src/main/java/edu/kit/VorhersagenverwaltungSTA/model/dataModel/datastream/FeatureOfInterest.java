@@ -15,8 +15,6 @@ import org.geojson.GeoJsonObject;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class FeatureOfInterest extends Entity {
 
-    @JsonProperty("@iot.id")
-    private long id;
     private String name;
     private String description;
     private String encodingType;
@@ -85,16 +83,4 @@ public class FeatureOfInterest extends Entity {
         this.observations = observations;
     }
 
-    @Override
-    public String toString() {
-        return "FeatureOfInterest{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", encodingType='" + encodingType + '\'' +
-                ", feature=" + feature +
-                ", properties=" + properties +
-                ", observationsURL='" + observationsURL + '\'' +
-                '}';
-    }
 }

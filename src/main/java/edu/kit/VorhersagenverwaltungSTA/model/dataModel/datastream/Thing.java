@@ -104,19 +104,6 @@ public class Thing extends Entity {
     }
 
     @Override
-    public String toString() {
-        return "Thing{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", description='" + description + '\'' +
-                ", properties=" + properties +
-                ", datastreamsURL='" + datastreamsURL + '\'' +
-                ", locationsURL='" + locationsURL + '\'' +
-                ", historicalLocationsURL='" + historicalLocationsURL + '\'' +
-                '}';
-    }
-
-    @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof Thing thing)) return false;
