@@ -31,9 +31,6 @@ public class RequestManager {
     private final Map<Class<Entity>, ObjectContainer<Long, Entity>> containerMap;
     private ObjectContainer<Long, Entity> container;
 
-    private Object result;
-    private Class<?> resultType;
-
     public RequestManager(Source source) {
         this.source = source;
         this.restTemplate = RestTemplateFactory.getRestTemplate(source);
@@ -41,12 +38,19 @@ public class RequestManager {
     }
 
     /**
-     * Load the object selected by the {@link Selection} from the server. To get the actual data,
-     * use {@link RequestManager#getResult()}.
+     * Load the object selected by the {@link Selection} from the server.
      * @param selection the {@link Selection}, specifying, which Object should be loaded from the server
+     * @return the result of the request
      */
-    public void request(Selection selection) {
-        this.setResultType(selection);
+    @SuppressWarnings("unchecked")
+
+    public Object request(Selection selection) {
+        Class<?> resultType = this.getResultType(selection);
+
+        if (resultType == null) {
+            LOGGER.error("Failed to get result type");
+            return null;
+        }
 
         Object result;
         if (this.shouldLoad(selection)) {
@@ -54,10 +58,10 @@ public class RequestManager {
             String url = this.source.url();
             if (!url.endsWith("/")) url += "/";
             String request = url + encodedSelection;
-            result = this.restTemplate.getForObject(request, this.resultType);
+            result = this.restTemplate.getForObject(request, resultType);
             if (result == null) {
                 LOGGER.error("failed to load object for selection {}", selection);
-                return;
+                return null;
             }
             if (selection.getClass() == SingleSelection.class) {
                 this.updateContainerEntryFor((Entity) result);
@@ -73,35 +77,26 @@ public class RequestManager {
                     selection.getObjectType(), ((SingleSelection) selection).getSelectedId());
         }
 
-        this.result = result;
-    }
-
-    public Class<?> getResultType() {
-        return resultType;
-    }
-
-    /**
-     * Get the object, previously loaded by {@link RequestManager#request(Selection)}.
-     * @return the previously loaded object
-     */
-    public Object getResult() {
         return result;
     }
 
-    private void setResultType(Selection selection) {
-        this.resultType = selection.getObjectTypeClass();
+    @SuppressWarnings("unchecked")
+    private Class<?> getResultType(Selection selection) {
+        Class<?> resultType = selection.getObjectTypeClass();
         Class<Entity> entityType;
         if (selection.getClass() == SingleSelection.class) entityType = (Class<Entity>) selection.getObjectTypeClass();
         else if (selection.getClass() == MultiSelection.class)
             entityType = (Class<Entity>) selection.getObjectType().getObjectClass();
         else {
             LOGGER.warn(String.format("unknown selection type %s", selection.getClass()));
-            return;
+            return null;
         }
         if (!containerMap.containsKey(entityType)) {
             this.containerMap.put(entityType, new CacheProxyObjectContainer<>());
         }
         this.container = this.containerMap.get(entityType);
+
+        return resultType;
     }
 
     /**

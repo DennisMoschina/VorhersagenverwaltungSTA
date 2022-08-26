@@ -1,5 +1,6 @@
 package edu.kit.VorhersagenverwaltungSTA.service.singleItem;
 
+import edu.kit.VorhersagenverwaltungSTA.model.dataModel.Entity;
 import edu.kit.VorhersagenverwaltungSTA.service.AbstractService;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.encoder.selection.DefaultKeysFactory;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.encoder.selection.PrimitiveDefaultKeysFactory;
@@ -15,22 +16,22 @@ import java.util.Set;
 
 
 @Service
-public abstract class SingleItemService<T> extends AbstractService<T> {
+public abstract class SingleItemService<T extends Entity> extends AbstractService {
     private DefaultKeysFactory defaultKeysFactory = new PrimitiveDefaultKeysFactory();
 
-    public void load(long id) {
+    public T load(long id) {
         final SingleSelection selection = this.buildSelection(id);
         this.updateSelection(selection);
-        this.loadFrom(selection);
+        return this.loadFrom(selection);
     }
 
-    public void getFromAssociatedObject(ObjectType associatedObjectType, long id) {
+    public T getFromAssociatedObject(ObjectType associatedObjectType, long id) {
         final SingleSelection sourceSelection = new SingleSelection(associatedObjectType, id);
         final SingleSelection objectSelection = this.buildSelection(-1);
         this.updateSelection(objectSelection);
         final Selection associatedObjectSelection = new ObjectAssociatedSelection(sourceSelection, objectSelection);
 
-        this.loadFrom(associatedObjectSelection);
+        return this.loadFrom(associatedObjectSelection);
     }
 
     public void setDefaultKeysFactory(DefaultKeysFactory defaultKeysFactory) {
@@ -61,8 +62,7 @@ public abstract class SingleItemService<T> extends AbstractService<T> {
     }
 
     @SuppressWarnings("unchecked")
-    private void loadFrom(Selection selection) {
-        this.requestManager.request(selection);
-        this.setData((T) this.requestManager.getResult());
+    private T loadFrom(Selection selection) {
+        return (T) this.requestManager.request(selection);
     }
 }

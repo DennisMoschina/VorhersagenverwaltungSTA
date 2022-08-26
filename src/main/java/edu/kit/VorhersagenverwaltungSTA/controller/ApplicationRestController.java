@@ -156,8 +156,7 @@ public class ApplicationRestController {
         Catalogue catalogue = this.getCatalogue(catalogueId);
         this.dataSourceService.setSource(new Source(catalogue.getUrl()));
 
-        dataSourceService.load(dataSourceId);
-        return dataSourceService.getData();
+        return dataSourceService.load(dataSourceId);
     }
 
     /**
@@ -180,8 +179,7 @@ public class ApplicationRestController {
         this.dataSourceListService.setSource(new Source(catalogue.getUrl()));
         this.dataSourceListService.removeFilter();
         filter.ifPresent(s -> this.dataSourceListService.addFilter(new FrostRequestFilter(s)));
-        this.dataSourceListService.load(items, this.calculateStartIndex(items, page));
-        return this.dataSourceListService.getData();
+        return this.dataSourceListService.load(items, this.calculateStartIndex(items, page));
     }
 
     /**
@@ -200,8 +198,7 @@ public class ApplicationRestController {
         DataSource dataSource = this.getDataSource(dataSourceId, catalogueId);
         this.datastreamService.setSource(dataSource.getAccessData());
 
-        datastreamService.load(datastreamID);
-        return datastreamService.getData();
+        return datastreamService.load(datastreamID);
     }
 
     /**
@@ -223,8 +220,7 @@ public class ApplicationRestController {
                                                        @PathVariable long dataSourceId,
                                                        @PathVariable Optional<String> filter) {
         this.prepareListService(catalogueId, dataSourceId, filter, this.datastreamsListService);
-        this.datastreamsListService.load(items, this.calculateStartIndex(items, page));
-        return this.datastreamsListService.getData();
+        return this.datastreamsListService.load(items, this.calculateStartIndex(items, page));
     }
 
     /**
@@ -246,8 +242,7 @@ public class ApplicationRestController {
                                              @PathVariable long dataSourceId,
                                              @PathVariable Optional<String> filter) {
         this.prepareListService(catalogueId, dataSourceId, filter, this.thingListService);
-        this.thingListService.load(items, this.calculateStartIndex(items, page));
-        return this.thingListService.getData();
+        return this.thingListService.load(items, this.calculateStartIndex(items, page));
     }
 
     /**
@@ -266,8 +261,7 @@ public class ApplicationRestController {
         DataSource dataSource = this.getDataSource(dataSourceId, catalogueId);
         this.thingService.setSource(dataSource.getAccessData());
 
-        thingService.load(thingId);
-        return thingService.getData();
+        return thingService.load(thingId);
     }
 
     @GetMapping(GET_THING_OF_STREAM_LINK)
@@ -277,8 +271,7 @@ public class ApplicationRestController {
         DataSource dataSource = this.getDataSource(dataSourceId, catalogueId);
         this.thingService.setSource(dataSource.getAccessData());
 
-        thingService.getFromAssociatedObject(ObjectType.DATASTREAM, datastreamID);
-        return thingService.getData();
+        return thingService.getFromAssociatedObject(ObjectType.DATASTREAM, datastreamID);
     }
 
     /**
@@ -294,8 +287,7 @@ public class ApplicationRestController {
         Catalogue catalogue = this.getCatalogue(catalogueId);
         this.processingProcedureService.setSource(new Source(catalogue.getUrl()));
 
-        processingProcedureService.load(processingProcedureID);
-        return processingProcedureService.getData();
+        return processingProcedureService.load(processingProcedureID);
     }
 
     /**
@@ -319,8 +311,7 @@ public class ApplicationRestController {
 
         this.processingProcedureListService.removeFilter();
         filter.ifPresent(s -> this.processingProcedureListService.addFilter(new FrostRequestFilter(s)));
-        this.processingProcedureListService.load(items, this.calculateStartIndex(items, page));
-        return this.processingProcedureListService.getData();
+        return this.processingProcedureListService.load(items, this.calculateStartIndex(items, page));
     }
 
     @GetMapping({GET_SERVICE_LIST_LINK, GET_SERVICE_LIST_LINK + FILTER_ARG})
@@ -333,8 +324,7 @@ public class ApplicationRestController {
 
         this.serviceListService.removeFilter();
         filter.ifPresent(s -> this.serviceListService.addFilter(new FrostRequestFilter(s)));
-        this.serviceListService.load(items, this.calculateStartIndex(items, page));
-        return this.serviceListService.getData();
+        return this.serviceListService.load(items, this.calculateStartIndex(items, page));
     }
 
     @GetMapping(GET_SERVICE_LINK)
@@ -343,8 +333,7 @@ public class ApplicationRestController {
         Catalogue catalogue = this.getCatalogue(catalogueId);
         this.processingServiceService.setSource(new Source(catalogue.getUrl()));
 
-        this.processingServiceService.load(serviceId);
-        return this.processingServiceService.getData();
+        return this.processingServiceService.load(serviceId);
     }
 
     @GetMapping({GET_DATASTREAM_LIST_FROM_THING_LINK, GET_DATASTREAM_LIST_FROM_THING_LINK + FILTER_ARG})
@@ -355,8 +344,7 @@ public class ApplicationRestController {
                                                        @PathVariable long page,
                                                        @PathVariable Optional<String> filter) {
         this.prepareListService(catalogueId, dataSourceId, filter, this.datastreamsListService);
-        this.datastreamsListService.getFromAssociatedObject(ObjectType.THING, thingId, items, page);
-        return this.datastreamsListService.getData();
+        return this.datastreamsListService.getFromAssociatedObject(ObjectType.THING, thingId, items, page);
     }
 
     @GetMapping({GET_OBSERVATIONS_LINK, GET_OBSERVATIONS_LINK + FILTER_ARG})
@@ -367,8 +355,7 @@ public class ApplicationRestController {
                                                          @PathVariable long page,
                                                          @PathVariable Optional<String> filter) {
         this.prepareListService(catalogueId, dataSourceId, filter, this.observationListService);
-        this.observationListService.getFromAssociatedObject(ObjectType.DATASTREAM, datastreamID, items, page);
-        return this.observationListService.getData();
+        return this.observationListService.getFromAssociatedObject(ObjectType.DATASTREAM, datastreamID, items, page);
     }
 
     @GetMapping({GET_LOCATIONS_OF_THING_LINK, GET_LOCATIONS_OF_THING_LINK + FILTER_ARG})
@@ -379,8 +366,7 @@ public class ApplicationRestController {
                                                       @PathVariable long page,
                                                       @PathVariable Optional<String> filter) {
         this.prepareListService(catalogueId, dataSourceId, filter, this.locationListService);
-        this.locationListService.getFromAssociatedObject(ObjectType.THING, thingId, items, page);
-        return this.locationListService.getData();
+        return this.locationListService.getFromAssociatedObject(ObjectType.THING, thingId, items, page);
     }
 
     @GetMapping({GET_WRITES_SOURCES_LINK, GET_WRITES_SOURCES_LINK + FILTER_ARG})
@@ -394,8 +380,7 @@ public class ApplicationRestController {
         this.dataSourceListService.removeFilter();
         filter.ifPresent(s -> this.dataSourceListService.addFilter(new FrostRequestFilter(s)));
 
-        this.dataSourceListService.getFromAssociatedObject(ObjectType.SERVICE, serviceId, items, page, "WritesSources");
-        return this.dataSourceListService.getData();
+        return this.dataSourceListService.getFromAssociatedObject(ObjectType.SERVICE, serviceId, items, page, "WritesSources");
     }
 
     @GetMapping({GET_READS_SOURCES_LINK, GET_READS_SOURCES_LINK + FILTER_ARG})
@@ -409,8 +394,7 @@ public class ApplicationRestController {
         this.dataSourceListService.removeFilter();
         filter.ifPresent(s -> this.dataSourceListService.addFilter(new FrostRequestFilter(s)));
 
-        this.dataSourceListService.getFromAssociatedObject(ObjectType.SERVICE, serviceId, items, page, "ReadsSources");
-        return this.dataSourceListService.getData();
+        return this.dataSourceListService.getFromAssociatedObject(ObjectType.SERVICE, serviceId, items, page, "ReadsSources");
     }
 
     @GetMapping({GET_WRITING_SERVICES_LINK, GET_WRITING_SERVICES_LINK + FILTER_ARG})
@@ -424,8 +408,7 @@ public class ApplicationRestController {
         this.serviceListService.removeFilter();
         filter.ifPresent(s -> this.serviceListService.addFilter(new FrostRequestFilter(s)));
 
-        this.serviceListService.getFromAssociatedObject(ObjectType.DATASOURCE, dataSourceId, items, page, "WritingServices");
-        return this.serviceListService.getData();
+        return this.serviceListService.getFromAssociatedObject(ObjectType.DATASOURCE, dataSourceId, items, page, "WritingServices");
     }
 
     @GetMapping({GET_READING_SERVICES_LINK, GET_READING_SERVICES_LINK + FILTER_ARG})
@@ -439,8 +422,7 @@ public class ApplicationRestController {
         this.serviceListService.removeFilter();
         filter.ifPresent(s -> this.serviceListService.addFilter(new FrostRequestFilter(s)));
 
-        this.serviceListService.getFromAssociatedObject(ObjectType.DATASOURCE, dataSourceId, items, page, "ReadingServices");
-        return this.serviceListService.getData();
+        return this.serviceListService.getFromAssociatedObject(ObjectType.DATASOURCE, dataSourceId, items, page, "ReadingServices");
     }
 
     @GetMapping({GET_APPLIES_METHODS_LINK, GET_APPLIES_METHODS_LINK + FILTER_ARG})
@@ -454,8 +436,7 @@ public class ApplicationRestController {
         this.processingProcedureListService.removeFilter();
         filter.ifPresent(s -> this.processingProcedureListService.addFilter(new FrostRequestFilter(s)));
 
-        this.processingProcedureListService.getFromAssociatedObject(ObjectType.SERVICE, serviceId, items, page, "AppliesMethods");
-        return this.processingProcedureListService.getData();
+        return this.processingProcedureListService.getFromAssociatedObject(ObjectType.SERVICE, serviceId, items, page, "AppliesMethods");
     }
 
     @GetMapping({GET_APPLYING_SERVICES_LINK, GET_APPLYING_SERVICES_LINK + FILTER_ARG})
@@ -469,8 +450,7 @@ public class ApplicationRestController {
         this.serviceListService.removeFilter();
         filter.ifPresent(s -> this.serviceListService.addFilter(new FrostRequestFilter(s)));
 
-        this.serviceListService.getFromAssociatedObject(ObjectType.PROCESSING_PROCEDURE, processingProcedureID, items, page, "ApplyingServices");
-        return this.serviceListService.getData();
+        return this.serviceListService.getFromAssociatedObject(ObjectType.PROCESSING_PROCEDURE, processingProcedureID, items, page, "ApplyingServices");
     }
 
     private void prepareListService(int catalogueId,

@@ -34,16 +34,15 @@ public abstract class AbstractListServiceTest extends AbstractServiceTest {
 
     @Test
     public void testLoad() {
-        ((ItemListService<?>) this.service).load(5, 0);
-        STAObjectList<?> result = (STAObjectList<?>) this.service.getData();
+        STAObjectList<?> result = ((ItemListService<?>) this.service).load(5, 0);
         Assertions.assertNotNull(result);
         Assertions.assertEquals(this.type, result.getType());
     }
 
     @Test
     public void testLoadAssociated() {
-        ((ItemListService<?>) this.service).getFromAssociatedObject(ObjectType.DATASOURCE, 1, 5, 0);
-        STAObjectList<?> result = (STAObjectList<?>) this.service.getData();
+        STAObjectList<?> result
+                = ((ItemListService<?>) this.service).getFromAssociatedObject(ObjectType.DATASOURCE, 1, 5, 0);
         Assertions.assertNotNull(result);
         Assertions.assertEquals(type.getListClass(), result.getClass());
     }

@@ -17,17 +17,17 @@ import org.springframework.stereotype.Service;
  * @author Dennis Moschina
  */
 @Service
-public abstract class ItemListService<T> extends AbstractService<STAObjectList<T>> {
+public abstract class ItemListService<T> extends AbstractService {
     protected static final String NAME_KEY = "name";
     protected static final String DESCRIPTION_KEY = "description";
     protected Filter filter;
 
-    public void load(int itemsCount, long startIndex) {
+    public STAObjectList<T> load(int itemsCount, long startIndex) {
         final MultiSelection selection = this.buildSelection(itemsCount, startIndex);
-        this.loadFrom(selection);
+        return this.loadFrom(selection);
     }
 
-    public void getFromAssociatedObject(ObjectType associatedObjectType,
+    public STAObjectList<T> getFromAssociatedObject(ObjectType associatedObjectType,
                                         long id,
                                         int itemsCount,
                                         long startIndex,
@@ -38,11 +38,11 @@ public abstract class ItemListService<T> extends AbstractService<STAObjectList<T
                 new ObjectAssociatedSelection(sourceSelection, objectSelection, associationName)
                 : new ObjectAssociatedSelection(sourceSelection, objectSelection);
 
-        this.loadFrom(associatedObjectSelection);
+        return this.loadFrom(associatedObjectSelection);
     }
 
-    public void getFromAssociatedObject(ObjectType associatedObjectType, long id, int itemsCount, long startIndex) {
-        this.getFromAssociatedObject(associatedObjectType, id, itemsCount, startIndex, null);
+    public STAObjectList<T> getFromAssociatedObject(ObjectType associatedObjectType, long id, int itemsCount, long startIndex) {
+        return this.getFromAssociatedObject(associatedObjectType, id, itemsCount, startIndex, null);
     }
 
     public void addFilter(Filter filter) {
@@ -54,9 +54,8 @@ public abstract class ItemListService<T> extends AbstractService<STAObjectList<T
     }
 
     @SuppressWarnings("unchecked")
-    private void loadFrom(Selection selection) {
-        this.requestManager.request(selection);
-        this.setData((STAObjectList<T>) this.requestManager.getResult());
+    private STAObjectList<T> loadFrom(Selection selection) {
+        return (STAObjectList<T>) this.requestManager.request(selection);
     }
 
     protected abstract MultiSelection buildSelection(int itemsCount, long startIndex);

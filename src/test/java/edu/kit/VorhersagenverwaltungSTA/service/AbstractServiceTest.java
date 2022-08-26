@@ -30,10 +30,7 @@ public abstract class AbstractServiceTest {
     protected final ObjectType type;
     protected RequestManager requestManagerMock;
 
-    protected AbstractService<?> service;
-
-    protected Object result;
-
+    protected AbstractService service;
 
     protected AbstractServiceTest(ObjectType type) {
         this.type = type;
@@ -45,68 +42,73 @@ public abstract class AbstractServiceTest {
 
         service.setSource(new Source("https://example.org"));
         this.requestManagerMock = mock(RequestManager.class);
-        doAnswer(invocation -> {
-            this.requestManagerMockMethod(invocation.getArgument(0));
-            return null;
-        }).when(this.requestManagerMock).request(any());
-        doAnswer(invocation -> this.result).when(this.requestManagerMock).getResult();
+        doAnswer(invocation -> this.requestManagerMockMethod(invocation.getArgument(0)))
+                .when(this.requestManagerMock).request(any());
 
         this.service.requestManager = this.requestManagerMock;
     }
 
     protected abstract void assign();
 
-    private void requestManagerMockMethod(Selection selection) {
+    private Object requestManagerMockMethod(Selection selection) {
         if (selection instanceof SingleSelection singleSelection)
-            this.requestSingleItemManagerMockMethod(singleSelection);
+            return this.requestSingleItemManagerMockMethod(singleSelection);
         if (selection instanceof MultiSelection multiSelection)
-            this.requestItemListManagerMockMethod(multiSelection);
+            return this.requestItemListManagerMockMethod(multiSelection);
         if (selection instanceof ObjectAssociatedSelection associatedSelection)
-            this.requestAssociatedObjectMockMethod(associatedSelection);
+            return this.requestAssociatedObjectMockMethod(associatedSelection);
+        return null;
     }
 
-    private void requestAssociatedObjectMockMethod(ObjectAssociatedSelection selection) {
+    private Object requestAssociatedObjectMockMethod(ObjectAssociatedSelection selection) {
+        Object result = null;
         if (selection.getSelection() instanceof SingleSelection)
             switch (selection.getObjectType()) {
-                case THING -> this.result = new Thing();
-                case DATASOURCE -> this.result = new DataSource();
-                case DATASTREAM -> this.result = new Datastream();
-                case PROCESSING_PROCEDURE -> this.result = new ProcessingProcedure();
-                case SERVICE -> this.result = new ProcessingService();
+                case THING -> result = new Thing();
+                case DATASOURCE -> result = new DataSource();
+                case DATASTREAM -> result = new Datastream();
+                case PROCESSING_PROCEDURE -> result = new ProcessingProcedure();
+                case SERVICE -> result = new ProcessingService();
             }
         else if (selection.getSelection() instanceof MultiSelection)
             switch (selection.getObjectType()) {
-                case THING -> this.result = new ThingList();
-                case DATASOURCE -> this.result = new DataSourceList();
-                case DATASTREAM -> this.result = new DatastreamList();
-                case PROCESSING_PROCEDURE -> this.result = new ProcessingProcedureList();
-                case SERVICE -> this.result = new ServiceList();
-                case OBSERVATION -> this.result = new ObservationList();
-                case LOCATION -> this.result = new LocationList();
+                case THING -> result = new ThingList();
+                case DATASOURCE -> result = new DataSourceList();
+                case DATASTREAM -> result = new DatastreamList();
+                case PROCESSING_PROCEDURE -> result = new ProcessingProcedureList();
+                case SERVICE -> result = new ServiceList();
+                case OBSERVATION -> result = new ObservationList();
+                case LOCATION -> result = new LocationList();
             }
+        return result;
     }
 
-    private void requestItemListManagerMockMethod(MultiSelection selection) {
+    private Object requestItemListManagerMockMethod(MultiSelection selection) {
+        Object result = null;
         switch (selection.getObjectType()) {
-            case THING -> this.result = new ThingList();
-            case DATASOURCE -> this.result = new DataSourceList();
-            case DATASTREAM -> this.result = new DatastreamList();
-            case PROCESSING_PROCEDURE -> this.result = new ProcessingProcedureList();
-            case SERVICE -> this.result = new ServiceList();
-            case OBSERVATION -> this.result = new ObservationList();
-            case LOCATION -> this.result = new LocationList();
+            case THING -> result = new ThingList();
+            case DATASOURCE -> result = new DataSourceList();
+            case DATASTREAM -> result = new DatastreamList();
+            case PROCESSING_PROCEDURE -> result = new ProcessingProcedureList();
+            case SERVICE -> result = new ServiceList();
+            case OBSERVATION -> result = new ObservationList();
+            case LOCATION -> result = new LocationList();
         }
+        return result;
     }
 
-    private void requestSingleItemManagerMockMethod(SingleSelection selection) {
+    private Entity requestSingleItemManagerMockMethod(SingleSelection selection) {
+        Entity result = null;
         final long id = selection.getSelectedId();
         switch (selection.getObjectType()) {
-            case THING -> this.result = new Thing();
-            case DATASOURCE -> this.result = new DataSource();
-            case DATASTREAM -> this.result = new Datastream();
-            case PROCESSING_PROCEDURE -> this.result = new ProcessingProcedure();
-            case SERVICE -> this.result = new ProcessingService();
+            case THING -> result = new Thing();
+            case DATASOURCE -> result = new DataSource();
+            case DATASTREAM -> result = new Datastream();
+            case PROCESSING_PROCEDURE -> result = new ProcessingProcedure();
+            case SERVICE -> result = new ProcessingService();
         }
-        ((Entity) this.result).setId(id);
+        assert result != null;
+        result.setId(id);
+        return result;
     }
 }

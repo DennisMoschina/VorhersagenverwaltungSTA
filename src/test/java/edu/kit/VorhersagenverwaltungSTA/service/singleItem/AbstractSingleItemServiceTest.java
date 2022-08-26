@@ -29,16 +29,14 @@ public abstract class AbstractSingleItemServiceTest extends AbstractServiceTest 
     @Test
     public void testLoad() {
         final int id = 1;
-        ((SingleItemService<?>) this.service).load(id);
-        Entity result = (Entity) this.service.getData();
+        Entity result = ((SingleItemService<?>) this.service).load(id);
         Assertions.assertNotNull(result);
         Assertions.assertEquals(id, result.getId());
     }
 
     @Test
     public void testLoadAssociated() {
-        ((SingleItemService<?>) this.service).getFromAssociatedObject(ObjectType.DATASOURCE, 1);
-        Entity result = (Entity) this.service.getData();
+        Entity result = ((SingleItemService<?>) this.service).getFromAssociatedObject(ObjectType.DATASOURCE, 1);
         Assertions.assertNotNull(result);
         Assertions.assertEquals(type.getObjectClass(), result.getClass());
     }

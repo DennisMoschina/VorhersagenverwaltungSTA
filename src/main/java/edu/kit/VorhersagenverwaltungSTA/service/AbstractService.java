@@ -6,15 +6,10 @@ import edu.kit.VorhersagenverwaltungSTA.service.requestManager.Source;
 import org.springframework.stereotype.Service;
 
 @Service
-public abstract class AbstractService<T> {
-    private T data;
+public abstract class AbstractService {
     private Source source;
 
     protected RequestManager requestManager;
-
-    public T getData() {
-        return this.data;
-    }
 
     public void setSource(Source source) {
         this.source = source;
@@ -23,9 +18,5 @@ public abstract class AbstractService<T> {
 
     public Source getSource() {
         return this.source;
-    }
-
-    protected void setData(T data) {
-        this.data = data;
     }
 }
