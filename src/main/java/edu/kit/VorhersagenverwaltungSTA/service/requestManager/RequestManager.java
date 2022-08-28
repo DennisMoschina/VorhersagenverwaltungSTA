@@ -8,6 +8,7 @@ import edu.kit.VorhersagenverwaltungSTA.service.requestManager.encoder.selection
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.entitiyCompletenessChecker.EntityCompletenessChecker;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.entitiyCompletenessChecker.EntityCompletenessCheckerImplementation;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.MultiSelection;
+import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.ObjectAssociatedSelection;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.Selection;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.SingleSelection;
 import org.slf4j.Logger;
@@ -43,7 +44,6 @@ public class RequestManager {
      * @return the result of the request
      */
     @SuppressWarnings("unchecked")
-
     public Object request(Selection selection) {
         Class<?> resultType = this.getResultType(selection);
 
@@ -87,7 +87,9 @@ public class RequestManager {
         if (selection.getClass() == SingleSelection.class) entityType = (Class<Entity>) selection.getObjectTypeClass();
         else if (selection.getClass() == MultiSelection.class)
             entityType = (Class<Entity>) selection.getObjectType().getObjectClass();
-        else {
+        else if (selection.getClass() == ObjectAssociatedSelection.class) {
+            entityType = (Class<Entity>) selection.getObjectTypeClass();
+        } else {
             LOGGER.warn(String.format("unknown selection type %s", selection.getClass()));
             return null;
         }
