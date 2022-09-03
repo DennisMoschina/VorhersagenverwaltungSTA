@@ -1,5 +1,10 @@
 package edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection;
 
+/**
+ * This class represents a {@link Selection} based only from a {@link Relation} to an {@link ObjectType object}.
+ *
+ * @author Dennis Moschina
+ */
 public class RelationSelection extends Selection {
     private final Relation relation;
     private final Selection selection;

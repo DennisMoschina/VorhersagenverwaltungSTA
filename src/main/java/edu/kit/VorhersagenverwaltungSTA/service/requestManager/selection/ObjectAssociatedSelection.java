@@ -4,6 +4,7 @@ import java.util.Set;
 
 /**
  * This class is a {@link Selection} for Objects associated with another Object.
+ *
  * @author Dennis Moschina
  */
 public class ObjectAssociatedSelection extends Selection {

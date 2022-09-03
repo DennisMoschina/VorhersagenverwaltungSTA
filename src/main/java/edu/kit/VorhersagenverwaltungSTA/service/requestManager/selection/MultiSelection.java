@@ -5,6 +5,11 @@ import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.filter.
 import java.util.Collection;
 import java.util.HashSet;
 
+/**
+ * This class represents a {@link Selection} with a List of the Object desired.
+ *
+ * @author Dennis Moschina
+ */
 public class MultiSelection extends Selection {
     private int count = 20;
     private long skip = 0;
