@@ -9,12 +9,14 @@ import edu.kit.VorhersagenverwaltungSTA.service.requestManager.entitiyCompletene
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.entitiyCompletenessChecker.EntityCompletenessCheckerImplementation;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.MultiSelection;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.ObjectAssociatedSelection;
+import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.RelationSelection;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.Selection;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.SingleSelection;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -43,7 +45,6 @@ public class RequestManager {
      * @param selection the {@link Selection}, specifying, which Object should be loaded from the server
      * @return the result of the request
      */
-    @SuppressWarnings("unchecked")
     public Object request(Selection selection) {
         Class<?> resultType = this.getResultType(selection);
 
@@ -63,14 +64,7 @@ public class RequestManager {
                 LOGGER.error("failed to load object for selection {}", selection);
                 return null;
             }
-            if (selection.getClass() == SingleSelection.class) {
-                this.updateContainerEntryFor((Entity) result);
-            } else if (selection.getClass() == MultiSelection.class) {
-                STAObjectList<Entity> list = (STAObjectList<Entity>) result;
-                for (Entity entity : list.getList()) {
-                    this.updateContainerEntryFor(entity);
-                }
-            }
+            this.manageResult(result, selection);
         } else {
             result = this.container.get(((SingleSelection) selection).getSelectedId());
             LOGGER.debug("found {} with id {} in container",
@@ -117,6 +111,26 @@ public class RequestManager {
         EntityCompletenessChecker<Entity> checker = new EntityCompletenessCheckerImplementation();
 
         return !checker.isComplete(singleSelection, loadedObject);
+    }
+
+    @SuppressWarnings("unchecked")
+    private void manageResult(Object result, Selection selection) {
+        if (selection instanceof SingleSelection) {
+            this.updateContainerEntryFor((Entity) result);
+        } else if (selection instanceof MultiSelection) {
+            STAObjectList<Entity> list = (STAObjectList<Entity>) result;
+            this.updateContainerEntriesFor(list.getList());
+        } else if (selection instanceof ObjectAssociatedSelection associatedSelection) {
+            this.manageResult(result, associatedSelection.getSelection());
+        } else if (selection instanceof RelationSelection relationSelection) {
+            this.manageResult(result, relationSelection.getSelection());
+        }
+    }
+
+    private void updateContainerEntriesFor(Collection<Entity> entities) {
+        for (Entity entity : entities) {
+            this.updateContainerEntryFor(entity);
+        }
     }
 
     private void updateContainerEntryFor(Entity entity) {
