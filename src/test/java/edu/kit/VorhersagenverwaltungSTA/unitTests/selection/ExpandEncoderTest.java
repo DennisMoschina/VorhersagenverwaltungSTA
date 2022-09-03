@@ -4,6 +4,7 @@ import edu.kit.VorhersagenverwaltungSTA.service.requestManager.encoder.Encoder;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.encoder.selection.ExpandEncoder;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.MultiSelection;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.ObjectType;
+import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.Relation;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.RelationSelection;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.Selection;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.SingleSelection;
@@ -42,7 +43,7 @@ public class ExpandEncoderTest {
         mlMethodListSelection.setSkip(0);
         mlMethodListSelection.setCount(20);
 
-        final ObjectType.Relation relation = ObjectType.SERVICE.getRelations()
+        final Relation relation = ObjectType.SERVICE.getRelations()
                 .stream().filter(r -> r.getName().equalsIgnoreCase("appliesMethods"))
                 .findFirst().orElseThrow();
 
@@ -56,7 +57,7 @@ public class ExpandEncoderTest {
     public void expandSingleRelationFromDatastreamToThingTest() {
         final String expected = String.format(EXPAND_FORMAT, "Thing");
 
-        final ObjectType.Relation relation = ObjectType.DATASTREAM.getRelations()
+        final Relation relation = ObjectType.DATASTREAM.getRelations()
                 .stream().filter(r -> r.getObjectType().equals(ObjectType.THING)).findFirst().orElseThrow();
         final Selection thingSelection = new SingleSelection(ObjectType.THING, 1);
         final Selection selection = new RelationSelection(thingSelection, relation);

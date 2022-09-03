@@ -7,6 +7,7 @@ import edu.kit.VorhersagenverwaltungSTA.service.requestManager.encoder.selection
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.MultiSelection;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.ObjectAssociatedSelection;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.ObjectType;
+import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.Relation;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.RelationSelection;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.Selection;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.SingleSelection;
@@ -41,7 +42,7 @@ public abstract class SingleItemService<T extends Entity> extends AbstractServic
     protected abstract SingleSelection buildSelection(long id);
 
     private void updateSelection(SingleSelection selection) {
-        for (ObjectType.Relation relation : selection.getObjectType().getRelations()) {
+        for (Relation relation : selection.getObjectType().getRelations()) {
             Set<String> keys = this.defaultKeysFactory.getDefaultKeys(relation.getObjectType());
             if (relation.getName() != null) {
                 if (relation.isAsList()) {

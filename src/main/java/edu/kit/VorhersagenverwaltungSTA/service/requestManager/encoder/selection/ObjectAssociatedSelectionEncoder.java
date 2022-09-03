@@ -1,7 +1,7 @@
 package edu.kit.VorhersagenverwaltungSTA.service.requestManager.encoder.selection;
 
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.ObjectAssociatedSelection;
-import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.ObjectType;
+import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.Relation;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.Selection;
 
 import java.util.Objects;
@@ -18,7 +18,7 @@ public class ObjectAssociatedSelectionEncoder implements SelectionEncoder {
 
         String encodedSource = new SingleSelectionEncoder().encodeHeader(associatedSelection.getSourceObjectSelection());
 
-        ObjectType.Relation relation = associatedSelection.getRelation();
+        Relation relation = associatedSelection.getRelation();
 
         if (relation == null) {
             return String.format(SELECTION_FORMAT,
