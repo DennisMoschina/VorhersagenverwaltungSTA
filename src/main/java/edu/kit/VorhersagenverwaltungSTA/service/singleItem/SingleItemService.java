@@ -15,17 +15,37 @@ import org.springframework.stereotype.Service;
 
 import java.util.Set;
 
-
+/**
+ * This class represents a service to manage a single {@link Entity object}.
+ * Extend this class and override {@link #buildSelection(long)} to load an object.
+ *
+ * @author Dennis Moschina
+ *
+ * @param <T> the type of {@link Entity} this Service manages
+ */
 @Service
 public abstract class SingleItemService<T extends Entity> extends AbstractService {
     private DefaultKeysFactory defaultKeysFactory = new PrimitiveDefaultKeysFactory();
 
+    /**
+     * Load the {@link Entity} with a specified id.
+     *
+     * @param id the id of the {@link Entity} to load.
+     * @return the {@link Entity} with the specified id
+     */
     public T load(long id) {
         final SingleSelection selection = this.buildSelection(id);
         this.updateSelection(selection);
         return this.loadFrom(selection);
     }
 
+    /**
+     * Get the object from another object this one is related to.
+     *
+     * @param associatedObjectType the {@link ObjectType type of object} to load this one from
+     * @param id the id of the {@link Entity object} to load this from
+     * @return the {@link Entity object} loaded
+     */
     public T getFromAssociatedObject(ObjectType associatedObjectType, long id) {
         final SingleSelection sourceSelection = new SingleSelection(associatedObjectType, id);
         final SingleSelection objectSelection = this.buildSelection(-1);

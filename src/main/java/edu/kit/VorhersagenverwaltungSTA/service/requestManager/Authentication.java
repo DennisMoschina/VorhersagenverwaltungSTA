@@ -6,7 +6,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.Objects;
 
 /**
- * This class holds an username and a password.
+ * This class holds a username and a password.
  *
  * @author Dennis Moschina
  */
