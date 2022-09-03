@@ -5,7 +5,9 @@ import edu.kit.VorhersagenverwaltungSTA.service.requestManager.encoder.Encoder;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.encoder.selection.PluralObjectTypeEncoder;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.encoder.selection.SingularObjectTypeEncoder;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.MultiSelection;
+import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.ObjectAssociatedSelection;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.ObjectType;
+import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.RelationSelection;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.Selection;
 import edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection.SingleSelection;
 import org.slf4j.Logger;
@@ -57,7 +59,6 @@ public class EntityCompletenessCheckerImplementation implements EntityCompletene
                     = new java.util.ArrayList<>(
                             Arrays.stream(BeanUtils.getPropertyDescriptors(entity.getClass())).toList()
             );
-//            descriptors.removeIf(pd -> POSSIBLE_EXPAND_PROPERTIES.contains(pd.getName().toLowerCase()));
             List<String> propertyNames
                     = new java.util.ArrayList<>(descriptors.stream().map(FeatureDescriptor::getName).toList());
             propertyNames.removeIf(n -> POSSIBLE_EXPAND_PROPERTIES.contains(n.toLowerCase()));
@@ -68,18 +69,27 @@ public class EntityCompletenessCheckerImplementation implements EntityCompletene
         }
         for (Selection expand : selection.getObjectsToExpand()) {
             String propertyName;
-            Encoder<ObjectType> objectTypeEncoder;
-            if (expand.getClass() == SingleSelection.class) objectTypeEncoder = new SingularObjectTypeEncoder();
-            else if (expand.getClass() == MultiSelection.class) objectTypeEncoder = new PluralObjectTypeEncoder();
-            else {
-                LOGGER.error(String.format("unknown class of selection called %s", expand.getClass()));
-                return false;
-            }
+            Encoder<ObjectType> objectTypeEncoder = this.getObjectTypeEncoderFor(expand);
+            if (objectTypeEncoder == null) return false;
+
             propertyName = objectTypeEncoder.encode(expand.getObjectType());
 
             if (propertyIsNull(entity, propertyName)) return false;
         }
         return true;
+    }
+
+    private Encoder<ObjectType> getObjectTypeEncoderFor(Selection selection) {
+        if (selection instanceof SingleSelection) return new SingularObjectTypeEncoder();
+        else if (selection instanceof MultiSelection) return new PluralObjectTypeEncoder();
+        else if (selection instanceof RelationSelection relationSelection)
+            return this.getObjectTypeEncoderFor(relationSelection.getSelection());
+        else if (selection instanceof ObjectAssociatedSelection associatedSelection)
+            return this.getObjectTypeEncoderFor(associatedSelection.getSelection());
+        else {
+            LOGGER.error(String.format("unknown class of selection called %s", selection.getClass()));
+            return null;
+        }
     }
 
     private boolean propertyIsNull(Entity entity, String propertyName) {
