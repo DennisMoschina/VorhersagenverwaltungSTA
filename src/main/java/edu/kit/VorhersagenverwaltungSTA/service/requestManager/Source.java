@@ -3,8 +3,8 @@ package edu.kit.VorhersagenverwaltungSTA.service.requestManager;
 import java.util.Objects;
 
 /**
- *
  * @param url the link to the source
+ * @author Dennis Moschina
  */
 public record Source(String url) {
     @Override

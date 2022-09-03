@@ -4,16 +4,17 @@ import java.util.Set;
 
 /**
  * This class is a {@link Selection} for Objects associated with another Object.
+ *
  * @author Dennis Moschina
  */
 public class ObjectAssociatedSelection extends Selection {
     private final SingleSelection sourceObjectSelection;
     private final Selection selection;
 
-    private final ObjectType.Relation relation;
+    private final Relation relation;
 
     public ObjectAssociatedSelection(SingleSelection sourceObject, Selection selection) {
-        this(sourceObject, selection, (ObjectType.Relation) null);
+        this(sourceObject, selection, (Relation) null);
     }
     public ObjectAssociatedSelection(SingleSelection sourceObject, Selection selection, String relationName) {
         this(sourceObject,
@@ -23,7 +24,7 @@ public class ObjectAssociatedSelection extends Selection {
                         .findFirst().orElse(null));
     }
 
-    public ObjectAssociatedSelection(SingleSelection sourceObject, Selection selection, ObjectType.Relation relation) {
+    public ObjectAssociatedSelection(SingleSelection sourceObject, Selection selection, Relation relation) {
         super(selection.getObjectType());
 
         this.sourceObjectSelection = sourceObject;
@@ -46,7 +47,7 @@ public class ObjectAssociatedSelection extends Selection {
         return selection;
     }
 
-    public ObjectType.Relation getRelation() {
+    public Relation getRelation() {
         return relation;
     }
 

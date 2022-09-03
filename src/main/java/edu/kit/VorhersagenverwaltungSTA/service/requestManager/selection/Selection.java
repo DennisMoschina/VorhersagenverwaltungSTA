@@ -4,6 +4,11 @@ import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * This class represents a selection of an {@link ObjectType} with its attributes.
+ *
+ * @author Dennis Moschina
+ */
 public abstract class Selection {
     private final Set<String> keys;
     private final Set<Selection> objectsToExpand;

@@ -26,8 +26,6 @@ import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.ProcessingProcedur
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.STAObjectList;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.ServiceList;
 import edu.kit.VorhersagenverwaltungSTA.model.dataModel.lists.ThingList;
-import edu.kit.VorhersagenverwaltungSTA.service.requestManager.encoder.selection.PluralObjectTypeEncoder;
-import edu.kit.VorhersagenverwaltungSTA.service.requestManager.encoder.selection.SingularObjectTypeEncoder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -114,41 +112,4 @@ public enum ObjectType {
         this.relations.addAll(Arrays.asList(relations));
     }
 
-    public static class Relation {
-        private final boolean asList;
-        private final ObjectType objectType;
-        private final String name;
-
-        public Relation(ObjectType objectType) {
-            this(false, objectType);
-        }
-
-        public Relation(boolean asList, ObjectType objectType) {
-            this(asList,
-                    objectType,
-                    (asList ? new PluralObjectTypeEncoder() : new SingularObjectTypeEncoder()).encode(objectType));
-        }
-
-        public Relation(ObjectType objectType, String name) {
-            this(false, objectType, name);
-        }
-
-        public Relation(boolean asList, ObjectType objectType, String name) {
-            this.asList = asList;
-            this.objectType = objectType;
-            this.name = name;
-        }
-
-        public boolean isAsList() {
-            return asList;
-        }
-
-        public ObjectType getObjectType() {
-            return objectType;
-        }
-
-        public String getName() {
-            return name;
-        }
-    }
 }

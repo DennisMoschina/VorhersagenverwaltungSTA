@@ -3,6 +3,11 @@ package edu.kit.VorhersagenverwaltungSTA.service.requestManager.selection;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * This class represents a {@link Selection} of a single {@link ObjectType object}.
+ *
+ * @author Dennis Moschina
+ */
 public class SingleSelection extends Selection {
     private final long selectedId;
 
