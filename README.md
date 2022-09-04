@@ -1,11 +1,12 @@
 # Vorhersagenverwaltung mit der SensorThings API
 
-This project creates a GUI to better navigate the SensorThingsAPI.
+This project creates the backend for a GUI to better navigate the SensorThingsAPI.
 
 ## Run it using docker
 
-This repository contains a `docker-compose.yaml`file to simplify the setup in docker.
-The `docker-compose` does also include the matching backend for this web-application to load the data from the servers.
+You can run only this server using docker with the following steps or use it in combination with the
+[frontend](https://gitlab-ext.iosb.fraunhofer.de/ilt-pse/ss22-vorhersagenverwaltung-mit-der-sensorthings-api/vorhersagenverwaltungsta_frontend)
+using docker-compose
 <p>
 In order to run the application, you need to follow these steps:
 
